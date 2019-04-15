@@ -9,6 +9,9 @@ export const useProjects = () => {
       allMdx {
         edges {
           node {
+            fields {
+              slug
+            }
             id
             excerpt
             timeToRead
@@ -37,11 +40,14 @@ export const useProjects = () => {
   `)
 
   return useMemo(() => {
-    const projects = edges.map(({ node }) => ({
-      ...node,
-      ...node.frontmatter,
-      logo: node.frontmatter.logo ? node.frontmatter.logo.publicURL : null,
-    }))
+    const projects = edges.map(
+      ({ node: { frontmatter, fields, ...node } }) => ({
+        ...node,
+        ...frontmatter,
+        ...fields,
+        logo: frontmatter.logo ? frontmatter.logo.publicURL : null,
+      })
+    )
 
     const tags = []
     projects.forEach(project => {

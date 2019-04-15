@@ -52,6 +52,7 @@ export const Projects = () => {
             title={project.title}
             tags={project.tags}
             logo={project.logo}
+            slug={project.slug}
             featured={project.featured}
             onTagClick={tag => {
               setVisibleTags(tags => {

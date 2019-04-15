@@ -7,6 +7,9 @@
 - id: web-app
   label: Web app
 
+- id: full-stack
+  label: Full stack
+
 - id: arduino
   label: Arduino
 

@@ -1,5 +1,5 @@
 import { useProjects } from './useProjects'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { sortProjects } from './sortProjects'
 
 export const useFilteredProjects = () => {

@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import Moment from 'react-moment'
 import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
+import { Link } from 'gatsby'
 
 const StyledProject = styled.div`
   ${({ gradient }) =>
@@ -19,9 +20,11 @@ const StyledProject = styled.div`
   flex-direction: column;
 `
 
-const Headline = styled.div`
+const Headline = styled(Link)`
   display: flex;
+  color: inherit;
   position: relative;
+  text-decoration: none;
   height: 36px;
   align-items: center;
   padding-bottom: 6px;
@@ -34,6 +37,10 @@ const Headline = styled.div`
 const Title = styled.h2`
   margin: 0;
   font-size: 22px;
+
+  ${Headline}:hover & {
+    text-decoration: underline;
+  }
 `
 
 const Logo = styled.img`
@@ -72,6 +79,7 @@ export const Project = ({
   tags,
   onTagClick,
   gradient,
+  slug,
   featured,
   start_date,
   end_date,
@@ -79,13 +87,15 @@ export const Project = ({
 }) => {
   return (
     <StyledProject gradient={gradient}>
-      <Headline>
+      <Headline to={slug}>
         {logo && <Logo src={logo} />}
         <Title>{title}</Title>
         {featured && <Featured>Featured</Featured>}
       </Headline>
 
       <Content>
+        <p>{children}</p>
+
         <Moment format="YYYY/MM/DD">{start_date}</Moment>
         {end_date ? (
           <>
@@ -101,7 +111,6 @@ export const Project = ({
               </Tag>
             ))}
         </Tags>
-        {children}
       </Content>
     </StyledProject>
   )
