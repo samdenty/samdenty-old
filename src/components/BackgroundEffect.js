@@ -8,10 +8,12 @@ const init = canvas => {
   let elements = []
   var ctx = canvas.getContext('2d')
 
+  window.ctx = ctx
+
   const resize = () => {
-    ctx.scale(devicePixelRatio, devicePixelRatio)
     canvas.width = canvas.clientWidth * devicePixelRatio
     canvas.height = canvas.clientHeight * devicePixelRatio
+    ctx.scale(devicePixelRatio, devicePixelRatio)
 
     elements = []
     for (var x = 0; x < canvas.width; x++) {
