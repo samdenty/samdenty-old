@@ -14,9 +14,11 @@ const init = canvas => {
     ctx.scale(devicePixelRatio, devicePixelRatio)
 
     elements = []
+    const randomness = 40000 / devicePixelRatio
+
     for (var x = 0; x < canvas.width; x++) {
       for (var y = 0; y < canvas.height; y++) {
-        if (Math.round(Math.random() * (40000 / devicePixelRatio)) === 1) {
+        if (Math.round(Math.random() * randomness) === 1) {
           var s = (Math.random() * 5 + 1) / 10
           if (Math.round(Math.random()) === 1)
             elements.push(presets.o(x, y, s, 0, 0))
