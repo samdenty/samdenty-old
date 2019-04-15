@@ -11,11 +11,22 @@ const init = canvas => {
   let elements = []
   var ctx = canvas.getContext('2d')
 
+  let width
+  let height
   const resize = (recalculate = !isMobile) => {
-    canvas.width = canvas.clientWidth * devicePixelRatio
-    canvas.height = canvas.clientHeight * devicePixelRatio
+    const prevWidth = width
+    const prevHeight = height
+
+    width = window.innerWidth
+    height = window.innerHeight
+
+    canvas.width = width * devicePixelRatio
+    canvas.height = height * devicePixelRatio
     ctx.scale(devicePixelRatio, devicePixelRatio)
     if (!recalculate) return
+
+    if (prevWidth >= window.innerWidth && prevHeight >= window.innerHeight)
+      return
 
     elements = []
     const randomness = 40000 / devicePixelRatio
@@ -125,11 +136,16 @@ const init = canvas => {
     for (var e in elements) elements[e].draw(ctx, time)
   }, 10)
 
-  const callback = () => resize()
+  let resizeTimer
+  const callback = () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => resize(), 250)
+  }
   window.addEventListener('resize', callback)
 
   return () => {
     clearInterval(timer)
+    clearTimeout(resizeTimer)
     window.removeEventListener('resize', callback)
   }
 }
@@ -137,8 +153,6 @@ const init = canvas => {
 export const StyledCanvas = styled.canvas`
   position: fixed;
   z-index: -1;
-  height: 100%;
-  width: 100%;
   transition: opacity 2s ease, transform 4s ease;
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
   transform: ${({ loaded }) => (loaded ? 'none' : 'scale(0.7)')};
