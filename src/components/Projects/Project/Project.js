@@ -29,7 +29,6 @@ const SlugLink = styled(Link)`
 const Headline = styled.div`
   display: flex;
   position: relative;
-  height: 36px;
   align-items: center;
   padding-bottom: 6px;
   margin-bottom: 15px;
