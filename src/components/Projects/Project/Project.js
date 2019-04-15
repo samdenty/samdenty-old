@@ -48,7 +48,6 @@ export const Project = ({
   gradient,
   start_date,
   end_date,
-  languages,
   children,
 }) => {
   return (
@@ -57,15 +56,12 @@ export const Project = ({
         {logo && <Logo src={logo} />}
         <Title>{title}</Title>
       </Headline>
-      <div>languages:</div>
       from {start_date} to {end_date}
-      {languages && languages.map(language => <div>{language}</div>)}
-      <div>tags:</div>
       <Tags>
         {tags &&
-          tags.map((tagName, i) => (
-            <Tag onClick={() => onTagClick(tagName)} key={i}>
-              {tagName}
+          tags.map((tag, i) => (
+            <Tag onClick={() => onTagClick(tag)} key={i}>
+              {tag.label}
             </Tag>
           ))}
       </Tags>

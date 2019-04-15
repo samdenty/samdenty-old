@@ -4,8 +4,13 @@ import { SmallButton } from '../../Button'
 
 const StyledTag = styled(SmallButton)`
   margin: 3px 2px;
-  background: rgba(255, 255, 255, 0.4);
+  transition: background-color 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(60px);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 `
 
 export const Tag = props => {

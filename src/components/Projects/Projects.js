@@ -1,9 +1,8 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 import Select from 'react-select'
-import { sortProjects } from './sortProjects'
 import { Project } from './Project'
-import { useProjects } from './useProjects'
+import { useFilteredProjects } from './useFilteredProjects'
 
 const ProjectsFilter = styled.div`
   margin: 70px 0;
@@ -17,32 +16,34 @@ const ProjectsGrid = styled.div`
 `
 
 export const Projects = () => {
-  const [byPopularity, setByPopularity] = React.useState(true)
-  const { projects, tags } = useProjects()
-  const initialOptions = React.useMemo(
-    () => tags.map(tag => ({ value: tag, label: tag })),
-    [tags]
-  )
-  const [visibleTags, setVisibleTags] = React.useState(initialOptions)
-
-  const filteredProjects = projects.filter(
-    project =>
-      !project.tags ||
-      visibleTags.find(({ value }) => project.tags.includes(value))
-  )
-  sortProjects(filteredProjects, { popularity: byPopularity })
+  const {
+    visibleLanguages,
+    languages,
+    visibleTags,
+    setVisibleLanguages,
+    setVisibleTags,
+    tags,
+    filteredProjects,
+  } = useFilteredProjects()
 
   return (
     <>
       <ProjectsFilter>
         <Select
           isMulti
+          getOptionValue={o => o.id}
+          placeholder="Language"
+          value={visibleLanguages}
+          onChange={languages => setVisibleLanguages(languages)}
+          options={languages}
+        />
+        <Select
+          isMulti
+          placeholder="Type"
+          getOptionValue={o => o.id}
           value={visibleTags}
-          onChange={tags => {
-            setVisibleTags(tags.length ? tags : initialOptions)
-          }}
-          closeMenuOnSelect={false}
-          options={initialOptions}
+          onChange={tags => setVisibleTags(tags)}
+          options={tags}
         />
       </ProjectsFilter>
       <ProjectsGrid>
@@ -51,13 +52,12 @@ export const Projects = () => {
             title={project.title}
             tags={project.tags}
             logo={project.logo}
-            onTagClick={id => {
-              setVisibleTags([{ value: id, label: id }])
+            onTagClick={tag => {
+              setVisibleTags([tag])
             }}
             gradient={project.gradient}
             start_date={project.start_date}
             end_date={project.end_date}
-            languages={project.languages}
             key={project.id}
           >
             {project.excerpt}

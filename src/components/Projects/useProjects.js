@@ -15,14 +15,20 @@ export const useProjects = () => {
             frontmatter {
               title
               gradient
-              tags
+              tags {
+                id
+                label
+              }
               featured
               logo {
                 publicURL
               }
               start_date
               end_date
-              languages
+              languages {
+                id
+                label
+              }
             }
           }
         }
@@ -38,13 +44,22 @@ export const useProjects = () => {
     }))
 
     const tags = []
-
     projects.forEach(project => {
+      if (!project.tags) return
       project.tags.forEach(tag => {
-        if (!tags.includes(tag)) tags.push(tag)
+        if (!tags.find(({ id }) => id === tag.id)) tags.push(tag)
       })
     })
 
-    return { projects, tags }
+    const languages = []
+    projects.forEach(project => {
+      if (!project.languages) return
+      project.languages.forEach(language => {
+        if (!languages.find(({ id }) => id === language.id))
+          languages.push(language)
+      })
+    })
+
+    return { projects, languages, tags }
   }, [edges])
 }

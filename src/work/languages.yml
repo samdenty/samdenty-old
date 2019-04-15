@@ -1,0 +1,26 @@
+- id: javascript
+  label: JavaScript
+
+- id: c++
+  label: C++
+
+- id: electron
+  label: Electron.js
+
+- id: python
+  label: Python
+
+- id: batch-file
+  label: Batch file
+
+- id: autohotkey
+  label: AutoHotkey
+
+- id: typescript
+  label: TypeScript
+
+- id: react
+  label: React.js
+
+- id: graphql
+  label: GraphQL
