@@ -5,25 +5,35 @@ import { Logo } from './Logo'
 import { animatedGradientBox } from '../../utils'
 
 const StyledHeader = styled.div`
-  backdrop-filter: ${({ showBackground }) => showBackground && `blur(30px)`};
-
-  ${animatedGradientBox({
-    colors: [
-      'rgba(0, 0, 0, 0.5)',
-      'rgba(0, 0, 0, 0.5)',
-      'rgba(0, 0, 0, 0.6)',
-      'rgba(0, 0, 0, 0.5)',
-      'rgba(0, 0, 0, 0.5)',
-    ],
-    blur: '10px',
-    borderRadius: '0',
-  })}
-
   &::after,
   &::before {
     transition: opacity 0.2s ease;
     opacity: ${({ showBackground }) => (showBackground ? 1 : 0)};
   }
+
+  @supports (backdrop-filter: blur(10px)) {
+    @media (min-width: 900px) {
+      backdrop-filter: ${({ showBackground }) =>
+        showBackground && `blur(30px)`};
+
+      &::after,
+      &::before {
+        opacity: ${({ showBackground }) => (showBackground ? 0.7 : 0)};
+      }
+    }
+  }
+
+  ${animatedGradientBox({
+    colors: [
+      'rgba(0, 0, 0, 0.8)',
+      'rgba(0, 0, 0, 0.7)',
+      'rgba(0, 0, 0, 0.8)',
+      'rgba(0, 0, 0, 0.7)',
+      'rgba(0, 0, 0, 0.7)',
+    ],
+    blur: '10px',
+    borderRadius: '0',
+  })}
 
   display: flex;
   justify-content: center;
