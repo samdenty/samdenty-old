@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
 
       &::after,
       &::before {
-        opacity: ${({ showBackground }) => (showBackground ? 0.7 : 0)};
+        opacity: ${({ showBackground }) => (showBackground ? 0.8 : 0)};
       }
     }
   }
@@ -40,7 +40,7 @@ const StyledHeader = styled.div`
   align-items: center;
   position: fixed;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 30px;
   z-index: 999;
 `
 
@@ -54,8 +54,7 @@ export const Header = () => {
 
   React.useEffect(() => {
     const listener = () => {
-      const rect = headerRef.current.getBoundingClientRect()
-      setShowBackground(document.documentElement.scrollTop >= rect.height)
+      setShowBackground(document.documentElement.scrollTop >= 105)
     }
     window.addEventListener('scroll', listener)
     listener()

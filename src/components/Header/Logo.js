@@ -8,6 +8,7 @@ const StyledLogo = styled(Link)`
   align-items: center;
   display: flex;
   cursor: pointer;
+  flex-shrink: 0;
   /* filter: drop-shadow(0 0 13px rgba(255, 255, 255, 0.4));
 transition: filter 0.3s ease; */
   /*
@@ -38,7 +39,12 @@ const Text = styled.h1`
   })}
   font-size: 1.9rem;
   color: rgb(221, 209, 230);
-  margin: 0 10px;
+  margin: 0 14px;
+
+  @media (max-width: 460px) {
+    margin: 0 16px;
+    font-size: 1.7rem;
+  }
 `
 
 export const Logo = () => {
