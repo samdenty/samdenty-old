@@ -1,9 +1,10 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  navigator.userAgent
-)
+const isMobile =
+  typeof window.orientation !== 'undefined' ||
+  navigator.userAgent.indexOf('IEMobile') !== -1
+
 const init = canvas => {
   if (!canvas) return
 
