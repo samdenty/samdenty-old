@@ -1,12 +1,12 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 
-const isMobile =
-  (typeof window !== undefined && typeof window.orientation !== 'undefined') ||
-  navigator.userAgent.indexOf('IEMobile') !== -1
-
 const init = canvas => {
   if (!canvas) return
+
+  const isMobile =
+    typeof window.orientation !== 'undefined' ||
+    navigator.userAgent.indexOf('IEMobile') !== -1
 
   let elements = []
   var ctx = canvas.getContext('2d')
