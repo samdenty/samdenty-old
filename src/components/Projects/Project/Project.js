@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
-import { animatedGradientBox } from '../../../utils'
+import Moment from 'react-moment'
+import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 
 const StyledProject = styled.div`
@@ -9,22 +10,24 @@ const StyledProject = styled.div`
       colors: gradient ? gradient : undefined,
       gradientSize: 5,
       duration: 30 * 1000,
-      borderWidth: '3px',
+      borderWidth: '1px',
       borderRadius: '5px',
       blur: '40px',
     })};
 
   display: flex;
   flex-direction: column;
-  padding: 15px;
 `
 
 const Headline = styled.div`
   display: flex;
+  position: relative;
   height: 36px;
   align-items: center;
   padding-bottom: 6px;
   margin-bottom: 10px;
+  overflow: hidden;
+  padding: 12px 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `
 
@@ -40,12 +43,36 @@ const Logo = styled.img`
 
 const Tags = styled.div``
 
+const Featured = styled.div`
+  ${animatedGradient({
+    colors: [
+      'rgba(255, 255, 255, 0.13)',
+      'rgba(255, 255, 255, 0.1)',
+      'rgba(255, 255, 255, 0.35)',
+      'rgba(255, 255, 255, 0.1)',
+      'rgba(255, 255, 255, 0.13)',
+    ],
+    duration: 5 * 1000,
+  })}
+  position: absolute;
+  transform: rotate(45deg);
+  padding: 0 20px;
+  font-size: 12px;
+  top: 19px;
+  right: -21px;
+`
+
+const Content = styled.div`
+  padding: 0 15px;
+`
+
 export const Project = ({
   title,
   logo,
   tags,
   onTagClick,
   gradient,
+  featured,
   start_date,
   end_date,
   children,
@@ -55,17 +82,27 @@ export const Project = ({
       <Headline>
         {logo && <Logo src={logo} />}
         <Title>{title}</Title>
+        {featured && <Featured>Featured</Featured>}
       </Headline>
-      from {start_date} to {end_date}
-      <Tags>
-        {tags &&
-          tags.map((tag, i) => (
-            <Tag onClick={() => onTagClick(tag)} key={i}>
-              {tag.label}
-            </Tag>
-          ))}
-      </Tags>
-      {children}
+
+      <Content>
+        <Moment format="YYYY/MM/DD">{start_date}</Moment>
+        {end_date ? (
+          <>
+            -<Moment format="YYYY/MM/DD">{end_date}</Moment>
+          </>
+        ) : null}
+
+        <Tags>
+          {tags &&
+            tags.map((tag, i) => (
+              <Tag onClick={() => onTagClick(tag)} key={i}>
+                {tag.label}
+              </Tag>
+            ))}
+        </Tags>
+        {children}
+      </Content>
     </StyledProject>
   )
 }

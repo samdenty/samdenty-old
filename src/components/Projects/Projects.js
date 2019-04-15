@@ -52,8 +52,16 @@ export const Projects = () => {
             title={project.title}
             tags={project.tags}
             logo={project.logo}
+            featured={project.featured}
             onTagClick={tag => {
-              setVisibleTags([tag])
+              setVisibleTags(tags => {
+                const newTags = [...tags]
+                if (!newTags.find(({ id }) => id === tag.id)) {
+                  newTags.push(tag)
+                }
+
+                return newTags
+              })
             }}
             gradient={project.gradient}
             start_date={project.start_date}
