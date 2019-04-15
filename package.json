@@ -36,6 +36,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "GATSBY_GRAPHQL_IDE=playground gatsby develop",
+    "postinstall": "cd functions; yarn",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
