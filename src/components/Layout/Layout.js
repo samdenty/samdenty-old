@@ -2,7 +2,6 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Header } from '../Header'
-import { BackgroundEffect } from './BackgroundEffect'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -31,7 +30,6 @@ const Main = styled.main`
 
 export const Layout = ({ children }) => (
   <StyledLayout>
-    <BackgroundEffect />
     <Header />
 
     <Main>{children}</Main>

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 import { animatedGradientText } from '../../utils'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 
 const StyledLogo = styled(Link)`
   text-decoration: none;
@@ -42,10 +42,20 @@ const Text = styled.h1`
 `
 
 export const Logo = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
   return (
     <StyledLogo to="/">
       <Icon src="https://cdn.samdd.me/samdd-logo/variations/400circle_alt.png" />
-      <Text>Sam Denty</Text>
+      <Text>{data.site.siteMetadata.title}</Text>
     </StyledLogo>
   )
 }
