@@ -38,7 +38,6 @@ const init = canvas => {
       }
     }
   }
-  window.addEventListener('resize', resize)
 
   const presets = {
     o(x, y, s, dx, dy) {
@@ -121,6 +120,15 @@ const init = canvas => {
     var time = new Date().getTime()
     for (var e in elements) elements[e].draw(ctx, time)
   }, 10)
+
+  // Don't re-calculate on mobile, as it's too expensive
+  if (
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    window.addEventListener('resize', resize)
+  }
 
   return () => {
     clearInterval(timer)
