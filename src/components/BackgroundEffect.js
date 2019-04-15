@@ -133,8 +133,9 @@ export const StyledCanvas = styled.canvas`
   z-index: -1;
   height: 100%;
   width: 100%;
-  transition: opacity 2s ease;
+  transition: opacity 2s ease, transform 4s ease;
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
+  transform: ${({ loaded }) => (loaded ? 'none' : 'scale(0.7)')};
 `
 
 export const BackgroundEffect = () => {
