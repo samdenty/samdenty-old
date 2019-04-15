@@ -133,23 +133,18 @@ export const StyledCanvas = styled.canvas`
   z-index: -1;
   height: 100%;
   width: 100%;
+  transition: opacity 2s ease;
+  opacity: ${({ loaded }) => (loaded ? 1 : 0)};
 `
 
 export const BackgroundEffect = () => {
+  const [loaded, setLoaded] = React.useState(false)
   const canvas = React.useRef(null)
 
-  React.useLayoutEffect(() => init(canvas.current), [])
+  React.useEffect(() => {
+    init(canvas.current)
+    setLoaded(true)
+  }, [])
 
-  return (
-    <>
-      <Global
-        styles={css`
-          body {
-            background: radial-gradient(circle, #050505, #010010);
-          }
-        `}
-      />
-      <StyledCanvas ref={canvas} />
-    </>
-  )
+  return <StyledCanvas loaded={loaded} ref={canvas} />
 }

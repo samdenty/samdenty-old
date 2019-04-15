@@ -2,6 +2,7 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Header } from '../Header'
+import { Global, css } from '@emotion/core'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -36,10 +37,19 @@ const Main = styled.main`
 `
 
 export const Layout = ({ children }) => (
-  <StyledLayout>
-    <Header />
+  <>
+    <Global
+      styles={css`
+        body {
+          background: radial-gradient(circle, #050505, #010010);
+        }
+      `}
+    />
+    <StyledLayout>
+      <Header />
 
-    <Main>{children}</Main>
-    <footer />
-  </StyledLayout>
+      <Main>{children}</Main>
+      <footer />
+    </StyledLayout>
+  </>
 )
