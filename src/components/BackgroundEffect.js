@@ -1,17 +1,20 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
-import { Global, css } from '@emotion/core'
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  navigator.userAgent
+)
 const init = canvas => {
   if (!canvas) return
 
   let elements = []
   var ctx = canvas.getContext('2d')
 
-  const resize = () => {
+  const resize = (recalculate = !isMobile) => {
     canvas.width = canvas.clientWidth * devicePixelRatio
     canvas.height = canvas.clientHeight * devicePixelRatio
     ctx.scale(devicePixelRatio, devicePixelRatio)
+    if (!recalculate) return
 
     elements = []
     const randomness = 40000 / devicePixelRatio
@@ -112,7 +115,7 @@ const init = canvas => {
     },
   }
 
-  resize()
+  resize(true)
 
   const timer = setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -121,18 +124,12 @@ const init = canvas => {
     for (var e in elements) elements[e].draw(ctx, time)
   }, 10)
 
-  // Don't re-calculate on mobile, as it's too expensive
-  if (
-    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  ) {
-    window.addEventListener('resize', resize)
-  }
+  const callback = () => resize()
+  window.addEventListener('resize', callback)
 
   return () => {
     clearInterval(timer)
-    window.removeEventListener('resize', resize)
+    window.removeEventListener('resize', callback)
   }
 }
 
