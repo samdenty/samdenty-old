@@ -7,12 +7,11 @@ import { Layout, SEO } from '../components'
 export default ({ data }) => {
   return (
     <Layout>
-      <Helmet>
-        <SEO
-          title={data.mdx.frontmatter.title}
-          keywords={[`gatsby`, `application`, `react`]}
-        />
-      </Helmet>
+      <SEO
+        title={data.mdx.frontmatter.title}
+        keywords={[`gatsby`, `application`, `react`]}
+      />
+
       <MDXProvider
         components={{
           wrapper: ({ children }) => (
