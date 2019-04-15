@@ -1,7 +1,7 @@
-import * as React from "react"
-import styled from "@emotion/styled"
-import { SmallButton } from "../Button"
-import { Logo } from "./Logo"
+import * as React from 'react'
+import styled from '@emotion/styled'
+import { MediumButton } from '../Button'
+import { Logo } from './Logo'
 
 const StyledHeader = styled.div`
   display: flex;
@@ -17,6 +17,6 @@ export const Header = () => (
   <StyledHeader>
     <Logo />
     <Spacer />
-    <SmallButton>Login</SmallButton>
+    <MediumButton>Login</MediumButton>
   </StyledHeader>
 )

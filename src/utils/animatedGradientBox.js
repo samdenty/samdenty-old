@@ -14,8 +14,6 @@ export const animatedGradientBox = ({
 
   z-index: 1;
   position: relative;
-  background: black;
-  background: linear-gradient(0deg, #000, #262626);
 
   &::before,
   &::after {

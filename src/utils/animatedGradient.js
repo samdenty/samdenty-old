@@ -27,8 +27,12 @@ export const animatedGradient = ({
   degrees = 45,
   duration = 10000,
   gradientSize = 4,
-} = {}) => css`
-  background: linear-gradient(${degrees}deg, ${colors.join(',')});
-  background-size: ${gradientSize * 100}%;
-  animation: ${animatedShadow} ${duration}ms linear infinite;
-`
+} = {}) => {
+  if (colors.length === 1) colors = [colors[0], colors[0]]
+
+  return css`
+    background: linear-gradient(${degrees}deg, ${colors.join(',')});
+    background-size: ${gradientSize * 100}%;
+    animation: ${animatedShadow} ${duration}ms linear infinite;
+  `
+}

@@ -21,8 +21,12 @@ const StyledLayout = styled.div`
 
 const Main = styled.main`
   display: flex;
-  padding: 30px;
+  padding: 30px 70px;
   flex-direction: column;
+
+  @media (max-width: 900px) {
+    padding: 30px 50px;
+  }
 `
 
 export const Layout = ({ children }) => (

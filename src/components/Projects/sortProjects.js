@@ -3,13 +3,13 @@ export const sortProjects = (
   { popularity = true, endDate = true } = {}
 ) => {
   projects.sort((a, b) => {
-    let aDate = endDate ? a.frontmatter.end_date : a.frontmatter.start_date
-    let bDate = endDate ? b.frontmatter.end_date : b.frontmatter.start_date
+    let aDate = endDate ? a.end_date : a.start_date
+    let bDate = endDate ? b.end_date : b.start_date
 
     if (endDate) {
       if (!aDate && !bDate) {
-        aDate = a.frontmatter.start_date
-        bDate = b.frontmatter.start_date
+        aDate = a.start_date
+        bDate = b.start_date
       } else {
         if (!aDate) return -1
         if (!bDate) return 1
@@ -23,8 +23,8 @@ export const sortProjects = (
 
   if (popularity) {
     projects.sort((a, b) => {
-      if (!!a.frontmatter.featured === !!b.frontmatter.featured) return 0
-      return a.frontmatter.featured ? -1 : 1
+      if (!!a.featured === !!b.featured) return 0
+      return a.featured ? -1 : 1
     })
   }
 }
