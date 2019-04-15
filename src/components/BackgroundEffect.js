@@ -8,8 +8,6 @@ const init = canvas => {
   let elements = []
   var ctx = canvas.getContext('2d')
 
-  window.ctx = ctx
-
   const resize = () => {
     canvas.width = canvas.clientWidth * devicePixelRatio
     canvas.height = canvas.clientHeight * devicePixelRatio
@@ -18,7 +16,7 @@ const init = canvas => {
     elements = []
     for (var x = 0; x < canvas.width; x++) {
       for (var y = 0; y < canvas.height; y++) {
-        if (Math.round(Math.random() * 40000) === 1) {
+        if (Math.round(Math.random() * (40000 / devicePixelRatio)) === 1) {
           var s = (Math.random() * 5 + 1) / 10
           if (Math.round(Math.random()) === 1)
             elements.push(presets.o(x, y, s, 0, 0))
