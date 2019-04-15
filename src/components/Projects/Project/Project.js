@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
-import Moment from 'react-moment'
 import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 import { Link } from 'gatsby'
+import moment from 'moment'
 
-const StyledProject = styled.div`
+const StyledProject = styled.article`
   ${({ gradient }) =>
     animatedGradientBox({
       colors: gradient ? gradient : undefined,
@@ -20,15 +20,19 @@ const StyledProject = styled.div`
   flex-direction: column;
 `
 
-const Headline = styled(Link)`
-  display: flex;
+const SlugLink = styled(Link)`
+  display: contents;
   color: inherit;
-  position: relative;
   text-decoration: none;
+`
+
+const Headline = styled.div`
+  display: flex;
+  position: relative;
   height: 36px;
   align-items: center;
   padding-bottom: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   overflow: hidden;
   padding: 12px 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -38,7 +42,7 @@ const Title = styled.h2`
   margin: 0;
   font-size: 22px;
 
-  ${Headline}:hover & {
+  ${SlugLink}:hover & {
     text-decoration: underline;
   }
 `
@@ -48,7 +52,10 @@ const Logo = styled.img`
   margin-right: 10px;
 `
 
-const Tags = styled.div``
+const Tags = styled.div`
+  padding: 0 10px;
+  margin-bottom: 10px;
+`
 
 const Featured = styled.div`
   ${animatedGradient({
@@ -69,8 +76,19 @@ const Featured = styled.div`
   right: -21px;
 `
 
-const Content = styled.div`
+const Excerpt = styled.p`
+  margin: 0;
+  margin-bottom: 15px;
+  flex-grow: 1;
   padding: 0 15px;
+`
+
+const Period = styled.div`
+  font-weight: bold;
+  padding: 0 15px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
 `
 
 export const Project = ({
@@ -85,33 +103,34 @@ export const Project = ({
   end_date,
   children,
 }) => {
+  const format = featured ? 'YYYY/MM/DD' : 'YYYY'
+
+  const from = moment(start_date).format(format)
+  const until = end_date && moment(end_date).format(format)
+
+  const string = !until || from === until ? from : `${from} - ${until}`
+
   return (
     <StyledProject gradient={gradient}>
-      <Headline to={slug}>
-        {logo && <Logo src={logo} />}
-        <Title>{title}</Title>
-        {featured && <Featured>Featured</Featured>}
-      </Headline>
+      <SlugLink to={slug}>
+        <Headline>
+          {logo && <Logo src={logo} />}
+          <Title>{title}</Title>
+          {featured && <Featured>Featured</Featured>}
+        </Headline>
 
-      <Content>
-        <p>{children}</p>
+        <Excerpt>{children}</Excerpt>
+        <Period>{string}</Period>
+      </SlugLink>
 
-        <Moment format="YYYY/MM/DD">{start_date}</Moment>
-        {end_date ? (
-          <>
-            -<Moment format="YYYY/MM/DD">{end_date}</Moment>
-          </>
-        ) : null}
-
-        <Tags>
-          {tags &&
-            tags.map((tag, i) => (
-              <Tag onClick={() => onTagClick(tag)} key={i}>
-                {tag.label}
-              </Tag>
-            ))}
-        </Tags>
-      </Content>
+      <Tags>
+        {tags &&
+          tags.map((tag, i) => (
+            <Tag onClick={() => onTagClick(tag)} key={i}>
+              {tag.label}
+            </Tag>
+          ))}
+      </Tags>
     </StyledProject>
   )
 }

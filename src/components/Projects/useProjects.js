@@ -13,7 +13,7 @@ export const useProjects = () => {
               slug
             }
             id
-            excerpt
+            excerpt(pruneLength: 123)
             timeToRead
             frontmatter {
               title

@@ -8,6 +8,12 @@ const StyledLayout = styled.div`
     font-family: 'Gilroy';
     src: url(${require('../../assets/fonts/Gilroy-Medium.woff2')});
   }
+
+  @font-face {
+    font-family: 'Gilroy';
+    src: url(${require('../../assets/fonts/Gilroy-SemiBold.woff2')});
+    font-weight: bold;
+  }
   * {
     font-family: Gilroy;
   }
