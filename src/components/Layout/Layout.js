@@ -26,6 +26,7 @@ const StyledLayout = styled.div`
 
 const Main = styled.main`
   display: flex;
+  margin-top: 105px;
   padding: 30px 70px;
   flex-direction: column;
 

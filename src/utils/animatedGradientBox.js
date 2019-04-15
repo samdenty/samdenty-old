@@ -4,6 +4,7 @@ import { css } from '@emotion/core'
 export const animatedGradientBox = ({
   duration = undefined,
   colors = undefined,
+  degrees = undefined,
   gradientSize = undefined,
   borderWidth = '2px',
   borderRadius = '3px',
@@ -17,7 +18,7 @@ export const animatedGradientBox = ({
 
   &::before,
   &::after {
-    ${animatedGradient({ colors, gradientSize, duration })};
+    ${animatedGradient({ colors, gradientSize, degrees, duration })};
     content: '';
     position: absolute;
     border-radius: ${borderRadius};
