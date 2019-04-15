@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
+import { Global, css } from '@emotion/core'
 
 const init = canvas => {
   if (!canvas) return
@@ -126,7 +127,6 @@ const init = canvas => {
 
 export const StyledCanvas = styled.canvas`
   position: fixed;
-  background: radial-gradient(circle, #050505, #010010);
   z-index: -1;
   height: 100%;
   width: 100%;
@@ -137,5 +137,16 @@ export const BackgroundEffect = () => {
 
   React.useLayoutEffect(() => init(canvas.current), [])
 
-  return <StyledCanvas ref={canvas} />
+  return (
+    <>
+      <Global
+        styles={css`
+          body {
+            background: radial-gradient(circle, #050505, #010010);
+          }
+        `}
+      />
+      <StyledCanvas ref={canvas} />
+    </>
+  )
 }
