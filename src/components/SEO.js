@@ -51,7 +51,11 @@ export function SEO({ description, image, lang, meta, keywords, title }) {
           content: `website`,
         },
         {
-          propty: `og:image`,
+          property: `og:image`,
+          content: image,
+        },
+        {
+          property: `twitter:image`,
           content: image,
         },
         {
