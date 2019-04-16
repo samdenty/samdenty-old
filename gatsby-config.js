@@ -61,6 +61,7 @@ module.exports = {
         defaultQuality: 75,
       },
     },
+    `gatsby-plugin-netlify-cache`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-yaml`,
 
