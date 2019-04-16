@@ -137,7 +137,7 @@ const init = canvas => {
 
     requestAnimationFrame(draw)
   }
-  draw()
+  requestAnimationFrame(draw)
 
   let resizeTimer
   const callback = () => {
