@@ -4,8 +4,20 @@
 - id: c++
   label: C++
 
+- id: php
+  label: PHP
+
+- id: sql
+  label: SQL
+
+- id: mongo
+  label: MongoDB
+
 - id: electron
-  label: Electron.js
+  label: ElectronJS
+
+- id: node
+  label: NodeJS
 
 - id: python
   label: Python
@@ -20,7 +32,7 @@
   label: TypeScript
 
 - id: react
-  label: React.js
+  label: ReactJS
 
 - id: graphql
   label: GraphQL
