@@ -5,9 +5,9 @@ import { BackgroundEffect } from './src/components'
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <>
+    <ParallaxProvider>
       <BackgroundEffect />
       {element}
-    </>
+    </ParallaxProvider>
   )
 }
