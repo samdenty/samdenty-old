@@ -8,10 +8,17 @@ import styled from '@emotion/styled'
 const Title = styled.h1``
 
 export default ({ data }) => {
+  const { image } = data.mdx.frontmatter
+
   return (
     <Layout>
       <SEO
         title={data.mdx.frontmatter.title}
+        image={
+          image
+            ? `${data.site.siteMetadata.siteUrl}${image.publicURL}`
+            : undefined
+        }
         description={data.mdx.excerpt}
         keywords={[`gatsby`, `application`, `react`]}
       />
@@ -33,11 +40,19 @@ export default ({ data }) => {
 
 export const pageQuery = graphql`
   query MDXRuntimeQuery($id: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     mdx(id: { eq: $id }) {
       id
       excerpt
       frontmatter {
         title
+        image {
+          publicURL
+        }
       }
       code {
         body
