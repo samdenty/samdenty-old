@@ -13,7 +13,7 @@ const StyledProject = styled.article`
       duration: 30 * 1000,
       borderWidth: '1px',
       borderRadius: '5px',
-      blur: '40px',
+      blur: '20px',
     })};
 
   display: flex;
@@ -28,6 +28,7 @@ const SlugLink = styled(Link)`
 
 const Headline = styled.div`
   display: flex;
+  height: 60px;
   position: relative;
   align-items: center;
   padding-bottom: 6px;
