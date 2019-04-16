@@ -129,12 +129,15 @@ const init = canvas => {
 
   resize(true)
 
-  const timer = setInterval(() => {
+  const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     var time = new Date().getTime()
     for (var e in elements) elements[e].draw(ctx, time)
-  }, 10)
+
+    requestAnimationFrame(draw)
+  }
+  draw()
 
   let resizeTimer
   const callback = () => {
@@ -144,8 +147,8 @@ const init = canvas => {
   window.addEventListener('resize', callback)
 
   return () => {
-    clearInterval(timer)
     clearTimeout(resizeTimer)
+
     window.removeEventListener('resize', callback)
   }
 }
