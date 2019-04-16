@@ -10108,6 +10108,13 @@ react-parallax@^2.2.0:
   resolved "https://registry.yarnpkg.com/react-parallax/-/react-parallax-2.2.0.tgz#676ef4d94d0e2e56520f175c1c213eafa8aa6c15"
   integrity sha512-nBOfrfuxjeAUjnovJfDygEh4c7YsiuSylzxI81kqovedI/zvwoHM6CwFiqkRWkTOEqt0TamKtd5N8j7KR6jEHA==
 
+react-scroll-parallax@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.1.2.tgz#71d061a37e225125d929b07d629cbced9be1849a"
+  integrity sha512-Sv2/3etQGgpTQnJhb/nMLcTQhz4ILrB1fIIW853XlHyhD0YuGINk66HciW7B1N9zZpGX8sJY37QNoYit9PdTdQ==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-select@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-2.4.2.tgz#27da80e3880e92b081be607207bebdf63bcf4f3a"

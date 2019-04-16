@@ -35,20 +35,53 @@ const StyledHeader = styled.div`
     borderRadius: '0',
   })}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   width: 100%;
   padding: 20px 30px;
   z-index: 999;
 `
 
-export const Spacer = styled.div`
+const shadowBlur = 100
+const HeaderShadow = styled.div`
+  ${animatedGradientBox({
+    colors: [
+      'rgba(11, 1, 19, 0.8)',
+      'rgba(11, 1, 19, 0.8)',
+      'rgba(11, 1, 19, 1.0)',
+      'rgba(11, 1, 19, 0.8)',
+      'rgba(11, 1, 19, 0.8)',
+    ],
+    blur: `${shadowBlur}px`,
+    degrees: 45,
+    duration: 30 * 1000,
+    borderRadius: '0',
+  })}
+
+  &::before {
+    display: none;
+  }
+
+  top: 0;
+  left: 0;
+  position: absolute;
+  margin-left: -${shadowBlur + 20}px;
+  width: calc(100% + (${shadowBlur + 20}px * 2));
+  z-index: -1;
+  height: calc(100% + 100px);
+  margin-top: -100px;
+`
+
+const Items = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Spacer = styled.div`
   width: 30%;
 `
 
-export const Header = ({ fadeInAfter }) => {
+export const Header = ({ fadeInAfter, shadow }) => {
   const [showBackground, setShowBackground] = React.useState(false)
   const headerRef = React.useRef(null)
 
@@ -64,9 +97,12 @@ export const Header = ({ fadeInAfter }) => {
 
   return (
     <StyledHeader showBackground={showBackground} ref={headerRef}>
-      <Logo />
-      <Spacer />
-      <MediumButton>Login</MediumButton>
+      {shadow && !showBackground && <HeaderShadow />}
+      <Items>
+        <Logo />
+        <Spacer />
+        <MediumButton>Login</MediumButton>
+      </Items>
     </StyledHeader>
   )
 }

@@ -36,6 +36,7 @@
     "react-instantsearch-dom": "^5.4.0",
     "react-moment": "^0.9.2",
     "react-parallax": "^2.2.0",
+    "react-scroll-parallax": "^2.1.2",
     "react-select": "^2.4.2",
     "react-use": "^8.1.2"
   },

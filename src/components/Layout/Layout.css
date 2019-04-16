@@ -10,3 +10,7 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
+.parallax-inner {
+  will-change: transform;
+}

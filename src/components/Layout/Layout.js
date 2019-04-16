@@ -48,7 +48,6 @@ export const Layout = ({ banner, ...props }) => {
   const bannerRef = useRef(null)
   const { height } = useResizeObserver(bannerRef)
 
-  console.log(height)
   return (
     <>
       <Global
@@ -59,7 +58,7 @@ export const Layout = ({ banner, ...props }) => {
         `}
       />
       <StyledLayout>
-        <Header fadeInAfter={height} />
+        <Header fadeInAfter={height} shadow={!!banner} />
         <Banner ref={bannerRef}>{banner}</Banner>
 
         <Main {...props} />
