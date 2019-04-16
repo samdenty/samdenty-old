@@ -4,7 +4,7 @@ const queries = require('./src/utils/algolia')
 module.exports = {
   siteMetadata: {
     title: `Sam Denty`,
-    siteUrl: `https://samdenty.com`,
+    siteUrl: `https://samdenty.netlify.com`,
     description: `todo`,
     author: `@samdenty`,
   },
