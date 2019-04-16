@@ -7,8 +7,28 @@ module.exports = {
   plugins: [
     `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-mdx`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          'gatsby-remark-prismjs',
+          'gatsby-remark-emojis',
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 1035,
+              sizeByPixelDensity: true,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-copy-linked-files',
+            options: {},
+          },
+          'gatsby-remark-autolink-headers',
+        ],
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

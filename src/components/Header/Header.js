@@ -18,18 +18,18 @@ const StyledHeader = styled.div`
 
       &::after,
       &::before {
-        opacity: ${({ showBackground }) => (showBackground ? 0.8 : 0)};
+        opacity: ${({ showBackground }) => (showBackground ? 0.6 : 0)};
       }
     }
   }
 
   ${animatedGradientBox({
     colors: [
-      'rgba(0, 0, 0, 0.8)',
-      'rgba(0, 0, 0, 0.7)',
-      'rgba(0, 0, 0, 0.8)',
-      'rgba(0, 0, 0, 0.7)',
-      'rgba(0, 0, 0, 0.7)',
+      'rgba(11, 1, 19, 0.8)',
+      'rgba(11, 1, 19, 0.7)',
+      'rgba(11, 1, 19, 0.8)',
+      'rgba(11, 1, 19, 0.7)',
+      'rgba(11, 1, 19, 0.7)',
     ],
     blur: '10px',
     borderRadius: '0',
