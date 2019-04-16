@@ -4,6 +4,7 @@ import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 import { Link } from 'gatsby'
 import moment from 'moment'
+import { GitHub } from './GitHub'
 
 const StyledProject = styled.article`
   ${({ gradient }) =>
@@ -41,6 +42,7 @@ const Headline = styled.div`
 const Title = styled.h2`
   margin: 0;
   font-size: 22px;
+  flex-grow: 1;
 
   ${SlugLink}:hover & {
     text-decoration: underline;
@@ -52,9 +54,9 @@ const Logo = styled.img`
   margin-right: 10px;
 `
 
-const Tags = styled.div`
-  padding: 0 10px;
+const Footer = styled.div`
   margin-bottom: 10px;
+  padding: 0 10px;
 `
 
 const Featured = styled.div`
@@ -98,6 +100,7 @@ export const Project = ({
   onTagClick,
   gradient,
   slug,
+  github,
   featured,
   start_date,
   end_date,
@@ -123,14 +126,19 @@ export const Project = ({
         <Period>{string}</Period>
       </SlugLink>
 
-      <Tags>
+      <Footer>
+        {github && (
+          <a href={`https://github.com/${github}`} target="_blank">
+            <GitHub />
+          </a>
+        )}
         {tags &&
           tags.map((tag, i) => (
             <Tag onClick={() => onTagClick(tag)} key={i}>
               {tag.label}
             </Tag>
           ))}
-      </Tags>
+      </Footer>
     </StyledProject>
   )
 }

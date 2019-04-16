@@ -53,6 +53,7 @@ export const Projects = () => {
             tags={project.tags}
             logo={project.logo}
             slug={project.slug}
+            github={project.github}
             featured={project.featured}
             onTagClick={tag => {
               setVisibleTags(tags => {

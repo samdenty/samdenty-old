@@ -22,6 +22,7 @@ export const useProjects = () => {
                 id
                 label
               }
+              github
               featured
               logo {
                 publicURL
