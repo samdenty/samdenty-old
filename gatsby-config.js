@@ -1,6 +1,10 @@
+require('dotenv').config()
+const queries = require('./src/utils/algolia')
+
 module.exports = {
   siteMetadata: {
     title: `Sam Denty`,
+    siteUrl: `https://samdenty.com`,
     description: `todo`,
     author: `@samdenty`,
   },
@@ -51,9 +55,19 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-transformer-yaml`,
 
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries,
+        chunkSize: 10000, // default: 1000
+      },
+    },
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-offline`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
   mapping: {
     'Mdx.frontmatter.languages': `LanguagesYaml`,

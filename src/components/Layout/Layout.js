@@ -36,7 +36,7 @@ const Main = styled.main`
   }
 `
 
-export const Layout = ({ children }) => (
+export const Layout = props => (
   <>
     <Global
       styles={css`
@@ -48,7 +48,7 @@ export const Layout = ({ children }) => (
     <StyledLayout>
       <Header />
 
-      <Main>{children}</Main>
+      <Main {...props} />
       <footer />
     </StyledLayout>
   </>
