@@ -1,17 +1,57 @@
 import React from 'react'
+import Img from 'gatsby-image'
 import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import { MDXProvider } from '@mdx-js/react'
+import { Parallax, Background } from 'react-parallax'
 import { Layout, SEO } from '../components'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
+import { animatedGradient } from '../utils'
+
+const Banner = styled(Parallax)`
+  height: 500px;
+  flex-shrink: 0;
+
+  .react-parallax-background,
+  .react-parallax-background-children {
+    height: 100%;
+    width: 100%;
+  }
+`
 
 const Title = styled.h1``
 
+const GradientBackground = styled.div`
+  ${({ colors }) =>
+    animatedGradient({
+      colors: colors || undefined,
+      gradientSize: 1.1,
+      duration: 20 * 1000,
+    })};
+
+  height: 100%;
+  width: 100%;
+`
+
 export default ({ data }) => {
-  const { image } = data.mdx.frontmatter
+  const { image, gradient } = data.mdx.frontmatter
 
   return (
-    <Layout>
+    <Layout
+      banner={
+        <Banner strength={300}>
+          <Title>{data.mdx.frontmatter.title}</Title>
+          <Background>
+            {image ? (
+              <Img fluid={{ ...image.childImageSharp.fluid, sizes: '100vw' }} />
+            ) : (
+              <GradientBackground colors={gradient} />
+            )}
+          </Background>
+        </Banner>
+      }
+    >
       <SEO
         title={data.mdx.frontmatter.title}
         image={
@@ -22,8 +62,6 @@ export default ({ data }) => {
         description={data.mdx.excerpt}
         keywords={[`gatsby`, `application`, `react`]}
       />
-
-      <Title>{data.mdx.frontmatter.title}</Title>
 
       <MDXProvider
         components={{
@@ -50,8 +88,14 @@ export const pageQuery = graphql`
       excerpt
       frontmatter {
         title
+        gradient
         image {
           publicURL
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
         }
       }
       code {

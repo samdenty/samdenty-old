@@ -48,19 +48,19 @@ export const Spacer = styled.div`
   width: 30%;
 `
 
-export const Header = () => {
+export const Header = ({ fadeInAfter }) => {
   const [showBackground, setShowBackground] = React.useState(false)
   const headerRef = React.useRef(null)
 
   React.useEffect(() => {
     const listener = () => {
-      setShowBackground(document.documentElement.scrollTop >= 105)
+      setShowBackground(document.documentElement.scrollTop >= fadeInAfter)
     }
     window.addEventListener('scroll', listener)
     listener()
 
     return () => window.removeEventListener('scroll', listener)
-  }, [])
+  }, [fadeInAfter])
 
   return (
     <StyledHeader showBackground={showBackground} ref={headerRef}>

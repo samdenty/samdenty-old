@@ -11,7 +11,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-mdx`,
       options: {
@@ -22,6 +21,8 @@ module.exports = {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 1035,
+              withWebp: true,
+              backgroundColor: '#0A0018',
               sizeByPixelDensity: true,
             },
           },
@@ -50,6 +51,14 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         // icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        useMozJpeg: false,
+        stripMetadata: true,
+        defaultQuality: 75,
       },
     },
     `gatsby-transformer-sharp`,

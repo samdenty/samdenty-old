@@ -1,8 +1,9 @@
 import './Layout.css'
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Header } from '../Header'
 import { Global, css } from '@emotion/core'
+import { useResizeObserver } from '../../hooks'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -27,7 +28,6 @@ const StyledLayout = styled.div`
 
 const Main = styled.main`
   display: flex;
-  margin-top: 105px;
   padding: 30px 70px;
   flex-direction: column;
 
@@ -36,20 +36,35 @@ const Main = styled.main`
   }
 `
 
-export const Layout = props => (
-  <>
-    <Global
-      styles={css`
-        body {
-          background: radial-gradient(circle, #050505, #010010);
-        }
-      `}
-    />
-    <StyledLayout>
-      <Header />
+const Banner = styled.div`
+  flex-shrink: 0;
 
-      <Main {...props} />
-      <footer />
-    </StyledLayout>
-  </>
-)
+  &:empty {
+    height: 105px;
+  }
+`
+
+export const Layout = ({ banner, ...props }) => {
+  const bannerRef = useRef(null)
+  const { height } = useResizeObserver(bannerRef)
+
+  console.log(height)
+  return (
+    <>
+      <Global
+        styles={css`
+          body {
+            background: radial-gradient(circle, #050505, #010010);
+          }
+        `}
+      />
+      <StyledLayout>
+        <Header fadeInAfter={height} />
+        <Banner ref={bannerRef}>{banner}</Banner>
+
+        <Main {...props} />
+        <footer />
+      </StyledLayout>
+    </>
+  )
+}
