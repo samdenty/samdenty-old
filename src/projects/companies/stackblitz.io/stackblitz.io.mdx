@@ -15,6 +15,8 @@ languages:
   - react
 ---
 
+import { ImageGrid } from 'components'
+
 StackBlitz is the online code editor for web projects.
 
 ## Redesigning the editor
@@ -34,8 +36,13 @@ Implemented a project search indexer, along with a corresponding UI. Matches are
 ## Responsive sidebar
 
 Created a responsive, resizable sidebar, that can be used on mobile with the swipe-to-open gesture.
+
+<ImageGrid columns={2}>
+
 ![Project description](./images/project-description.png)
 ![Extensions](./images/extensions.png)
+
+</ImageGrid>
 
 Dragging and dropping files will move them, once right clicked you'll have the option to rename them.
 ![Context Menu](./images/context-menu.png)

@@ -2,7 +2,7 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { Header } from '../Header'
-import { useResizeObserver, usePauseBackgroundEffect } from '../../hooks'
+import { useResizeObserver } from '../../hooks'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -15,9 +15,33 @@ const StyledLayout = styled.div`
     src: url(${require('../../assets/fonts/Gilroy-SemiBold.woff2')});
     font-weight: bold;
   }
-  * {
-    font-family: Gilroy;
+
+  @font-face {
+    font-family: 'Operator Mono';
+    src: url(${require('../../assets/fonts/OperatorMono.otf')});
   }
+
+  @font-face {
+    font-family: 'Operator Mono';
+    src: url(${require('../../assets/fonts/OperatorMono-Italic.otf')});
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: 'Operator Mono';
+    src: url(${require('../../assets/fonts/OperatorMono-Medium.otf')});
+    font-weight: bold;
+  }
+
+  @font-face {
+    font-family: 'Operator Mono';
+    src: url(${require('../../assets/fonts/OperatorMono-MediumItalic.otf')});
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Ubuntu, 'Helvetica Neue', sans-serif;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -31,6 +55,7 @@ const Main = styled.main`
   flex-shrink: 0;
   padding: 30px 70px;
   flex-direction: column;
+  margin-top: ${({ withBanner }) => (withBanner ? 0 : 105)}px;
 
   @media (max-width: 900px) {
     padding: 30px 50px;
@@ -39,22 +64,17 @@ const Main = styled.main`
 
 const Banner = styled.div`
   flex-shrink: 0;
-
-  &:empty {
-    height: 105px;
-  }
 `
 
 export const Layout = ({ banner, ...props }) => {
-  const bannerRef = useRef(null)
-  const { height } = useResizeObserver(bannerRef)
+  const mainRef = useRef(null)
 
   return (
     <StyledLayout>
-      <Header fadeInAfter={height} shadow={!!banner} />
-      <Banner ref={bannerRef}>{banner}</Banner>
+      <Header mainRef={mainRef} shadow={!!banner} />
+      {banner && <Banner>{banner}</Banner>}
 
-      <Main {...props} />
+      <Main withBanner={!!banner} {...props} ref={mainRef} />
       <footer />
     </StyledLayout>
   )

@@ -10,7 +10,8 @@ export const useResizeObserver = elementRef => {
     const element = elementRef.current
     if (!element) return
 
-    const observer = new ResizeObserver(([{ contentRect }]) => {
+    const observer = new ResizeObserver(() => {
+      const contentRect = element.getBoundingClientRect()
       const prevContentRect = contentRectRef.current
       contentRectRef.current = contentRect
 

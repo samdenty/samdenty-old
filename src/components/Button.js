@@ -3,6 +3,11 @@ import styled from '@emotion/styled'
 import { animatedGradientBox } from '../utils'
 
 const baseButton = ({ gradient = true }) => css`
+  font-family: Gilroy;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   ${gradient
     ? css`
         ${animatedGradientBox({
@@ -29,7 +34,7 @@ export const MediumButton = styled.button`
   ${baseButton}
   height: 40px;
   font-size: 15px;
-  padding: 5px 15px;
+  padding: 0 15px;
 `
 
 export const SmallButton = styled.button`
@@ -37,7 +42,7 @@ export const SmallButton = styled.button`
 
   font-size: 13px;
   height: 20px;
-  padding: 2px 8px;
+  padding: 0 8px;
 `
 
 export const LargeButton = styled.button`

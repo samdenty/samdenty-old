@@ -9,6 +9,7 @@ module.exports = {
     author: `@samdenty`,
   },
   plugins: [
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     {
@@ -22,6 +23,7 @@ module.exports = {
             options: {
               maxWidth: 1035,
               withWebp: true,
+              linkImagesToOriginal: false,
               backgroundColor: '#0A0018',
               sizeByPixelDensity: true,
             },
@@ -62,7 +64,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-yaml`,
 
     process.env.GATSBY_ALGOLIA_APP_ID &&
       process.env.ALGOLIA_ADMIN_KEY && {

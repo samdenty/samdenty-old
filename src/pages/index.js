@@ -21,7 +21,6 @@ const ScreenContainer = styled.div`
       '#ff0000',
     ],
     borderWidth: '3px',
-    borderRadius: '5px',
     blur: '70px',
   })};
 

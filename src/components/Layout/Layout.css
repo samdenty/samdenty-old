@@ -6,12 +6,32 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Gilroy;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+  font-family: inherit;
 }
 
 .parallax-inner {
   will-change: transform;
+}
+
+img {
+  vertical-align: top;
+}
+
+iframe,
+dialog {
+  padding: 0;
+  border: 0;
 }

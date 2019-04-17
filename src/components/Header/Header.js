@@ -1,10 +1,13 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
-import { MediumButton } from '../Button'
 import { Logo } from './Logo'
 import { animatedGradientBox } from '../../utils'
+import { useResizeObserver } from '../../hooks'
+import { Navigation } from './Navigation'
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
+  font-family: Gilroy;
+
   &::after,
   &::before {
     transition: opacity 0.2s ease;
@@ -71,7 +74,7 @@ const HeaderShadow = styled.div`
   margin-top: -110px;
 `
 
-const Items = styled.nav`
+const Items = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,19 +84,24 @@ const Spacer = styled.div`
   width: 30%;
 `
 
-export const Header = ({ fadeInAfter, shadow }) => {
+export const Header = ({ mainRef, shadow }) => {
   const [showBackground, setShowBackground] = React.useState(false)
   const headerRef = React.useRef(null)
+  const { height } = useResizeObserver(headerRef)
+  const { top } = useResizeObserver(mainRef)
+
+  let triggerAmount = top - height
+  if (triggerAmount < height) triggerAmount = height
 
   React.useEffect(() => {
     const listener = () => {
-      setShowBackground(document.documentElement.scrollTop >= fadeInAfter)
+      setShowBackground(document.documentElement.scrollTop >= triggerAmount)
     }
     window.addEventListener('scroll', listener)
     listener()
 
     return () => window.removeEventListener('scroll', listener)
-  }, [fadeInAfter])
+  }, [triggerAmount])
 
   return (
     <StyledHeader showBackground={showBackground} ref={headerRef}>
@@ -101,7 +109,7 @@ export const Header = ({ fadeInAfter, shadow }) => {
       <Items>
         <Logo />
         <Spacer />
-        <MediumButton>Login</MediumButton>
+        <Navigation />
       </Items>
     </StyledHeader>
   )

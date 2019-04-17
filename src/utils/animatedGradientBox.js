@@ -7,7 +7,7 @@ export const animatedGradientBox = ({
   degrees = undefined,
   gradientSize = undefined,
   borderWidth = '2px',
-  borderRadius = '3px',
+  borderRadius = '5px',
   interactive = false,
   blur = '9px',
 } = {}) => css`

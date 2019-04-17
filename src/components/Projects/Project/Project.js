@@ -5,6 +5,7 @@ import { Tag } from './Tag'
 import { Link } from 'gatsby'
 import moment from 'moment'
 import { GitHub } from './GitHub'
+import { TimeRange } from '../../TimeRange'
 
 const StyledProject = styled.article`
   ${({ gradient }) =>
@@ -13,7 +14,6 @@ const StyledProject = styled.article`
       gradientSize: 5,
       duration: 30 * 1000,
       borderWidth: '1px',
-      borderRadius: '5px',
       blur: '20px',
     })};
 
@@ -28,6 +28,7 @@ const SlugLink = styled(Link)`
 `
 
 const Headline = styled.div`
+  font-family: Gilroy;
   display: flex;
   height: 60px;
   position: relative;
@@ -86,6 +87,7 @@ const Excerpt = styled.p`
 `
 
 const Period = styled.div`
+  font-family: Gilroy;
   font-weight: bold;
   padding: 0 15px;
   margin-bottom: 5px;
@@ -106,13 +108,6 @@ export const Project = ({
   end_date,
   children,
 }) => {
-  const format = featured ? 'YYYY/MM/DD' : 'YYYY'
-
-  const from = moment(start_date).format(format)
-  const until = end_date && moment(end_date).format(format)
-
-  const string = !until || from === until ? from : `${from} - ${until}`
-
   return (
     <StyledProject gradient={gradient}>
       <SlugLink to={slug}>
@@ -123,7 +118,13 @@ export const Project = ({
         </Headline>
 
         <Excerpt>{children}</Excerpt>
-        <Period>{string}</Period>
+        <Period>
+          <TimeRange
+            from={start_date}
+            to={end_date}
+            format={featured ? 'YYYY/MM/DD' : 'YYYY'}
+          />
+        </Period>
       </SlugLink>
 
       <Footer>
