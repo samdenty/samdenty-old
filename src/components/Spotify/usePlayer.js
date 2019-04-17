@@ -1,3 +1,4 @@
+import useIdle from 'react-use/lib/useIdle'
 import { useEffect, useState } from 'react'
 
 const gql = String.raw
@@ -30,9 +31,12 @@ const query = gql`
 `
 
 export const usePlayer = () => {
+  const idle = useIdle(20e3)
   const [player, setPlayer] = useState(null)
 
   useEffect(() => {
+    if (idle) return
+
     const updateResults = async () => {
       try {
         var { data } = await (await fetch('/.netlify/functions/spotify', {
@@ -55,11 +59,13 @@ export const usePlayer = () => {
       }
     }
 
-    const timer = setInterval(updateResults, 5000)
+    const timer = setInterval(updateResults, 10000)
     updateResults()
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => {
+      clearInterval(timer)
+    }
+  }, [idle])
 
   useEffect(() => {
     if (!player) return

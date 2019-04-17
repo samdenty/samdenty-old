@@ -29,7 +29,7 @@ export const Artists = ({ artists }) => {
         const lastItem = i === artists.length - 1
 
         return (
-          <Artist href={artist.uri} target="_blank">
+          <Artist key={artist.uri} href={artist.uri} target="_blank">
             {artist.name}
             {!lastItem && ', '}
           </Artist>

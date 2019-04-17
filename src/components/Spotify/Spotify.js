@@ -61,8 +61,6 @@ export const Spotify = () => {
   const player = usePlayer()
   if (!player) return null
 
-  console.log(player)
-
   return (
     <StyledSpotify>
       <Circle>
