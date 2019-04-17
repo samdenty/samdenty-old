@@ -1,5 +1,5 @@
 import useIdle from 'react-use/lib/useIdle'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 const gql = String.raw
 const query = gql`
@@ -33,10 +33,15 @@ const query = gql`
 export const usePlayer = () => {
   const idle = useIdle(20e3)
   const [player, setPlayer] = useState(null)
+  const updateRef = useRef(null)
 
   useEffect(() => {
-    if (idle) return
+    if (idle) {
+      updateRef.current = null
+      return
+    }
 
+    let timer
     const updateResults = async () => {
       try {
         var { data } = await (await fetch('/.netlify/functions/spotify', {
@@ -57,13 +62,15 @@ export const usePlayer = () => {
       if (JSON.stringify(player) !== JSON.stringify(newPlayer)) {
         setPlayer(data.me.player)
       }
+      clearTimeout(timer)
+      timer = setTimeout(updateResults, 15000)
     }
+    updateRef.current = updateResults
 
-    const timer = setInterval(updateResults, 10000)
     updateResults()
 
     return () => {
-      clearInterval(timer)
+      clearTimeout(timer)
     }
   }, [idle])
 
@@ -75,8 +82,13 @@ export const usePlayer = () => {
     const timer = setInterval(() => {
       if (player.is_playing) {
         let progress_ms = player.progress_ms + INTERVAL
-        if (progress_ms > player.item.duration_ms)
+        if (progress_ms >= player.item.duration_ms) {
           progress_ms = player.item.duration_ms
+
+          if (updateRef.current) {
+            updateRef.current()
+          }
+        }
 
         setPlayer({
           ...player,
