@@ -16,7 +16,23 @@ module.exports = {
       resolve: `gatsby-mdx`,
       options: {
         gatsbyRemarkPlugins: [
-          'gatsby-remark-prismjs',
+          {
+            resolve: 'gatsby-remark-embedded-codesandbox',
+            options: {
+              directory: `${__dirname}/src/_examples/`,
+              protocol: 'codesandbox://',
+
+              // Customise Codesandbox embedding options:
+              // https://codesandbox.io/docs/embedding#embed-options
+              // default:
+              embedOptions: {
+                view: 'split',
+                runonclick: 1,
+                hidenavigation: 1,
+              },
+            },
+          },
+          'gatsby-remark-autolink-headers',
           'gatsby-remark-emojis',
           {
             resolve: 'gatsby-remark-images',
@@ -32,7 +48,7 @@ module.exports = {
             resolve: 'gatsby-remark-copy-linked-files',
             options: {},
           },
-          'gatsby-remark-autolink-headers',
+          'gatsby-remark-prismjs',
         ],
       },
     },
