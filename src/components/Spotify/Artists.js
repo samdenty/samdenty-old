@@ -1,11 +1,13 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
+import { CircleMargin } from './Spotify'
 
 const StyledArtists = styled.h5`
   font-size: 1rem;
   font-weight: bold;
   margin: 0;
   margin-bottom: 25px;
+  margin-left: calc(7px + ${() => CircleMargin});
 `
 
 const Artist = styled.a`

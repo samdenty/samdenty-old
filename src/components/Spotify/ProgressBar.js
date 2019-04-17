@@ -6,10 +6,12 @@ import { css } from '@emotion/core'
 import { Play } from './Play'
 import { Previous, Next } from './Arrow'
 import { Pause } from './Pause'
+import { CircleMargin } from './Spotify'
 
 const StyledProgressBar = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: calc(-9px + ${() => CircleMargin});
 `
 
 const Progress = styled.div`

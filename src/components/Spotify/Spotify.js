@@ -12,6 +12,8 @@ const StyledSpotify = styled.div`
   align-items: center;
 `
 
+export const CircleMargin = '25px'
+
 const Circle = styled.div`
   ${animatedGradientBox({
     colors: colourful,
@@ -36,7 +38,6 @@ const AlbumArt = styled.img`
 `
 
 const Details = styled.div`
-  margin-left: 40px;
   width: 500px;
 `
 
@@ -45,6 +46,7 @@ const SongName = styled.h4`
   align-items: center;
   font-size: 2rem;
   margin: 0;
+  margin-left: calc(-6px + ${CircleMargin});
   margin-bottom: 10px;
 
   svg {
@@ -73,8 +75,8 @@ export const Spotify = () => {
           <Tick
             css={css`
               color: ${player.item.saved
-                ? 'green'
-                : 'rgba(255, 255, 255, 0.8)'};
+                ? '#0fb70f'
+                : 'rgba(255, 255, 255, 0.5)'};
             `}
           />
         </SongName>
