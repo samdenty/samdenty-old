@@ -14,6 +14,14 @@ const ExpandablePosedModal = posed(ExpandableDialog)({
       zIndex: 1000,
       display: null,
     },
+    transition: {
+      backgroundColor: {
+        delay: 400,
+      },
+      default: {
+        duration: 500,
+      },
+    },
     width: '100vw',
     height: '100vh',
     position: 'fixed',
@@ -26,6 +34,9 @@ const ExpandablePosedModal = posed(ExpandableDialog)({
     },
     applyAtStart: {
       backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    transition: {
+      duration: 500,
     },
     zIndex: 0,
     position: 'inherit',
