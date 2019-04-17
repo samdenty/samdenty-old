@@ -22,6 +22,9 @@ const init = canvas => {
 
     canvas.width = width * devicePixelRatio
     canvas.height = height * devicePixelRatio
+    canvas.style.width = `${width}px`
+    canvas.style.height = `${height}px`
+
     ctx.scale(devicePixelRatio, devicePixelRatio)
     if (!recalculate) return
 
