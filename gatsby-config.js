@@ -61,12 +61,7 @@ module.exports = {
         defaultQuality: 75,
       },
     },
-    {
-      resolve: 'gatsby-plugin-netlify-cache',
-      options: {
-        extraDirsToCache: ['functions/node_modules'],
-      },
-    },
+    `gatsby-plugin-netlify-cache`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-yaml`,
 
