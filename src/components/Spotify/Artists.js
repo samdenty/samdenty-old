@@ -7,7 +7,14 @@ const StyledArtists = styled.h5`
   font-weight: bold;
   margin: 0;
   margin-bottom: 25px;
-  margin-left: calc(7px + ${() => CircleMargin});
+
+  @media (min-width: 800px) {
+    margin-left: calc(7px + ${() => CircleMargin});
+  }
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 `
 
 const Artist = styled.a`

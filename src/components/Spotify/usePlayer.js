@@ -42,7 +42,14 @@ export const usePlayer = () => {
     }
 
     let timer
+    let updating = false
     const updateResults = async () => {
+      if (updating) return
+
+      updating = true
+      clearTimeout(timer)
+      timer = setTimeout(updateResults, 15000)
+
       try {
         var { data } = await (await fetch('/.netlify/functions/spotify', {
           method: 'POST',
@@ -53,6 +60,8 @@ export const usePlayer = () => {
         if (!data) return
       } catch (e) {
         return
+      } finally {
+        updating = false
       }
 
       const newPlayer = data.me.player
@@ -62,8 +71,6 @@ export const usePlayer = () => {
       if (JSON.stringify(player) !== JSON.stringify(newPlayer)) {
         setPlayer(data.me.player)
       }
-      clearTimeout(timer)
-      timer = setTimeout(updateResults, 15000)
     }
     updateRef.current = updateResults
 

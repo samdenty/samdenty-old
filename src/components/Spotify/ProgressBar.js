@@ -11,7 +11,9 @@ import { CircleMargin } from './Spotify'
 const StyledProgressBar = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: calc(-9px + ${() => CircleMargin});
+  @media (min-width: 800px) {
+    margin-left: calc(-9px + ${() => CircleMargin});
+  }
 `
 
 const Progress = styled.div`

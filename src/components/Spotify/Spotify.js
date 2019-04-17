@@ -10,6 +10,10 @@ import { Tick } from './Tick'
 const StyledSpotify = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `
 
 export const CircleMargin = '25px'
@@ -20,6 +24,7 @@ const Circle = styled.div`
     borderWidth: '7px',
     duration: 60 * 1000,
   })}
+  flex-shrink: 0;
   border-radius: 50%;
   height: 220px;
   width: 220px;
@@ -39,14 +44,20 @@ const AlbumArt = styled.img`
 
 const Details = styled.div`
   width: 500px;
+
+  @media (max-width: 800px) {
+    margin-top: 40px;
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 
 const SongName = styled.h4`
   display: flex;
+  justify-content: inherit;
   align-items: center;
   font-size: 2rem;
   margin: 0;
-  margin-left: calc(-6px + ${CircleMargin});
   margin-bottom: 10px;
 
   svg {
@@ -54,6 +65,10 @@ const SongName = styled.h4`
     width: 1em;
     margin-left: 10px;
     padding: 5px;
+  }
+
+  @media (min-width: 800px) {
+    margin-left: calc(-6px + ${CircleMargin});
   }
 `
 
