@@ -61,7 +61,6 @@ module.exports = {
         defaultQuality: 75,
       },
     },
-    `gatsby-plugin-netlify-cache`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-yaml`,
 
@@ -77,6 +76,8 @@ module.exports = {
       },
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
+    `gatsby-plugin-netlify`,
+    `gatsby-plugin-netlify-cache`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
   ].filter(Boolean),
