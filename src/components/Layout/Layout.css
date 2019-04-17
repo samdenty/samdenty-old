@@ -1,8 +1,9 @@
-html,
-body {
+html {
   box-sizing: border-box;
-  margin: 0;
   background: radial-gradient(circle, #050505, #010010);
+}
+body {
+  margin: 0;
 }
 
 *,

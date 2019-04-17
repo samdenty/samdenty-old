@@ -158,6 +158,7 @@ const init = canvas => {
 
 export const StyledCanvas = styled.canvas`
   position: fixed;
+  z-index: -1;
   transition: opacity 2s ease, transform 4s ease;
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
   transform: ${({ loaded }) => (loaded ? 'none' : 'scale(0.7)')};
