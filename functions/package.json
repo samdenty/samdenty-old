@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "apollo-server-lambda": "^2.4.8",
-    "aws-sdk": "^2.438.0",
     "graphql": "^14.2.1",
     "spotify-graphql": "^1.4.0"
   },
