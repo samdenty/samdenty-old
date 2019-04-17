@@ -3,30 +3,14 @@ import Img from 'gatsby-image'
 import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import { MDXProvider } from '@mdx-js/react'
-import { ParallaxBanner } from 'react-scroll-parallax'
-import { Layout, SEO } from '../components'
+import { Layout, SEO, Banner } from '../components'
 import styled from '@emotion/styled'
 import { animatedGradient } from '../utils'
+import { usePauseBackgroundEffect } from '../hooks'
 
-const Banner = styled(ParallaxBanner)`
-  height: 70vh;
-  overflow: hidden;
-  min-height: 500px;
-  max-height: 640px;
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .parallax-outer {
-    z-index: -1;
-  }
-
-  .gatsby-image-wrapper {
-    height: 100%;
-    width: 100%;
-  }
+const StyledLayout = styled(Layout)`
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #0a0014;
 `
 
 const Title = styled.h1`
@@ -47,29 +31,27 @@ const GradientBackground = styled.div`
 `
 
 export default ({ data }) => {
+  usePauseBackgroundEffect()
   const { image, gradient } = data.mdx.frontmatter
 
   return (
-    <Layout
+    <StyledLayout
       banner={
         <Banner
-          layers={[
-            {
-              amount: image ? 0.4 : 0.8,
-              image: image && !image.childImageSharp ? image.publicURL : null,
-              children: image ? (
-                image.childImageSharp ? (
-                  <Img
-                    fluid={{ ...image.childImageSharp.fluid, sizes: '100vw' }}
-                  />
-                ) : (
-                  undefined
-                )
+          amount={image ? 0.4 : 0.8}
+          content={
+            image ? (
+              image.childImageSharp ? (
+                <Img
+                  fluid={{ ...image.childImageSharp.fluid, sizes: '100vw' }}
+                />
               ) : (
-                <GradientBackground colors={gradient} />
-              ),
-            },
-          ]}
+                <img src={image.publicURL} />
+              )
+            ) : (
+              <GradientBackground colors={gradient} />
+            )
+          }
         >
           <Title>{data.mdx.frontmatter.title}</Title>
         </Banner>
@@ -95,7 +77,7 @@ export default ({ data }) => {
       >
         <MDXRenderer>{data.mdx.code.body}</MDXRenderer>
       </MDXProvider>
-    </Layout>
+    </StyledLayout>
   )
 }
 

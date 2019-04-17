@@ -2,7 +2,7 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { Header } from '../Header'
-import { useResizeObserver } from '../../hooks'
+import { useResizeObserver, usePauseBackgroundEffect } from '../../hooks'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -27,6 +27,8 @@ const StyledLayout = styled.div`
 
 const Main = styled.main`
   display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
   padding: 30px 70px;
   flex-direction: column;
 

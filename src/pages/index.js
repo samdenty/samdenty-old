@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 
 import { Layout, SEO } from '../components'
 import styled from '@emotion/styled'
 import { animatedGradientBox } from '../utils'
+import { usePauseBackgroundEffect } from '../hooks'
 
 const ScreenContainer = styled.div`
   ${animatedGradientBox({
@@ -59,15 +60,17 @@ const Screen = styled.img`
   background: linear-gradient(0deg, #000, #262626);
 `
 
-export default () => (
-  <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+export default () => {
+  return (
+    <Layout>
+      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
 
-    <ScreenContainer>
-      <Screen src="https://i.imgur.com/LLYLATe.png" />
-    </ScreenContainer>
+      <ScreenContainer>
+        <Screen src="https://i.imgur.com/LLYLATe.png" />
+      </ScreenContainer>
 
-    <Link to="/projects/">Projects</Link>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+      <Link to="/projects/">Projects</Link>
+      <Link to="/page-2/">Go to page 2</Link>
+    </Layout>
+  )
+}

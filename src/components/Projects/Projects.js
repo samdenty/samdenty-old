@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import Select from 'react-select'
 import { Project } from './Project'
 import { useFilteredProjects } from './useFilteredProjects'
+import { usePauseBackgroundEffect } from '../../hooks'
 
 const ProjectsFilter = styled.div`
   margin: 70px 0;
@@ -16,6 +17,9 @@ const ProjectsGrid = styled.div`
 `
 
 export const Projects = () => {
+  // Performance
+  usePauseBackgroundEffect()
+
   const {
     visibleLanguages,
     languages,

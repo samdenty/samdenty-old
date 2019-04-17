@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 
-const init = canvas => {
+const createEffect = canvas => {
   if (!canvas) return
 
   const isMobile =
@@ -137,10 +137,17 @@ const init = canvas => {
 
     var time = new Date().getTime()
     for (var e in elements) elements[e].draw(ctx, time)
-
-    requestAnimationFrame(draw)
   }
-  requestAnimationFrame(draw)
+
+  let currentFrame = null
+  const start = () => {
+    draw()
+    currentFrame = requestAnimationFrame(start)
+  }
+
+  const stop = () => {
+    cancelAnimationFrame(currentFrame)
+  }
 
   let resizeTimer
   const callback = () => {
@@ -149,10 +156,16 @@ const init = canvas => {
   }
   window.addEventListener('resize', callback)
 
-  return () => {
-    clearTimeout(resizeTimer)
+  return {
+    start,
+    draw,
+    stop,
+    cleanup() {
+      stop()
+      clearTimeout(resizeTimer)
 
-    window.removeEventListener('resize', callback)
+      window.removeEventListener('resize', callback)
+    },
   }
 }
 
@@ -164,14 +177,42 @@ export const StyledCanvas = styled.canvas`
   transform: ${({ loaded }) => (loaded ? 'none' : 'scale(0.7)')};
 `
 
+export const BackgroundEffectContext = React.createContext(null)
+
 export const BackgroundEffect = () => {
+  const [paused] = React.useContext(BackgroundEffectContext)
   const [loaded, setLoaded] = React.useState(false)
   const canvas = React.useRef(null)
 
+  const effectRef = React.useRef(null)
+
   React.useEffect(() => {
-    init(canvas.current)
+    const effect = createEffect(canvas.current)
+    effectRef.current = effect
+    effect.draw()
     setLoaded(true)
-  }, [])
+    return () => effect.cleanup()
+  }, [canvas.current])
+
+  React.useEffect(() => {
+    effectRef.current.stop()
+
+    if (paused) {
+      effectRef.current.stop()
+    } else {
+      effectRef.current.start()
+    }
+  }, [effectRef.current, paused])
 
   return <StyledCanvas loaded={loaded} ref={canvas} />
+}
+
+export const BackgroundEffectProvider = ({ children }) => {
+  const [paused, setPaused] = React.useState(false)
+
+  return (
+    <BackgroundEffectContext.Provider value={[paused, setPaused]}>
+      {children}
+    </BackgroundEffectContext.Provider>
+  )
 }
