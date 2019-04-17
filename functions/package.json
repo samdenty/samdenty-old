@@ -1,8 +1,8 @@
 {
   "dependencies": {
+    "@samdd/spotify-graphql": "^1.4.1",
     "apollo-server-lambda": "^2.4.8",
-    "graphql": "^14.2.1",
-    "spotify-graphql": "^1.4.0"
+    "graphql": "^14.2.1"
   },
   "resolutions": {
     "spotify-graphql/graphql": "14.2.1"

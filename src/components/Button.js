@@ -11,12 +11,12 @@ const baseButton = ({ gradient = true }) => css`
   ${gradient
     ? css`
         ${animatedGradientBox({
-          borderRadius: '20px',
           blur: '9px',
           duration: 20 * 1000,
           gradientSize: 15,
           interactive: true,
         })}
+        border-radius: 20px;
         background: transparent;
       `
     : null}

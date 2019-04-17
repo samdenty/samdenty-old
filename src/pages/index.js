@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'gatsby'
 
-import { Layout, SEO, Modal } from '../components'
+import { Layout, SEO, Spotify } from '../components'
 import styled from '@emotion/styled'
-import { animatedGradientBox } from '../utils'
+import { animatedGradientBox, colourful } from '../utils'
 
 const ScreenContainer = styled.div`
   ${animatedGradientBox({
-    colors: [
-      '#fb0094',
-      '#0000ff',
-      '#00ff00',
-      '#ffff00',
-      '#ff0000',
-      '#fb0094',
-      '#0000ff',
-      '#00ff00',
-      '#ffff00',
-      '#ff0000',
-    ],
+    colors: colourful,
     borderWidth: '3px',
     blur: '70px',
   })};
@@ -66,8 +55,7 @@ export default () => {
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
 
-      <button onClick={() => setOpen(!open)}>{open}</button>
-      <Modal value={modalState}>hello world</Modal>
+      <Spotify />
 
       <ScreenContainer>
         <Screen src="https://i.imgur.com/LLYLATe.png" />

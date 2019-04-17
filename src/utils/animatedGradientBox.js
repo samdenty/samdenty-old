@@ -7,13 +7,13 @@ export const animatedGradientBox = ({
   degrees = undefined,
   gradientSize = undefined,
   borderWidth = '2px',
-  borderRadius = '5px',
   interactive = false,
   blur = '9px',
 } = {}) => css`
   --computed-gradient-blur: ${blur};
 
   z-index: 1;
+  border-radius: 5px;
   position: relative;
 
   &::before,
@@ -21,7 +21,7 @@ export const animatedGradientBox = ({
     ${animatedGradient({ colors, gradientSize, degrees, duration })};
     content: '';
     position: absolute;
-    border-radius: ${borderRadius};
+    border-radius: inherit;
     top: -${borderWidth};
     left: -${borderWidth};
     width: calc(100% + (${borderWidth} * 2));

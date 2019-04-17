@@ -35,8 +35,8 @@ const StyledHeader = styled.header`
       'rgba(11, 1, 19, 0.7)',
     ],
     blur: '10px',
-    borderRadius: '0',
   })}
+  border-radius: 0;
 
   position: fixed;
   width: 100%;
@@ -57,8 +57,8 @@ const HeaderShadow = styled.div`
     blur: `${shadowBlur}px`,
     degrees: 45,
     duration: 30 * 1000,
-    borderRadius: '0',
   })}
+  border-radius: 0;
 
   &::before {
     display: none;

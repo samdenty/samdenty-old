@@ -1,5 +1,6 @@
 import css from '@emotion/css'
 import { keyframes } from '@emotion/core'
+import { orangePurple } from './colors'
 
 const animatedShadow = keyframes`
   from {
@@ -14,16 +15,7 @@ const animatedShadow = keyframes`
 `
 
 export const animatedGradient = ({
-  colors = [
-    '#830dff',
-    '#be00e1',
-    '#e1009c',
-    '#e10053',
-    '#ff9a02',
-    '#ff2116',
-    '#d712fb',
-    '#830bff',
-  ],
+  colors = orangePurple,
   degrees = 45,
   duration = 10000,
   gradientSize = 4,

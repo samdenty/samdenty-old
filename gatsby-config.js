@@ -1,10 +1,11 @@
 require('dotenv').config()
 const queries = require('./src/utils/algolia')
 
+const siteUrl = `https://samdenty.netlify.com`
 module.exports = {
   siteMetadata: {
     title: `Sam Denty`,
-    siteUrl: `https://samdenty.netlify.com`,
+    siteUrl,
     description: `todo`,
     author: `@samdenty`,
   },
@@ -101,5 +102,9 @@ module.exports = {
   mapping: {
     'Mdx.frontmatter.languages': `LanguagesYaml`,
     'Mdx.frontmatter.tags': `TagsYaml`,
+  },
+  proxy: {
+    prefix: '/.netlify',
+    url: siteUrl,
   },
 }
