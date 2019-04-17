@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 const typeDefs = require('spotify-graphql/dist/lib/schema').default
 const resolverMapBuilder = require('spotify-graphql/dist/lib/resolvers').default
 const SpotifyWebApi = require('spotify-web-api-node')
