@@ -8,6 +8,8 @@ import { Artists } from './Artists'
 import { Tick } from './Tick'
 
 const StyledSpotify = styled.div`
+  width: 900px;
+  max-width: 100%;
   display: flex;
   align-items: center;
 
@@ -43,7 +45,7 @@ const AlbumArt = styled.img`
 `
 
 const Details = styled.div`
-  width: 500px;
+  width: 100%;
 
   @media (max-width: 800px) {
     margin-top: 40px;
@@ -72,6 +74,15 @@ const SongName = styled.h4`
   }
 `
 
+const SongLink = styled.a`
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 export const Spotify = () => {
   const player = usePlayer()
   if (!player) return null
@@ -84,7 +95,9 @@ export const Spotify = () => {
 
       <Details>
         <SongName>
-          {player.item.name}
+          <SongLink href={player.item.uri} target="_blank">
+            {player.item.name}
+          </SongLink>
           <Tick
             css={css`
               color: ${player.item.saved

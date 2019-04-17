@@ -36,10 +36,6 @@ export const Navigation = () => {
       <StyledItem partiallyActive to="/projects/">
         Projects
       </StyledItem>
-
-      <StyledItem partiallyActive to="/blog/">
-        Blog
-      </StyledItem>
     </StyledNavigation>
   )
 }
