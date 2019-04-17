@@ -32,16 +32,18 @@ const Artist = styled.a`
 export const Artists = ({ artists }) => {
   return (
     <StyledArtists>
-      {artists.map((artist, i) => {
-        const lastItem = i === artists.length - 1
+      {artists
+        ? artists.map((artist, i) => {
+            const lastItem = i === artists.length - 1
 
-        return (
-          <Artist key={artist.uri} href={artist.uri} target="_blank">
-            {artist.name}
-            {!lastItem && ', '}
-          </Artist>
-        )
-      })}
+            return (
+              <Artist key={artist.uri} href={artist.uri} target="_blank">
+                {artist.name}
+                {!lastItem && ', '}
+              </Artist>
+            )
+          })
+        : '...'}
     </StyledArtists>
   )
 }

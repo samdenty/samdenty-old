@@ -85,33 +85,36 @@ const SongLink = styled.a`
 
 export const Spotify = () => {
   const player = usePlayer()
-  if (!player) return null
 
   return (
     <StyledSpotify>
       <Circle>
-        <AlbumArt src={player.item.album.images[0].url} />
+        {player && <AlbumArt src={player.item.album.images[0].url} />}
       </Circle>
 
       <Details>
         <SongName>
-          <SongLink href={player.item.uri} target="_blank">
-            {player.item.name}
-          </SongLink>
+          {player ? (
+            <SongLink href={player.item.uri} target="_blank">
+              {player.item.name}
+            </SongLink>
+          ) : (
+            'Loading'
+          )}
           <Tick
             css={css`
-              color: ${player.item.saved
+              color: ${player && player.item.saved
                 ? '#0fb70f'
                 : 'rgba(255, 255, 255, 0.5)'};
             `}
           />
         </SongName>
-        <Artists artists={player.item.artists} />
+        <Artists artists={player && player.item.artists} />
 
         <ProgressBar
-          playing={player.is_playing}
-          progress={player.progress_ms}
-          duration={player.item.duration_ms}
+          playing={player && player.is_playing}
+          progress={player ? player.progress_ms : 0}
+          duration={player ? player.item.duration_ms : 0}
         />
       </Details>
     </StyledSpotify>

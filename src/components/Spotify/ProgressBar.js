@@ -68,6 +68,8 @@ const Buttons = styled.div`
 `
 
 export const ProgressBar = ({ playing, progress, duration }) => {
+  const percent = (progress / duration) * 100
+
   return (
     <StyledProgressBar>
       <Buttons>
@@ -85,9 +87,7 @@ export const ProgressBar = ({ playing, progress, duration }) => {
         >
           {progress}
         </Timestamp>
-        <Track>
-          <Handle value={(progress / duration) * 100} />
-        </Track>
+        <Track>{percent ? <Handle value={percent} /> : null}</Track>
         <Timestamp
           format="mm:ss"
           css={css`
