@@ -68,7 +68,7 @@ const HeaderShadow = styled.div`
   width: calc(100% + (${shadowBlur + 20}px * 2));
   z-index: -1;
   height: calc(100% + 100px);
-  margin-top: -100px;
+  margin-top: -110px;
 `
 
 const Items = styled.nav`

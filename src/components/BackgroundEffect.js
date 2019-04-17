@@ -177,7 +177,7 @@ export const StyledCanvas = styled.canvas`
   transform: ${({ loaded }) => (loaded ? 'none' : 'scale(0.7)')};
 `
 
-export const BackgroundEffectContext = React.createContext(null)
+export const BackgroundEffectContext = React.createContext([false, () => {}])
 
 export const BackgroundEffect = () => {
   const [paused] = React.useContext(BackgroundEffectContext)
