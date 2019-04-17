@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
-import { useModalState, Modal } from '../../Modal'
+import { useModalState, ExpandableModal } from '../../Modal'
 
 const Img = styled.img`
   max-width: 100%;
@@ -33,8 +33,8 @@ export const img = ({ ...props }) => {
   return modalState ? (
     children
   ) : (
-    <Modal inline value={openState}>
+    <ExpandableModal inline value={openState}>
       {children}
-    </Modal>
+    </ExpandableModal>
   )
 }

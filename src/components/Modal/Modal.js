@@ -3,10 +3,11 @@ import { useState, useRef, useLayoutEffect, createContext } from 'react'
 import styled from '@emotion/styled'
 import posed from 'react-pose'
 import { Portal } from './Portal'
+import { css } from '@emotion/core'
 
 const ModalContext = createContext(null)
 
-const Dialog = styled.span`
+export const baseDialog = css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,97 +16,61 @@ const Dialog = styled.span`
   left: 0;
 `
 
+const Dialog = styled.span`
+  ${baseDialog};
+  background-color: rgba(11, 1, 19, 0.8);
+  z-index: 1000;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+`
+
 const PosedModal = posed(Dialog)({
-  visible: {
+  open: {
     applyAtStart: {
-      zIndex: 1000,
       display: null,
     },
-    width: '100vw',
-    height: '100vh',
-    position: 'fixed',
-    backgroundColor: 'rgba(11, 1, 19, 0.8)',
-    flip: true,
+    opacity: 1,
   },
-  inline: {
+  closed: {
     applyAtEnd: {
-      display: 'inline-block',
+      display: 'none',
     },
-    applyAtStart: {
-      backgroundColor: 'rgba(0, 0, 0, 0)',
-    },
-    zIndex: 0,
-    position: 'inherit',
-    width: '100%',
-    height: 'auto',
-    flip: true,
-  },
-  hidden: {
-    applyAtEnd: {
-      display: 'inline-block',
-    },
-    applyAtStart: {
-      backgroundColor: 'rgba(0, 0, 0, 0)',
-    },
-    zIndex: 0,
-    position: 'inherit',
-    width: '100%',
-    height: 'auto',
-    flip: true,
+    opacity: 0,
   },
 })
 
 export const useModalState = () => React.useContext(ModalContext)
 
-export const Modal = ({
-  children,
-  inline = false,
-  value = useState(false),
-}) => {
-  const modalRef = useRef()
-  const [placeholderRect, setPlaceholderRect] = useState(null)
-  const [open, setOpen] = value
+export const Modal = React.forwardRef(
+  (
+    {
+      children,
+      pose = props => <PosedModal {...props} />,
+      value = useState(false),
+    },
+    modalRef
+  ) => {
+    const ref = useRef()
+    if (!modalRef) modalRef = ref
+    const [open, setOpen] = value
 
-  useLayoutEffect(() => {
-    if (inline) {
-      setPlaceholderRect(open ? modalRef.current.getBoundingClientRect() : null)
-    }
-  }, [open])
+    return (
+      <ModalContext.Provider value={value}>
+        {pose({
+          children,
+          onClick(event) {
+            if (!open) return
 
-  const isolatableChildren = (
-    <PosedModal
-      onClick={event => {
-        if (!open) return
-
-        if (event.currentTarget === modalRef.current) {
-          event.preventDefault()
-          setOpen(false)
-        }
-      }}
-      ref={modalRef}
-      pose={open ? 'visible' : inline ? 'inline' : 'hidden'}
-    >
-      {children}
-    </PosedModal>
-  )
-
-  return (
-    <ModalContext.Provider value={value}>
-      {placeholderRect && (
-        <span
-          style={{
-            display: 'inline-block',
-            height: placeholderRect.height,
-            width: placeholderRect.width,
-          }}
-        />
-      )}
-
-      {open && !inline ? (
-        <Portal>{isolatableChildren}</Portal>
-      ) : (
-        isolatableChildren
-      )}
-    </ModalContext.Provider>
-  )
-}
+            if (event.currentTarget === modalRef.current) {
+              event.preventDefault()
+              setOpen(false)
+            }
+          },
+          ref: modalRef,
+          pose: open ? 'open' : 'closed',
+        })}
+      </ModalContext.Provider>
+    )
+  }
+)
