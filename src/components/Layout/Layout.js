@@ -2,7 +2,6 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { Header } from '../Header'
-import { Global, css } from '@emotion/core'
 import { useResizeObserver } from '../../hooks'
 
 const StyledLayout = styled.div`
@@ -49,21 +48,12 @@ export const Layout = ({ banner, ...props }) => {
   const { height } = useResizeObserver(bannerRef)
 
   return (
-    <>
-      <Global
-        styles={css`
-          body {
-            background: radial-gradient(circle, #050505, #010010);
-          }
-        `}
-      />
-      <StyledLayout>
-        <Header fadeInAfter={height} shadow={!!banner} />
-        <Banner ref={bannerRef}>{banner}</Banner>
+    <StyledLayout>
+      <Header fadeInAfter={height} shadow={!!banner} />
+      <Banner ref={bannerRef}>{banner}</Banner>
 
-        <Main {...props} />
-        <footer />
-      </StyledLayout>
-    </>
+      <Main {...props} />
+      <footer />
+    </StyledLayout>
   )
 }
