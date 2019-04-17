@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { MediumButton } from '../Button'
 import { Link } from 'gatsby'
 import { withProps } from 'recompose'
-import { ExpandableModal } from '../ExpandableModal'
 
 const StyledNavigation = styled.nav``
 
