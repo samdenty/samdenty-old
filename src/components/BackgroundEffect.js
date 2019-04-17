@@ -8,12 +8,14 @@ const createEffect = canvas => {
     typeof window.orientation !== 'undefined' ||
     navigator.userAgent.indexOf('IEMobile') !== -1
 
-  let elements = []
+  let elements = null
   var ctx = canvas.getContext('2d')
 
   let width
   let height
-  const resize = (recalculate = !isMobile) => {
+  const calculate = () => {
+    if (elements && isMobile) return
+
     const prevWidth = width
     const prevHeight = height
 
@@ -26,7 +28,6 @@ const createEffect = canvas => {
     canvas.style.height = `${height}px`
 
     ctx.scale(devicePixelRatio, devicePixelRatio)
-    if (!recalculate) return
 
     if (prevWidth >= window.innerWidth && prevHeight >= window.innerHeight)
       return
@@ -130,42 +131,38 @@ const createEffect = canvas => {
     },
   }
 
-  resize(true)
+  calculate()
 
-  const draw = () => {
+  let currentFrame = null
+  const draw = (again = false) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     var time = new Date().getTime()
     for (var e in elements) elements[e].draw(ctx, time)
-  }
 
-  let currentFrame = null
-  const start = () => {
-    draw()
-    currentFrame = requestAnimationFrame(start)
-  }
-
-  const stop = () => {
-    cancelAnimationFrame(currentFrame)
+    if (again) currentFrame = requestAnimationFrame(() => draw())
   }
 
   let resizeTimer
   const callback = () => {
     clearTimeout(resizeTimer)
-    resizeTimer = setTimeout(() => resize(), 250)
+    resizeTimer = setTimeout(() => calculate(), 250)
   }
-  window.addEventListener('resize', callback)
+  const start = () => {
+    window.addEventListener('resize', callback)
+    draw(true)
+  }
+
+  const stop = () => {
+    cancelAnimationFrame(currentFrame)
+    clearTimeout(resizeTimer)
+    window.removeEventListener('resize', callback)
+  }
 
   return {
     start,
-    draw,
     stop,
-    cleanup() {
-      stop()
-      clearTimeout(resizeTimer)
-
-      window.removeEventListener('resize', callback)
-    },
+    draw,
   }
 }
 
@@ -191,7 +188,7 @@ export const BackgroundEffect = () => {
     effectRef.current = effect
     effect.draw()
     setLoaded(true)
-    return () => effect.cleanup()
+    return () => effect.stop()
   }, [canvas.current])
 
   React.useEffect(() => {
