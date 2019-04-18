@@ -2,7 +2,6 @@ import './Layout.css'
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { Header } from '../Header'
-import { useResizeObserver } from '../../hooks'
 
 const StyledLayout = styled.div`
   @font-face {
@@ -55,15 +54,11 @@ const Main = styled.main`
   flex-shrink: 0;
   padding: 30px 70px;
   flex-direction: column;
-  margin-top: ${({ withBanner }) => (withBanner ? 0 : 105)}px;
+  margin-top: ${({ withBanner }) => (withBanner ? null : 105)}px;
 
   @media (max-width: 900px) {
     padding: 30px 50px;
   }
-`
-
-const Banner = styled.div`
-  flex-shrink: 0;
 `
 
 export const Layout = ({ banner, ...props }) => {
@@ -72,7 +67,7 @@ export const Layout = ({ banner, ...props }) => {
   return (
     <StyledLayout>
       <Header mainRef={mainRef} shadow={!!banner} />
-      {banner && <Banner>{banner}</Banner>}
+      {banner}
 
       <Main withBanner={!!banner} {...props} ref={mainRef} />
       <footer />

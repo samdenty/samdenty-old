@@ -1,23 +1,25 @@
 import React from 'react'
 import Img from 'gatsby-image'
-import { Layout, SEO, Banner } from '../'
+import { Layout, SEO } from '../'
 import styled from '@emotion/styled'
 import { animatedGradient } from '../../utils'
-import Moment from 'react-moment'
-import { usePauseBackgroundEffect } from '../../hooks'
+import { ParallaxBanner } from './ParallaxBanner'
 import { Mdx } from './Mdx'
 import { TimeRange } from '../TimeRange'
 
 const StyledLayout = styled(Layout)`
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: #fff;
   color: #0a0014;
   font-size: 1.15rem;
-`
-
-const Article = styled('article')`
   width: 100%;
-  max-width: 1035px;
+  max-width: 1175px;
+  margin-top: -100px;
   align-self: center;
+
+  @media (min-width: 1175px) {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    border-radius: 10px;
+  }
 `
 
 const Title = styled.h1`
@@ -34,20 +36,8 @@ const Period = styled.h3`
   opacity: 0.7;
 `
 
-const GradientBackground = styled.div`
-  ${({ colors }) =>
-    animatedGradient({
-      colors: colors || undefined,
-      gradientSize: 1.1,
-      duration: 20 * 1000,
-    })};
-
-  height: 200%;
-  width: 100%;
-`
-
 export const MdxLayout = ({ data }) => {
-  usePauseBackgroundEffect()
+  // usePauseBackgroundEffect()
 
   const {
     excerpt,
@@ -61,9 +51,10 @@ export const MdxLayout = ({ data }) => {
   return (
     <StyledLayout
       banner={
-        <Banner
+        <ParallaxBanner
           amount={image ? 0.4 : 0.8}
-          content={
+          gradient={gradient}
+          background={
             image ? (
               image.childImageSharp ? (
                 <Img
@@ -73,16 +64,14 @@ export const MdxLayout = ({ data }) => {
               ) : (
                 <img alt={title} src={image.publicURL} />
               )
-            ) : (
-              <GradientBackground colors={gradient} />
-            )
+            ) : null
           }
         >
           <Title>{title}</Title>
           <Period>
             <TimeRange from={start_date} to={end_date} format="MMM DD, YYYY" />
           </Period>
-        </Banner>
+        </ParallaxBanner>
       }
     >
       <SEO
@@ -94,9 +83,8 @@ export const MdxLayout = ({ data }) => {
         }
         description={excerpt}
       />
-      <Article>
-        <Mdx>{data.mdx.code.body}</Mdx>
-      </Article>
+
+      <Mdx>{data.mdx.code.body}</Mdx>
     </StyledLayout>
   )
 }
