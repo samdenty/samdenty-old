@@ -70,9 +70,7 @@ export const ParallaxBanner = ({
           },
         ]}
         {...props}
-      >
-        <div>test</div>
-      </StyledParallaxBanner>
+      />
       <BannerContent>{children}</BannerContent>
     </>
   )

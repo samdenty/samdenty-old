@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 import { Link } from 'gatsby'
-import moment from 'moment'
+import posed from 'react-pose'
 import { GitHub } from './GitHub'
 import { TimeRange } from '../../TimeRange'
 
