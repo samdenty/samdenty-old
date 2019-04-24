@@ -8,9 +8,11 @@ import { animatedGradientBox, colourful, animatedGradient } from '../utils'
 const Laptop = styled.div`
   width: 500px;
   height: 281px;
+  font-size: 10px;
+
   transform: rotateX(-6deg) rotateY(-19deg) rotateZ(-4deg);
   transform: rotateX(-11deg) rotateY(-13deg) rotateZ(0deg);
-  transform: rotateX(-87deg) rotateY(-19deg) rotateZ(-4deg);
+  /* transform: rotateX(-87deg) rotateY(-19deg) rotateZ(-4deg); */
   perspective: 1300px;
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -22,26 +24,54 @@ const Laptop = styled.div`
   } */
 `
 
+const SCREEN_COLOR_BORDER = '2px'
+const BORDER_RADIUS = '15px'
+
+const SCREEN_DEPTH = '2px'
+const CHASSIS_DEPTH = '4px'
+
 const Screen = styled.div`
+  transform: rotateX(0deg) translateZ(-${SCREEN_DEPTH});
+  transform-origin: 0 100%;
+  transform-style: preserve-3d;
+  background: white;
+  padding: ${SCREEN_COLOR_BORDER};
+  border-radius: ${BORDER_RADIUS};
+
+  width: 100%;
+  height: 100%;
+
+  background: grey;
+`
+
+const ScreenFace = styled.div`
   ${animatedGradientBox({
     colors: colourful,
-    borderWidth: '3px',
+    borderWidth: SCREEN_COLOR_BORDER,
     blur: '70px',
   })};
 
-  border-radius: 15px;
-  padding: 1.5%;
   width: 100%;
   height: 100%;
+  transform: translateZ(${SCREEN_DEPTH});
+  border-radius: inherit;
+`
+
+const ScreenBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+  border-radius: inherit;
+  background: black;
 `
 
 const Chassis = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: ${BORDER_RADIUS};
   transform-style: preserve-3d;
   transform-origin: 0 0;
-  transform: rotateX(90deg);
+  transform: rotateX(90deg) translateZ(-${CHASSIS_DEPTH});
 
   background: grey;
 `
@@ -68,8 +98,8 @@ const ChassisFace = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 15px;
-  transform: translateZ(4px);
+  border-radius: inherit;
+  transform: translateZ(${CHASSIS_DEPTH});
   transform-style: preserve-3d;
 `
 
@@ -130,18 +160,66 @@ const KeyRow = styled.div`
   flex-grow: 1;
 `
 
-const Key = styled.div`
-  min-width: 6.5%;
+const item = ({ size = 1 }) => css`
+  min-width: ${6.5 * size}%;
+  flex-grow: 1;
   margin: 0.3%;
-  flex-grow: ${({ size = 1 }) => size};
+`
+
+const key = ({ text, align = 'center' }) => css`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.5% 0.8%;
+  justify-content: ${align};
   background: linear-gradient(#383840, #1b1b23);
   box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.7);
   border-radius: 10%;
-  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Gilroy;
+
+  ${text
+    ? css`
+        font-size: 60%;
+        align-items: flex-end;
+      `
+    : null}
 
   &:hover {
-    background: red;
+    color: rgba(255, 255, 255, 1);
   }
+`
+
+const StyledKey = styled.div`
+  ${item}
+  ${key}
+`
+
+const KeyName = styled.span``
+
+const Key = ({ name, ...rest }) => {
+  return (
+    <StyledKey {...rest}>
+      <KeyName>{name}</KeyName>
+    </StyledKey>
+  )
+}
+
+const ArrowKeys = styled.div`
+  ${item}
+
+  display: flex;
+  flex-direction: column;
+
+  ${StyledKey} {
+    &:last-child {
+      margin-top: 5%;
+    }
+  }
+`
+
+const ArrowKey = styled(Key)`
+  font-size: 70%;
 `
 
 export default () => {
@@ -152,13 +230,17 @@ export default () => {
       <Section>
         <Laptop>
           <Screen>
-            <img
-              src="https://via.placeholder.com/1920x1080"
-              css={css`
-                width: 100%;
-                height: 100%;
-              `}
-            />
+            <ScreenFace>
+              <ScreenBackground>
+                <img
+                  src="https://via.placeholder.com/1920x1080"
+                  css={css`
+                    width: 100%;
+                    height: 100%;
+                  `}
+                />
+              </ScreenBackground>
+            </ScreenFace>
           </Screen>
           <Chassis>
             <ChassisFace>
@@ -166,77 +248,80 @@ export default () => {
                 <Speaker />
                 <Keyboard>
                   <KeyRow>
-                    <Key>`</Key>
-                    <Key>1</Key>
-                    <Key>2</Key>
-                    <Key>3</Key>
-                    <Key>4</Key>
-                    <Key>5</Key>
-                    <Key>6</Key>
-                    <Key>7</Key>
-                    <Key>8</Key>
-                    <Key>9</Key>
-                    <Key>0</Key>
-                    <Key>-</Key>
-                    <Key>+</Key>
-                    <Key>delete</Key>
+                    <Key name="`" />
+                    <Key name="1" />
+                    <Key name="2" />
+                    <Key name="3" />
+                    <Key name="4" />
+                    <Key name="5" />
+                    <Key name="6" />
+                    <Key name="7" />
+                    <Key name="8" />
+                    <Key name="9" />
+                    <Key name="0" />
+                    <Key name="-" />
+                    <Key name="+" />
+                    <Key size={1.1} text align="flex-end" name="delete" />
                   </KeyRow>
                   <KeyRow>
-                    <Key>tab</Key>
-                    <Key>Q</Key>
-                    <Key>W</Key>
-                    <Key>E</Key>
-                    <Key>R</Key>
-                    <Key>T</Key>
-                    <Key>Y</Key>
-                    <Key>U</Key>
-                    <Key>I</Key>
-                    <Key>O</Key>
-                    <Key>P</Key>
-                    <Key>[</Key>
-                    <Key>]</Key>
-                    <Key>\</Key>
+                    <Key size={1.1} text align="flex-start" name="tab" />
+                    <Key name="Q" />
+                    <Key name="W" />
+                    <Key name="E" />
+                    <Key name="R" />
+                    <Key name="T" />
+                    <Key name="Y" />
+                    <Key name="U" />
+                    <Key name="I" />
+                    <Key name="O" />
+                    <Key name="P" />
+                    <Key name="[" />
+                    <Key name="]" />
+                    <Key name="\" />
                   </KeyRow>
                   <KeyRow>
-                    <Key>caps lock</Key>
-                    <Key>A</Key>
-                    <Key>S</Key>
-                    <Key>D</Key>
-                    <Key>F</Key>
-                    <Key>G</Key>
-                    <Key>H</Key>
-                    <Key>J</Key>
-                    <Key>K</Key>
-                    <Key>L</Key>
-                    <Key>;</Key>
-                    <Key>'</Key>
-                    <Key>return</Key>
+                    <Key size={1.6} text align="flex-start" name="caps lock" />
+                    <Key name="A" />
+                    <Key name="S" />
+                    <Key name="D" />
+                    <Key name="F" />
+                    <Key name="G" />
+                    <Key name="H" />
+                    <Key name="J" />
+                    <Key name="K" />
+                    <Key name="L" />
+                    <Key name=";" />
+                    <Key name="'" />
+                    <Key size={1.6} text align="flex-end" name="return" />
                   </KeyRow>
                   <KeyRow>
-                    <Key>shift</Key>
-                    <Key>Z</Key>
-                    <Key>X</Key>
-                    <Key>C</Key>
-                    <Key>V</Key>
-                    <Key>B</Key>
-                    <Key>N</Key>
-                    <Key>M</Key>
-                    <Key>,</Key>
-                    <Key>.</Key>
-                    <Key>/</Key>
-                    <Key>shift</Key>
+                    <Key size={2.15} text align="flex-start" name="shift" />
+                    <Key name="Z" />
+                    <Key name="X" />
+                    <Key name="C" />
+                    <Key name="V" />
+                    <Key name="B" />
+                    <Key name="N" />
+                    <Key name="M" />
+                    <Key name="," />
+                    <Key name="." />
+                    <Key name="/" />
+                    <Key size={2.15} text align="flex-end" name="shift" />
                   </KeyRow>
                   <KeyRow>
-                    <Key>fn</Key>
-                    <Key>control</Key>
-                    <Key>option</Key>
-                    <Key>command</Key>
-                    <Key>SPACE</Key>
-                    <Key>command</Key>
-                    <Key>option</Key>
-                    <Key>LEFT</Key>
-                    <Key>UPDOWN</Key>
-                    <Key>RIGHT</Key>
+                    <Key text align="flex-start" name="fn" />
+                    <Key text name="control" />
+                    <Key text name="option" />
+                    <Key size={1.2} text name="command" />
+                    <Key size={5} />
+                    <Key size={1.2} text name="command" />
+                    <Key text name="option" />
+                    <ArrowKey name="◄" />
+                    <ArrowKeys>
+                      <ArrowKey name="▲" />
+                      <ArrowKey name="▼" />
+                    </ArrowKeys>
+                    <ArrowKey name="►" />
                   </KeyRow>
                 </Keyboard>
                 <Speaker />
