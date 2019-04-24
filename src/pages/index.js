@@ -9,8 +9,10 @@ const Laptop = styled.div`
   width: 500px;
   height: 281px;
   transform: rotateX(-6deg) rotateY(-19deg) rotateZ(-4deg);
+  transform: rotateX(-11deg) rotateY(-13deg) rotateZ(0deg);
   transform: rotateX(-87deg) rotateY(-19deg) rotateZ(-4deg);
   perspective: 1300px;
+  perspective: 1000px;
   transform-style: preserve-3d;
   /* transform: perspective(400px) rotateY(-11deg); */
 
@@ -45,8 +47,20 @@ const Chassis = styled.div`
 `
 
 const ChassisFace = styled.div`
+  &::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.6;
+    background: url(${require('../assets/images/assault.png')});
+  }
+
   ${animatedGradient({
-    colors: ['#b7b7c0', '#A3A5A9', '#808184'],
+    colors: ['#6e6e76', '#8e8e92', '#6e6e76'],
   })};
   display: flex;
   flex-direction: column;
@@ -67,10 +81,10 @@ const UpperChassis = styled.div`
 `
 
 const Speaker = styled.div`
-  background-image: linear-gradient(45deg, #666 25%, transparent 25%),
-    linear-gradient(-45deg, #666 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #666 75%),
-    linear-gradient(-45deg, transparent 75%, #666 75%);
+  background-image: linear-gradient(45deg, #323131 25%, transparent 25%),
+    linear-gradient(-45deg, #323131 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #323131 75%),
+    linear-gradient(-45deg, transparent 75%, #323131 75%);
   background-size: 2px 2px;
   background-position: 0 0, 1px 0, 1px -1px, 0px 1px;
   width: 11%;
@@ -88,14 +102,12 @@ const Keyboard = styled.div`
 `
 
 const TrackPad = styled.div`
-  ${animatedGradient({
-    colors: ['rgba(255, 255, 255, 0.1)', 'rgb(255, 255, 255, 0)'],
-  })};
-
   margin-top: auto;
   height: 38%;
   width: 47%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  background: url(${require('../assets/images/light-aluminum.png')});
+  opacity: 0.2;
   border-radius: 4%;
 `
 
@@ -123,6 +135,7 @@ const Key = styled.div`
   margin: 0.3%;
   flex-grow: ${({ size = 1 }) => size};
   background: linear-gradient(#383840, #1b1b23);
+  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.7);
   border-radius: 10%;
   font-size: 10px;
 
