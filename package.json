@@ -43,6 +43,7 @@
     "react-pose": "^4.0.8",
     "react-scroll-parallax": "^2.1.2",
     "react-select": "^2.4.2",
+    "react-typist": "^2.0.5",
     "react-use": "^8.1.2",
     "recompose": "^0.30.0"
   },

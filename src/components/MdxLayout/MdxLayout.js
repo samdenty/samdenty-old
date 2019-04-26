@@ -37,8 +37,6 @@ const Period = styled.h3`
 `
 
 export const MdxLayout = ({ data }) => {
-  // usePauseBackgroundEffect()
-
   const {
     excerpt,
     start_date,
