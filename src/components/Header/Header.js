@@ -21,7 +21,7 @@ const StyledHeader = styled.header`
 
       &::after,
       &::before {
-        opacity: ${({ showBackground }) => (showBackground ? 0.6 : 0)};
+        opacity: ${({ showBackground }) => (showBackground ? 0.8 : 0)};
       }
     }
   }

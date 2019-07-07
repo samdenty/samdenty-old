@@ -15,13 +15,16 @@ const StyledLaptop = styled.div`
   height: 281px;
   font-size: 10px;
   perspective: 1000px;
-  transform-style: preserve-3d;
+
+  *,
+  & {
+    transform-style: preserve-3d;
+  }
 `
 
 const Screen = styled.div`
   transform: rotateX(var(--degrees)) translateZ(-${SCREEN_DEPTH});
   transform-origin: 0 100%;
-  transform-style: preserve-3d;
   padding: ${SCREEN_COLOR_BORDER};
   border-radius: ${BORDER_RADIUS};
   box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.2);
@@ -60,7 +63,6 @@ const Chassis = styled.div`
   height: 100%;
   border-radius: ${BORDER_RADIUS};
   box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.2);
-  transform-style: preserve-3d;
   transform-origin: 0 0;
   transform: rotateX(90deg) translateZ(-${CHASSIS_DEPTH});
 
@@ -90,7 +92,6 @@ const ChassisFace = styled.div`
   height: 100%;
   border-radius: inherit;
   transform: translateZ(${CHASSIS_DEPTH});
-  transform-style: preserve-3d;
 `
 
 const UpperChassis = styled.div`

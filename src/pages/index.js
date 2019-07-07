@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Typist from 'react-typist'
 import styled from '@emotion/styled'
 import {
@@ -8,47 +8,79 @@ import {
   Spotify,
   KeyboardProvider,
   useKeyboard,
+  Workstation,
 } from '../components'
+import { useSpring, animated } from 'react-spring'
 
 const Section = styled.section`
   display: flex;
   justify-content: center;
 `
 
+const AnimatedLaptop = animated(InteractiveLaptop)
+
 export default () => {
-  const [value, setValue] = React.useState(0)
   const keyboard = useKeyboard()
 
   return (
-    <Layout>
-      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <KeyboardProvider keyboard={keyboard}>
+      <Layout>
+        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
 
-      <input
+        {/*<input
         type="range"
         min="-90"
         max="90"
         value={value}
         onChange={e => setValue(+e.target.value)}
-      />
-      <Section>
-        <KeyboardProvider keyboard={keyboard}>
-          <InteractiveLaptop screenDegrees={value} x={-13} y={-11} z={0}>
-            <Typist
-              onCharacterTyped={char => {
-                const keyName = char === '🔙' ? 'delete' : char
-
-                keyboard.pressKey(keyName)
-              }}
+      />*/}
+        <Section>
+          <animated.div
+            style={useSpring({
+              from: {
+                opacity: 0.3,
+                transform: 'translate(100vw, -15vh)',
+              },
+              to: {
+                opacity: 1,
+                transform: 'translate(0, 0)',
+              },
+              config: { mass: 1, tension: 40, friction: 9 },
+            })}
+          >
+            <AnimatedLaptop
+              x={-13}
+              y={-11}
+              z={0}
+              {...useSpring({
+                from: {
+                  screenDegrees: -90,
+                },
+                to: {
+                  screenDegrees: 0,
+                },
+                config: { mass: 1, tension: 150, friction: 80 },
+                delay: 200,
+              })}
             >
-              <span> First Sentence </span>
-              <Typist.Backspace count={8} delay={200} />
-              <span> Phrase </span>
-            </Typist>
-          </InteractiveLaptop>
-        </KeyboardProvider>
-      </Section>
+              <Workstation />
+              {/*<Typist
+                onCharacterTyped={char => {
+                  const keyName = char === '🔙' ? 'delete' : char
 
-      {/**<Spotify />*/}
-    </Layout>
+                  keyboard.pressKey(keyName)
+                }}
+              >
+                <span> First Sentence </span>
+                <Typist.Backspace count={8} delay={200} />
+                <span> Phrase </span>
+              </Typist>*/}
+            </AnimatedLaptop>
+          </animated.div>
+        </Section>
+
+        {/**<Spotify />*/}
+      </Layout>
+    </KeyboardProvider>
   )
 }

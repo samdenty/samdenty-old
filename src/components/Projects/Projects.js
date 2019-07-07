@@ -38,7 +38,7 @@ export const Projects = () => {
           getOptionValue={o => o.id}
           placeholder="Language"
           value={visibleLanguages}
-          onChange={languages => setVisibleLanguages(languages)}
+          onChange={languages => setVisibleLanguages(languages || [])}
           options={languages}
         />
         <Select
@@ -46,7 +46,7 @@ export const Projects = () => {
           placeholder="Type"
           getOptionValue={o => o.id}
           value={visibleTags}
-          onChange={tags => setVisibleTags(tags)}
+          onChange={tags => setVisibleTags(tags || [])}
           options={tags}
         />
       </ProjectsFilter>

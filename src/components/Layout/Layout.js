@@ -45,6 +45,7 @@ const StyledLayout = styled.div`
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
   color: #fff;
 `
 

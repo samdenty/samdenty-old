@@ -14,6 +14,14 @@ module.exports = {
     `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /Icon/,
+        },
+      },
+    },
+    {
       resolve: `gatsby-mdx`,
       options: {
         gatsbyRemarkPlugins: [
@@ -42,7 +50,6 @@ module.exports = {
               withWebp: true,
               linkImagesToOriginal: false,
               backgroundColor: '#0A0018',
-              sizeByPixelDensity: true,
             },
           },
           {
@@ -58,6 +65,13 @@ module.exports = {
       options: {
         name: 'projects',
         path: `${__dirname}/src/projects/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'components',
+        path: `${__dirname}/src/components/`,
       },
     },
     {

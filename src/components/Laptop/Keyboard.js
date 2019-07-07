@@ -56,7 +56,9 @@ const StyledKey = styled.div`
   }
 `
 
-const KeyName = styled.span``
+const KeyName = styled.span`
+  user-select: none;
+`
 
 const Key = ({ name, ...rest }) => {
   const keyboardContext = React.useContext(KeyboardContext)
