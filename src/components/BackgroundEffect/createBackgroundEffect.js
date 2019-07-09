@@ -131,10 +131,12 @@ export const createBackgroundEffect = canvas => {
   calculate()
 
   let currentFrame = null
+  let pauseAdjustment = 0
   const draw = (again = false) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    var time = new Date().getTime()
+    var time = Date.now() - pauseAdjustment
+
     for (var e in elements) elements[e].draw(ctx, time)
 
     if (again) currentFrame = requestAnimationFrame(() => draw(again))
@@ -146,14 +148,22 @@ export const createBackgroundEffect = canvas => {
     resizeTimer = setTimeout(() => calculate(), 250)
   }
   const start = () => {
+    if (stopTime) {
+      pauseAdjustment += Date.now() - stopTime
+      stopTime = null
+    }
+
     window.addEventListener('resize', callback)
     draw(true)
   }
 
+  let stopTime = null
   const stop = () => {
     cancelAnimationFrame(currentFrame)
     clearTimeout(resizeTimer)
     window.removeEventListener('resize', callback)
+
+    if (!stopTime) stopTime = Date.now()
   }
 
   return {

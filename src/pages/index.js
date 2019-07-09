@@ -11,6 +11,7 @@ import {
   Workstation,
 } from '../components'
 import { useSpring, animated } from 'react-spring'
+import { usePauseBackgroundEffect } from '../hooks'
 
 const Section = styled.section`
   display: flex;
@@ -20,7 +21,15 @@ const Section = styled.section`
 const AnimatedLaptop = animated(InteractiveLaptop)
 
 export default () => {
+  const [paused, setPaused] = useState(true)
   const keyboard = useKeyboard()
+
+  // Pause background to increase laptop animation performance
+  usePauseBackgroundEffect(paused)
+  useEffect(() => {
+    const timer = setTimeout(() => setPaused(false), 4500)
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <KeyboardProvider keyboard={keyboard}>
