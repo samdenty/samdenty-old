@@ -17,7 +17,7 @@ const StyledOSX = styled.div`
   width: 100%;
 `
 
-export const OSX = ({ boot = 1300, children }) => {
+export const OSX = ({ boot = 800, children }) => {
   const appContext = useMemo(() => observable.map(), [])
   const [booting, setBooting] = useState(boot ? true : false)
 

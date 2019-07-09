@@ -149,6 +149,9 @@ const Lower = React.memo(() => {
 
 export const Laptop = React.forwardRef(
   ({ children, screenDegrees = 0, ...props }, ref) => {
+    // Simplify degrees
+    screenDegrees = screenDegrees % 360
+
     return (
       <StyledLaptop ref={ref} {...props}>
         <Screen style={{ '--degrees': `${screenDegrees}deg` }}>
@@ -160,7 +163,10 @@ export const Laptop = React.forwardRef(
                   : 1,
             }}
           >
-            <ScreenBackground>{children}</ScreenBackground>
+            <ScreenBackground>
+              {/* Don't render screen if laptop is closed */}
+              {screenDegrees !== -90 && children}
+            </ScreenBackground>
           </ScreenFace>
         </Screen>
         <Lower />
