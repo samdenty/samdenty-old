@@ -59,23 +59,24 @@ const Indicator = styled.div`
 export const DockBar = observer(() => {
   const apps = useApps()
 
-  console.log(apps)
-
   return (
     <StyledDockBar>
       {Array.from(apps.entries()).map(([id, app]) => (
         <Item
+          ref={app.iconRef}
           key={id}
           onClick={() => {
             if (app.open) {
-              app.visible = true
+              if (app.visible && !app.focused) {
+                app.focused = true
+                return
+              }
+
+              app.visible = !app.visible
               return
             }
 
-            transaction(() => {
-              app.open = true
-              app.visible = true
-            })
+            app.open = true
           }}
         >
           <Icon>{app.icon}</Icon>

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { useEffect, useContext } from 'react'
-import { observable } from 'mobx'
+import { useEffect, useContext, useRef } from 'react'
+import { observable, autorun } from 'mobx'
 
 export const AppContext = React.createContext(null)
 
@@ -11,9 +11,11 @@ export const App = ({
   children,
   title,
   open = false,
+  zoomed = false,
   visible = open ? true : false,
   id = title,
 }) => {
+  const iconRef = useRef()
   const apps = useApps()
 
   const sync = obj => {
@@ -21,23 +23,77 @@ export const App = ({
       const value = obj[key]
 
       useEffect(() => {
-        const exists = apps.has(id)
-        const app = exists
-          ? apps.get(id)
-          : observable.object({}, undefined, { deep: false })
+        let app = apps.get(id)
+
+        if (!app) {
+          app = observable.object(
+            {
+              iconRef,
+              zIndex: null,
+              get focused() {
+                if (!this.zIndex) return false
+
+                return this.zIndex === apps.size
+              },
+
+              set focused(focused) {
+                if (this.focused === focused) return
+
+                this.zIndex = focused ? apps.size : 1
+
+                for (const app of apps.values()) {
+                  if (this === app) continue
+                  if (!app.zIndex) continue
+
+                  if (!focused) {
+                    app.zIndex++
+                    continue
+                  }
+
+                  if (app.zIndex > 1) {
+                    app.zIndex--
+                  }
+                }
+              },
+            },
+            undefined,
+            { deep: false }
+          )
+        }
 
         app[key] = value
 
-        if (!exists) apps.set(id, app)
+        if (!apps.has(id)) apps.set(id, app)
       }, [value])
     }
 
     useEffect(() => {
-      return () => apps.delete(id)
+      const app = apps.get(id)
+
+      let visibleTimer
+      const disposers = [
+        autorun(() => {
+          app.focused = app.visible
+        }),
+        autorun(() => {
+          clearTimeout(visibleTimer)
+
+          if (app.open) {
+            visibleTimer = setTimeout(() => (app.visible = true))
+          } else {
+            app.visible = false
+          }
+        }),
+      ]
+
+      return () => {
+        apps.delete(id)
+        disposers.forEach(dispose => dispose())
+      }
     }, [id])
   }
 
-  sync({ icon, children, title, open, visible })
+  sync({ icon, children, title, open, visible, id, zoomed })
 
   return null
 }

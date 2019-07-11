@@ -19,8 +19,10 @@ export const Desktop = React.forwardRef(({ children }, ref) => {
   return (
     <StyledDesktop ref={ref}>
       <MenuBar />
-      <Content />
-      <WindowManager />
+      <Content>
+        <WindowManager />
+      </Content>
+
       <DockBar />
       {children}
     </StyledDesktop>

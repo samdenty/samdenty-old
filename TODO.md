@@ -7,7 +7,7 @@ What should go inside the computer?
 - Code editor
 - Terminal
 
-# Code editor
+# Spec
 
 Should resemble a MacOS desktop
 
