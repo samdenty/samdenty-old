@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 import SteamIcon from './SteamIcon.svg'
-import { App } from '../../OSX'
+import { App, Title } from '../../OSX'
 
 const SCALE = 0.5
 
@@ -14,10 +14,22 @@ const SteamPortal = styled.portal`
   pointer-events: hidden;
 `
 
+const StyledApp = styled(App)`
+  background-color: #171a21;
+`
+
+const StyledSteam = styled.div`
+  display: block;
+  flex-grow: 1;
+`
+
 export const Steam = () => {
   return (
-    <App title="Steam" icon={<SteamIcon />}>
-      <SteamPortal src="https://steamcommunity.com/id/samdenty/"></SteamPortal>
-    </App>
+    <StyledApp name="Steam" icon={<SteamIcon />}>
+      <Title>steamcommunity.com/id/samdenty</Title>
+      <StyledSteam>
+        <SteamPortal src="https://steamcommunity.com/id/samdenty/"></SteamPortal>
+      </StyledSteam>
+    </StyledApp>
   )
 }

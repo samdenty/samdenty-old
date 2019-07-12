@@ -3,7 +3,9 @@ import styled from '@emotion/styled'
 import { Rnd } from 'react-rnd'
 import { useTransition, animated, useSpring } from 'react-spring'
 import { useState, useRef } from 'react'
+import toPX from 'to-px'
 import { observer } from 'mobx-react-lite'
+import { AppContext } from '../../App'
 
 const StyledWindow = styled(Rnd)`
   display: flex !important;
@@ -11,37 +13,15 @@ const StyledWindow = styled(Rnd)`
   flex-direction: column;
   overflow: hidden;
   background-color: #313234;
-  border-radius: 0.4em;
-  border: 1px solid #575760;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-`
+  border-radius: ${({ zoomed }) => (zoomed ? null : '0.4em')};
+  padding: 1px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22)
+    ${({ zoomed }) =>
+      zoomed
+        ? null
+        : `, 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)`};
 
-const Content = styled('div')`
-  flex-grow: 1;
-`
-
-const Title = styled('div')`
-  display: flex;
-`
-
-const Buttons = styled('div')`
-  display: flex;
-  padding: 0.313em;
-`
-
-const Button = styled('div')`
-  height: 1.125em;
-  width: 1.125em;
-  margin: 0 0.313em;
-  border-radius: 100%;
-  cursor: default;
-  background-color: ${({ colored, color }) =>
-    colored ? color : 'rgba(255, 255, 255, 0.2)'};
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ color }) => color};
-  }
+  transition: box-shadow 0.4s ease, border-radius 0.4s ease;
 `
 
 const AnimatedWindow = animated(
@@ -75,17 +55,7 @@ const useBounds = initialBounds => {
 }
 
 export const Window = observer(
-  ({
-    app,
-    children,
-    onClose,
-    onFocus,
-    onMinimize,
-    windowManagerRef,
-    onZoom,
-    maxHeight,
-    maxWidth,
-  }) => {
+  ({ app, windowManagerRef, maxHeight, maxWidth }) => {
     const { bounds, setBounds, stopAnimationRef } = useBounds({
       width: 400,
       height: 300,
@@ -120,43 +90,39 @@ export const Window = observer(
 
     stopAnimationRef.current = false
 
+    const { children, style, ...props } = app.props
+
     return (
       <AnimatedWindow
+        {...props}
         style={{
           ...useSpring({
             opacity: app.visible ? 1 : 0,
           }),
           zIndex: app.zIndex,
+          ...style,
         }}
         cancel="[data-nodrag]"
         width={animatedBounds.width}
         height={animatedBounds.height}
         x={animatedBounds.x}
         y={animatedBounds.y}
+        minWidth={toPX('13em', windowManagerRef.current)}
+        minHeight={toPX('10em', windowManagerRef.current)}
         maxWidth={maxWidth}
         maxHeight={maxHeight}
         enableResizing={!app.zoomed}
         enableDragging={!app.zoomed}
+        zoomed={+app.zoomed}
         onDragStop={(_, { x, y }) => {
           setBounds({ x, y }, true)
         }}
         onResize={(_, __, ref) => {
           setBounds({ width: ref.offsetWidth, height: ref.offsetHeight }, true)
         }}
-        onMouseDown={onFocus}
+        onMouseDown={() => (app.focused = true)}
       >
-        <Title>
-          <Buttons data-nodrag>
-            <Button onClick={onClose} color="#fe4a50" colored={app.focused} />
-            <Button
-              onClick={onMinimize}
-              color="#f9c32f"
-              colored={app.focused}
-            />
-            <Button onClick={onZoom} color="#00ca56" colored={app.focused} />
-          </Buttons>
-        </Title>
-        <Content data-nodrag>{children}</Content>
+        <AppContext.Provider value={app}>{children}</AppContext.Provider>
       </AnimatedWindow>
     )
   }

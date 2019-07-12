@@ -35,3 +35,7 @@ dialog {
   padding: 0;
   border: 0;
 }
+
+.react-contextmenu-wrapper {
+  display: contents;
+}

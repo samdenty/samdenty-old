@@ -1,5 +1,5 @@
 import * as React from 'react'
-import AppleIcon from './AppleIcon.svg'
+import AppleIcon from '../AppleIcon.svg'
 import styled from '@emotion/styled'
 import { useSpring } from 'react-spring'
 import { Progress } from './Progress'

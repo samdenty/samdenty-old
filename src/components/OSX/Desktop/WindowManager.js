@@ -15,7 +15,7 @@ const StyledWindowManager = styled.div`
 `
 
 export const WindowManager = observer(() => {
-  const apps = useApps()
+  const { apps } = useApps()
   const windowManagerRef = useRef(null)
   const { width, height } = useResizeObserver(windowManagerRef)
 
@@ -27,18 +27,10 @@ export const WindowManager = observer(() => {
         <Window
           key={app.id}
           app={app}
-          onClose={() => {
-            app.open = false
-          }}
-          onMinimize={() => (app.visible = false)}
-          onZoom={() => (app.zoomed = !app.zoomed)}
-          onFocus={() => (app.focused = true)}
           maxWidth={width}
           maxHeight={height}
           windowManagerRef={windowManagerRef}
-        >
-          {app.children}
-        </Window>
+        />
       ))}
     </StyledWindowManager>
   )

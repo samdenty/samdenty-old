@@ -2,21 +2,25 @@ import * as React from 'react'
 import { useEffect, useContext, useRef } from 'react'
 import { observable, autorun } from 'mobx'
 
+export const AppsContext = React.createContext(null)
+
 export const AppContext = React.createContext(null)
 
-export const useApps = () => useContext(AppContext)
+export const useApps = () => useContext(AppsContext)
+export const useApp = () => useContext(AppContext)
 
 export const App = ({
   icon,
-  children,
-  title,
+  menu,
+  name,
   open = false,
   zoomed = false,
   visible = open ? true : false,
-  id = title,
+  id = name,
+  ...props
 }) => {
   const iconRef = useRef()
-  const apps = useApps()
+  const { apps } = useApps()
 
   const sync = obj => {
     for (const key of Object.keys(obj)) {
@@ -93,7 +97,7 @@ export const App = ({
     }, [id])
   }
 
-  sync({ icon, children, title, open, visible, id, zoomed })
+  sync({ icon, name, open, visible, id, zoomed, menu, props })
 
   return null
 }

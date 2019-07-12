@@ -57,7 +57,7 @@ const Indicator = styled.div`
 `
 
 export const DockBar = observer(() => {
-  const apps = useApps()
+  const { apps } = useApps()
 
   return (
     <StyledDockBar>

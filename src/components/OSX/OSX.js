@@ -4,7 +4,7 @@ import { BootScreen } from './BootScreen/BootScreen'
 import { useTransition, animated } from 'react-spring'
 import styled from '@emotion/styled'
 import { Desktop } from './Desktop'
-import { App, AppContext } from './App'
+import { App, AppsContext } from './App'
 import { observable } from 'mobx'
 
 const AnimatedDesktop = animated(Desktop)
@@ -15,10 +15,46 @@ const StyledOSX = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+
+  font-family: 'SF Pro Text', 'Myriad Set Pro', 'SF Pro Icons', 'Helvetica Neue',
+    'Helvetica', 'Arial', sans-serif;
+
+  @font-face {
+    font-family: 'SF Pro Text';
+    font-weight: 300;
+    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_light.woff2');
+  }
+
+  @font-face {
+    font-family: 'SF Pro Text';
+    font-weight: 400;
+    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_regular.woff2');
+  }
+
+  @font-face {
+    font-family: 'SF Pro Text';
+    font-weight: 600;
+    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_semibold.woff2');
+  }
+
+  @font-face {
+    font-family: 'SF Pro Text';
+    font-weight: 700;
+    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_bold.woff2');
+  }
 `
 
 export const OSX = ({ boot = 800, children }) => {
-  const appContext = useMemo(() => observable.map(), [])
+  const appContext = useMemo(
+    () =>
+      observable.object({
+        apps: observable.map(),
+        get focusedApp() {
+          return Array.from(this.apps.values()).find(app => app.focused)
+        },
+      }),
+    []
+  )
   const [booting, setBooting] = useState(boot ? true : false)
 
   const transitions = useTransition(booting, null, {
@@ -38,7 +74,7 @@ export const OSX = ({ boot = 800, children }) => {
   }, [boot])
 
   return (
-    <AppContext.Provider value={appContext}>
+    <AppsContext.Provider value={appContext}>
       <StyledOSX>
         {transitions.map(({ item, key, props }) =>
           item ? (
@@ -50,6 +86,6 @@ export const OSX = ({ boot = 800, children }) => {
           )
         )}
       </StyledOSX>
-    </AppContext.Provider>
+    </AppsContext.Provider>
   )
 }
