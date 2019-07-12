@@ -99,7 +99,7 @@ export const Window = observer(
           ...useSpring({
             opacity: app.visible ? 1 : 0,
           }),
-          zIndex: app.zIndex,
+          zIndex: app.visible ? app.zIndex : 9999,
           ...style,
         }}
         cancel="[data-nodrag]"
