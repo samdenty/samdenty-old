@@ -3,11 +3,11 @@ import styled from '@emotion/styled'
 import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 import { Link } from 'gatsby'
-import posed from 'react-pose'
 import { GitHub } from './GitHub'
 import { TimeRange } from '../../TimeRange'
+import { motion } from 'framer-motion'
 
-const StyledProject = styled.article`
+const StyledProject = styled(motion.article)`
   ${({ gradient }) =>
     animatedGradientBox({
       colors: gradient ? gradient : undefined,
@@ -109,7 +109,19 @@ export const Project = ({
   children,
 }) => {
   return (
-    <StyledProject gradient={gradient}>
+    <StyledProject
+      gradient={gradient}
+      variants={{
+        hidden: {
+          opacity: 0,
+          scale: 0,
+        },
+        visible: {
+          opacity: 1,
+          scale: 1,
+        },
+      }}
+    >
       <SlugLink to={slug}>
         <Headline>
           {logo && <Logo src={logo} />}

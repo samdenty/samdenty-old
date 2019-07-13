@@ -1,43 +1,34 @@
 import * as React from 'react'
-import { useState, useEffect, useRef } from 'react'
 import { Laptop } from './Laptop'
+import { animated, useSpring } from 'react-spring'
+
+const AnimatedLaptop = animated(Laptop)
 
 export const InteractiveLaptop = ({ x, y, z, ...props }) => {
-  const laptopRef = useRef()
-  const [currentX, setCurrentX] = useState(x)
-  const [currentY, setCurrentY] = useState(y)
-
-  useEffect(() => {
-    const callback = ({ clientX, clientY }) => {
-      const rect = laptopRef.current.getBoundingClientRect()
-
-      const centerX = rect.x + rect.width / 2
-      const centerY = rect.y + rect.height / 2
-
-      const percentX =
-        clientX < centerX
-          ? -((centerX - clientX) / centerX)
-          : (clientX - centerX) / (window.innerWidth - centerX)
-
-      const percentY =
-        clientY > centerY
-          ? -((clientY - centerY) / (window.innerHeight - centerY))
-          : (centerY - clientY) / centerY
-
-      setCurrentX(x + percentX * 2)
-      setCurrentY(y + percentY * 1)
-    }
-    window.addEventListener('mousemove', callback)
-    return () => window.removeEventListener('mousemove', callback)
-  }, [x, y])
+  const [{ xys }, set] = useSpring(() => ({
+    xys: [x, y, 1],
+    config: { mass: 4, tension: 350, friction: 40 },
+  }))
 
   return (
-    <Laptop
-      ref={laptopRef}
+    <AnimatedLaptop
+      onMouseMove={({ clientX: x, clientY: y }) =>
+        set({
+          xys: [
+            -(y - window.innerHeight / 2) / 30 - 10,
+            (x - window.innerWidth / 2) / 80,
+            1.1,
+          ],
+        })
+      }
+      onMouseLeave={() => set({ xys: [x, y, 1] })}
       style={{
         willChange: 'transform',
-        transform: `rotateX(${currentY}deg) rotateY(${currentX}deg)
-    rotateZ(${z}deg)`,
+        transform: xys.interpolate(
+          (x, y, s) =>
+            `scale(${s}) rotateX(${x}deg) rotateY(${y}deg)
+        rotateZ(${z}deg)`
+        ),
       }}
       {...props}
     />

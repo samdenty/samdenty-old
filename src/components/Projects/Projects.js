@@ -4,13 +4,14 @@ import Select from 'react-select'
 import { Project } from './Project'
 import { useFilteredProjects } from './useFilteredProjects'
 import { usePauseBackgroundEffect } from '../../hooks'
+import { motion } from 'framer-motion'
 
 const ProjectsFilter = styled.div`
   margin: 70px 0;
   z-index: 2;
 `
 
-const ProjectsGrid = styled.div`
+const ProjectsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
@@ -50,15 +51,20 @@ export const Projects = () => {
           options={tags}
         />
       </ProjectsFilter>
-      <ProjectsGrid>
+      <ProjectsGrid
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: 0.04,
+            },
+          },
+        }}
+      >
         {filteredProjects.map((project, i) => (
           <Project
-            title={project.title}
-            tags={project.tags}
-            logo={project.logo}
-            slug={project.slug}
-            github={project.github}
-            featured={project.featured}
+            {...project}
             onTagClick={tag => {
               setVisibleTags(tags => {
                 const newTags = [...tags]
@@ -69,9 +75,6 @@ export const Projects = () => {
                 return newTags
               })
             }}
-            gradient={project.gradient}
-            start_date={project.start_date}
-            end_date={project.end_date}
             key={project.id}
           >
             {project.excerpt}

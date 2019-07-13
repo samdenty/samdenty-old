@@ -22,9 +22,9 @@ export const useTabs = (initialTabs = []) =>
         const tab = observable.object(
           {
             title: 'New Tab',
+            focused: false,
             ...data,
             id,
-            focused: false,
 
             close() {
               tabs.items.delete(id)

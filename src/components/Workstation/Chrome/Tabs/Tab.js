@@ -1,14 +1,34 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import CloseIcon from './CloseIcon.svg'
 import BackgroundIcon from './BackgroundIcon.svg'
 import { observer } from 'mobx-react-lite'
 
 const StyledTab = styled.div`
   position: relative;
+  user-select: none;
   display: flex;
   flex-basis: 100%;
   max-width: 13em;
+  z-index: ${({ focused }) => (focused ? 5 : null)};
+  margin-right: -1px;
+
+  &::before {
+    content: '';
+    height: 70%;
+    top: 15%;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    border-right: 1px solid #4a4d51;
+  }
+
+  &:last-child {
+    &::before {
+      border: none;
+    }
+  }
 `
 
 const Favicon = styled.div`
@@ -64,15 +84,13 @@ const Close = styled.button`
 const Background = styled(BackgroundIcon)`
   pointer-events: none;
   transition: ${({ focused }) => (focused ? null : `opacity 0.2s ease`)};
-  color: #414141;
-  opacity: ${({ focused }) => (focused ? `1 !important` : 0)};
+  color: ${({ focused }) => (focused ? '#414141' : '#383838')};
+  opacity: ${({ focused }) => (focused ? 1 : 0)};
   flex-grow: 1;
   width: 100%;
-  margin: 0 -0.56em;
+  margin: 0 -11px;
 
-  ${StyledTab}:hover & {
-    opacity: 0.6;
-  }
+  ${({ focused }) => (focused ? null : `${StyledTab}:hover & { opacity: 1 }`)}
 `
 
 const Content = styled.div`
@@ -87,7 +105,11 @@ const Content = styled.div`
 
 export const Tab = observer(({ tab }) => {
   return (
-    <StyledTab onMouseDown={tab.focus}>
+    <StyledTab
+      onMouseDown={tab.focus}
+      onClick={tab.focus}
+      focused={+tab.focused}
+    >
       <Background focused={+tab.focused} />
       <Content>
         <Favicon>{tab.favicon}</Favicon>

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 import { animatedGradientBox, colourful, animatedGradient } from '../../utils'
+import AppleIcon from '../OSX/AppleIcon.svg'
 
 import { Keyboard } from './Keyboard'
 
@@ -14,7 +15,7 @@ const StyledLaptop = styled.div`
   width: 500px;
   height: 281px;
   font-size: 10px;
-  perspective: 1000px;
+  perspective: 1100px;
 
   *,
   & {
@@ -22,15 +23,46 @@ const StyledLaptop = styled.div`
   }
 `
 
-const Screen = styled.div`
+const Aluminum = styled.div`
+  background: #8e8e92;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.34) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  box-shadow: inset 0 3px 27px rgba(0, 0, 0, 0.2);
+
+  &::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.6;
+    background: url(${require('../../assets/images/assault.png')});
+  }
+`
+
+const Screen = styled(Aluminum)`
   transform: rotateX(var(--degrees)) translateZ(-${SCREEN_DEPTH});
   transform-origin: 0 100%;
   padding: ${SCREEN_COLOR_BORDER};
   border-radius: ${BORDER_RADIUS};
-  box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.2);
   width: 100%;
   height: 100%;
-  background: grey;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 188%;
+    width: 150%;
+    top: -44%;
+    left: -25%;
+    border-radius: 15%;
+  }
 `
 
 const ScreenFace = styled.div`
@@ -58,32 +90,25 @@ const ScreenBackground = styled.div`
   background: black;
 `
 
-const Chassis = styled.div`
+const Chassis = styled(Aluminum)`
   width: 100%;
   height: 100%;
   border-radius: ${BORDER_RADIUS};
-  box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.2);
   transform-origin: 0 0;
   transform: rotateX(90deg) translateZ(-${CHASSIS_DEPTH});
 
-  background: grey;
+  &::after {
+    content: '';
+    position: absolute;
+    height: 188%;
+    width: 150%;
+    top: -44%;
+    left: -25%;
+    border-radius: 15%;
+  }
 `
 
-const ChassisFace = styled.div`
-  &::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0.6;
-    background: url(${require('../../assets/images/assault.png')});
-  }
-
-  background-color: #8e8e92;
-  box-shadow: inset 0 3px 27px rgba(0, 0, 0, 0.2);
+const ChassisFace = styled(Aluminum)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -131,6 +156,17 @@ const Nub = styled.div`
   background: radial-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.4));
 `
 
+const AppleLogo = styled(AppleIcon)`
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleX(-1);
+  height: 23%;
+
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+`
+
 const Lower = React.memo(() => {
   return (
     <Chassis>
@@ -155,6 +191,7 @@ export const Laptop = React.forwardRef(
     return (
       <StyledLaptop ref={ref} {...props}>
         <Screen style={{ '--degrees': `${screenDegrees}deg` }}>
+          <AppleLogo />
           <ScreenFace
             style={{
               '--blurOpacity':

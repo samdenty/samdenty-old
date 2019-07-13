@@ -4,6 +4,7 @@ html {
 }
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 h1,
@@ -38,4 +39,17 @@ dialog {
 
 .react-contextmenu-wrapper {
   display: contents;
+}
+
+body.medium-zoom--opened {
+  overflow: hidden;
+}
+
+.medium-zoom-overlay {
+  background-color: rgba(11, 1, 19, 0.8) !important;
+  z-index: 1000;
+}
+
+.gatsby-resp-image-background-image {
+  display: none !important;
 }

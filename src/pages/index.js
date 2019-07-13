@@ -12,6 +12,7 @@ import {
 } from '../components'
 import { useSpring, animated } from 'react-spring'
 import { usePauseBackgroundEffect } from '../hooks'
+import { motion } from 'framer-motion'
 
 const Section = styled.section`
   display: flex;
@@ -44,22 +45,27 @@ export default () => {
         onChange={e => setValue(+e.target.value)}
       />*/}
         <Section>
-          <animated.div
-            style={useSpring({
-              from: {
-                opacity: 0.3,
-                transform: 'translate(100vw, -15vh)',
-              },
-              to: {
-                opacity: 1,
-                transform: 'translate(0, 0)',
-              },
-              config: { mass: 1, tension: 40, friction: 9 },
-            })}
+          <motion.div
+            initial={{
+              opacity: 0.3,
+              translateX: '100vw',
+              translateY: '-15vh',
+            }}
+            animate={{
+              opacity: 1,
+              translateX: 0,
+              translateY: 0,
+            }}
+            transition={{
+              type: 'spring',
+              damping: 15,
+              duration: 2,
+              delay: 0.3,
+            }}
           >
             <AnimatedLaptop
-              x={-13}
-              y={-11}
+              x={-11}
+              y={-13}
               z={0}
               {...useSpring({
                 from: {
@@ -69,7 +75,7 @@ export default () => {
                   screenDegrees: 0,
                 },
                 config: { mass: 1, tension: 150, friction: 80 },
-                delay: 200,
+                delay: 700,
               })}
             >
               <Workstation />
@@ -85,7 +91,7 @@ export default () => {
                 <span> Phrase </span>
               </Typist>*/}
             </AnimatedLaptop>
-          </animated.div>
+          </motion.div>
         </Section>
 
         {/**<Spotify />*/}
