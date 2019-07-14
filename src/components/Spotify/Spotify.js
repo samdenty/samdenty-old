@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { usePlayer } from './usePlayer'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { css } from '@emotion/core'
-import { ProgressBar } from './ProgressBar'
+import { ProgressBar, CircleMargin } from './ProgressBar'
 import { animatedGradientBox, colourful } from '../../utils'
 import { Artists } from './Artists'
 import { Tick } from './Tick'
@@ -18,9 +19,7 @@ const StyledSpotify = styled.div`
   }
 `
 
-export const CircleMargin = '25px'
-
-const Circle = styled.div`
+const Circle = styled2.div`
   ${animatedGradientBox({
     colors: colourful,
     borderWidth: '7px',

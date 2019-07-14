@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import AppleIcon from '../../AppleIcon.svg'
 import { useApps } from '../../App'
 import { observer } from 'mobx-react-lite'

@@ -10,6 +10,7 @@ module.exports = {
     author: `@samdenty`,
   },
   plugins: [
+    `gatsby-plugin-linaria`,
     `gatsby-transformer-yaml`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,

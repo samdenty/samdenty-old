@@ -1,5 +1,5 @@
 import * as R from 'react-contextmenu'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 
 export const ContextMenu = styled(R.ContextMenu)`
   cursor: default;

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { useApp } from '../../App'
 import { observer } from 'mobx-react-lite'
 
@@ -8,7 +8,7 @@ const StyledButtons = styled.div`
   margin: 0.313em;
 `
 
-const Button = styled('div')`
+const Button = styled.div`
   height: 1.125em;
   width: 1.125em;
   margin: 0 0.313em;

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import Select from 'react-select'
 import { Project } from './Project'
 import { useFilteredProjects } from './useFilteredProjects'

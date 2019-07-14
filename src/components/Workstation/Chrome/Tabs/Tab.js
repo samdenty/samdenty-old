@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { css } from '@emotion/core'
 import CloseIcon from './CloseIcon.svg'
 import BackgroundIcon from './BackgroundIcon.svg'
@@ -11,7 +11,7 @@ const StyledTab = styled.div`
   display: flex;
   flex-basis: 100%;
   max-width: 13em;
-  z-index: ${({ focused }) => (focused ? 5 : null)};
+  z-index: ${({ focused }) => (focused ? 5 : 'initial')};
   margin-right: -1px;
 
   &::before {
@@ -90,7 +90,9 @@ const Background = styled(BackgroundIcon)`
   width: 100%;
   margin: 0 -11px;
 
-  ${({ focused }) => (focused ? null : `${StyledTab}:hover & { opacity: 1 }`)}
+  ${StyledTab}:hover & {
+    opacity: 1;
+  }
 `
 
 const Content = styled.div`

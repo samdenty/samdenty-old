@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { DockBar } from './DockBar'
 import { MenuBar } from './MenuBar'
 import { Content } from './Content'

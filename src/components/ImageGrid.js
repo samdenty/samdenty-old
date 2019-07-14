@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 
 export const ImageGrid = styled.figure`
   display: grid;

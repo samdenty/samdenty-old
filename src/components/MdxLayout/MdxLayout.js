@@ -1,13 +1,14 @@
 import React from 'react'
 import Img from 'gatsby-image'
 import { Layout, SEO } from '../'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradient } from '../../utils'
 import { ParallaxBanner } from './ParallaxBanner'
 import { Mdx } from './Mdx'
 import { TimeRange } from '../TimeRange'
 
-const StyledLayout = styled(Layout)`
+const StyledLayout = styled2(Layout)`
   background-color: #fff;
   color: #0a0014;
   font-size: 1.15rem;

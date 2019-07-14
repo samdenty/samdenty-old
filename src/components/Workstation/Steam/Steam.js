@@ -1,5 +1,6 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import SteamIcon from './SteamIcon.svg'
 import { App, Title } from '../../OSX'
 
@@ -14,7 +15,7 @@ const SteamPortal = styled.portal`
   pointer-events: hidden;
 `
 
-const StyledApp = styled(App)`
+const StyledApp = styled2(App)`
   background-color: #171a21;
 `
 

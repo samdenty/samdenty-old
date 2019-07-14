@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { Rnd } from 'react-rnd'
 import { useTransition, animated, useSpring } from 'react-spring'
 import { useState, useRef } from 'react'
@@ -13,12 +13,12 @@ const StyledWindow = styled(Rnd)`
   flex-direction: column;
   overflow: hidden;
   background-color: #313234;
-  border-radius: ${({ zoomed }) => (zoomed ? null : '0.4em')};
+  border-radius: ${({ zoomed }) => (zoomed ? 0 : '0.4em')};
   padding: 1px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22)
     ${({ zoomed }) =>
       zoomed
-        ? null
+        ? 'none'
         : `, 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)`};
 
   transition: box-shadow 0.4s ease, border-radius 0.4s ease;

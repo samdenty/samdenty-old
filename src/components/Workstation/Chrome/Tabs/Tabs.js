@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { useMemo, useContext } from 'react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react-lite'

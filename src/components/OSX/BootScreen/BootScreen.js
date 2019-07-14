@@ -1,6 +1,6 @@
 import * as React from 'react'
 import AppleIcon from '../AppleIcon.svg'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { useSpring } from 'react-spring'
 import { Progress } from './Progress'
 

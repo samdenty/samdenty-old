@@ -1,12 +1,13 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import Img from 'gatsby-image'
 import { useStaticQuery, graphql } from 'gatsby'
 import { App, Title } from '../../OSX'
 
 const StyledVSCode = styled.div``
 
-const StyledApp = styled(App)`
+const StyledApp = styled2(App)`
   background: #011627;
 `
 

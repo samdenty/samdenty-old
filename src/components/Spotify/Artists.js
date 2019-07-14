@@ -1,6 +1,6 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
-import { CircleMargin } from './Spotify'
+import { styled } from 'linaria/react'
+import { CircleMargin } from './ProgressBar'
 
 const StyledArtists = styled.h5`
   font-size: 1rem;
@@ -9,7 +9,7 @@ const StyledArtists = styled.h5`
   margin-bottom: 25px;
 
   @media (min-width: 800px) {
-    margin-left: calc(7px + ${() => CircleMargin});
+    margin-left: calc(7px + ${CircleMargin});
   }
 
   @media (max-width: 800px) {

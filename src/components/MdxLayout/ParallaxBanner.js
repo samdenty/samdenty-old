@@ -1,9 +1,10 @@
 import * as React from 'react'
 import * as RSP from 'react-scroll-parallax'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradient } from '../../utils'
 
-const StyledParallaxBanner = styled(RSP.ParallaxBanner)`
+const StyledParallaxBanner = styled2(RSP.ParallaxBanner)`
   position: absolute !important;
   z-index: -1;
   overflow: hidden;

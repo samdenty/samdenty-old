@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactCarousel from 'react-images'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 
 const Container = styled.div`
   .react-images__track {

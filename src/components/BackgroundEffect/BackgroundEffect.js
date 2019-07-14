@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { createBackgroundEffect } from './createBackgroundEffect'
 
 export const StyledCanvas = styled.canvas`

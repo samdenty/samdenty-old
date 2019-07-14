@@ -1,27 +1,22 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradientText } from '../../utils'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 
-const StyledLogo = styled(Link)`
+const StyledLogo = styled2(Link)`
   text-decoration: none;
   align-items: center;
   display: flex;
   cursor: pointer;
   flex-shrink: 0;
-  /* filter: drop-shadow(0 0 13px rgba(255, 255, 255, 0.4));
-transition: filter 0.3s ease; */
-  /*
-&:hover {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-} */
 `
 
 const Icon = styled.img`
   height: 65px;
 `
 
-const Text = styled.h1`
+const Text = styled2.h1`
   ${animatedGradientText({
     colors: [
       'rgb(221, 209, 230)',

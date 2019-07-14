@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 
 export const iframe = styled.iframe`
   width: 100%;

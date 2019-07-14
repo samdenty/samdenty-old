@@ -1,7 +1,8 @@
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradientBox } from '../../../utils'
 
-export const pre = styled.pre`
+export const pre = styled2.pre`
   overflow: initial !important;
   margin: 25px 0 !important;
 

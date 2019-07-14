@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Typist from 'react-typist'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import {
   Layout,
   SEO,
@@ -47,11 +47,13 @@ export default () => {
         <Section>
           <motion.div
             initial={{
-              opacity: 0.3,
+              scale: 0,
+              opacity: 0,
               translateX: '100vw',
               translateY: '-15vh',
             }}
             animate={{
+              scale: 1,
               opacity: 1,
               translateX: 0,
               translateY: 0,

@@ -1,5 +1,6 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradientBox, animatedGradient } from '../../../utils'
 import { Tag } from './Tag'
 import { Link } from 'gatsby'
@@ -7,7 +8,7 @@ import { GitHub } from './GitHub'
 import { TimeRange } from '../../TimeRange'
 import { motion } from 'framer-motion'
 
-const StyledProject = styled(motion.article)`
+const StyledProject = styled2(motion.article)`
   ${({ gradient }) =>
     animatedGradientBox({
       colors: gradient ? gradient : undefined,
@@ -21,7 +22,7 @@ const StyledProject = styled(motion.article)`
   flex-direction: column;
 `
 
-const SlugLink = styled(Link)`
+const SlugLink = styled2(Link)`
   display: contents;
   color: inherit;
   text-decoration: none;
@@ -40,7 +41,7 @@ const Headline = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `
 
-const Title = styled.h2`
+const Title = styled2.h2`
   margin: 0;
   font-size: 22px;
   flex-grow: 1;
@@ -60,7 +61,7 @@ const Footer = styled.div`
   padding: 0 10px;
 `
 
-const Featured = styled.div`
+const Featured = styled2.div`
   ${animatedGradient({
     colors: [
       'rgba(255, 255, 255, 0.13)',

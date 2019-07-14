@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { css } from '@emotion/core'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { KeyboardContext } from './KeyboardProvider'
 
 const StyledKeyboard = styled.div`
@@ -24,7 +25,7 @@ const item = ({ size = 1 }) => css`
   margin: 0.3%;
 `
 
-const StyledKey = styled.div`
+const StyledKey = styled2.div`
   ${item}
   cursor: pointer;
   display: flex;
@@ -94,7 +95,7 @@ const Key = ({ name, ...rest }) => {
   )
 }
 
-const ArrowKeys = styled.div`
+const ArrowKeys = styled2.div`
   ${item}
 
   display: flex;
@@ -107,7 +108,7 @@ const ArrowKeys = styled.div`
   }
 `
 
-const ArrowKey = styled(Key)`
+const ArrowKey = styled2(Key)`
   font-size: 70%;
 `
 

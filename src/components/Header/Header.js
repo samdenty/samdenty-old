@@ -1,11 +1,12 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { Logo } from './Logo'
 import { animatedGradientBox } from '../../utils'
 import { useResizeObserver } from '../../hooks'
 import { Navigation } from './Navigation'
 
-const StyledHeader = styled.header`
+const StyledHeader = styled2.header`
   font-family: Gilroy;
 
   &::after,
@@ -45,7 +46,7 @@ const StyledHeader = styled.header`
 `
 
 const shadowBlur = 100
-const HeaderShadow = styled.div`
+const HeaderShadow = styled2.div`
   ${animatedGradientBox({
     colors: [
       'rgba(11, 1, 19, 0.8)',
@@ -74,7 +75,7 @@ const HeaderShadow = styled.div`
   margin-top: -110px;
 `
 
-const Items = styled('div')`
+const Items = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

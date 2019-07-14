@@ -1,5 +1,6 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { animatedGradientBox, colourful, animatedGradient } from '../../utils'
 import AppleIcon from '../OSX/AppleIcon.svg'
 
@@ -65,7 +66,7 @@ const Screen = styled(Aluminum)`
   }
 `
 
-const ScreenFace = styled.div`
+const ScreenFace = styled2.div`
   ${animatedGradientBox({
     colors: colourful,
     borderWidth: SCREEN_COLOR_BORDER,

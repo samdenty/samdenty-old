@@ -1,5 +1,5 @@
 import './Layout.css'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import React, { useRef } from 'react'
 import { Header } from '../Header'
 
@@ -54,7 +54,7 @@ const Main = styled.main`
   flex-shrink: 0;
   padding: 30px 70px;
   flex-direction: column;
-  margin-top: ${({ withBanner }) => (withBanner ? null : 105)}px;
+  margin-top: ${({ withBanner }) => (withBanner ? 0 : 105)}px;
 
   @media (max-width: 900px) {
     padding: 30px 50px;

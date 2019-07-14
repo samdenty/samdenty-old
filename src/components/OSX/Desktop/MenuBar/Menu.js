@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { useMemo, useRef, useState } from 'react'
 import { ContextMenu, ContextMenuTrigger } from '../../ContextMenu'
 
@@ -10,7 +10,7 @@ const StyledMenu = styled.div`
   cursor: default;
   user-select: none;
   background: ${({ active }) =>
-    active ? `linear-gradient(#1970de, #1c6fd9)` : null};
+    active ? `linear-gradient(#1970de, #1c6fd9)` : 'none'};
 
   > svg {
     flex-grow: 1;

@@ -1,18 +1,20 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled2 from '@emotion/styled'
+import { styled } from 'linaria/react'
 import { colourful, animatedGradientBox } from '../../utils'
 import Moment from 'react-moment'
 import { css } from '@emotion/core'
 import { Play } from './Play'
 import { Previous, Next } from './Arrow'
 import { Pause } from './Pause'
-import { CircleMargin } from './Spotify'
+
+export const CircleMargin = '25px'
 
 const StyledProgressBar = styled.div`
   display: flex;
   flex-direction: column;
   @media (min-width: 800px) {
-    margin-left: calc(-9px + ${() => CircleMargin});
+    margin-left: calc(-9px + ${CircleMargin});
   }
 `
 
@@ -29,7 +31,7 @@ const Track = styled.div`
   border-radius: 9px;
 `
 
-const Handle = styled.div`
+const Handle = styled2.div`
   will-change: width;
   transition: width 1s linear;
   width: ${({ value }) => value}%;
@@ -45,7 +47,7 @@ const Handle = styled.div`
   background-size: ${500 * 7}px;
 `
 
-const Timestamp = styled(Moment)`
+const Timestamp = styled2(Moment)`
   font-family: Gilroy;
   font-weight: bold;
   font-size: 0.9rem;
