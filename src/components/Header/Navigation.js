@@ -5,6 +5,7 @@ import { MediumButton } from '../Button'
 import { Link } from 'gatsby'
 import { withProps } from 'recompose'
 import { Search, useSearch } from '../Search'
+import { animatedGradientBox } from '../../utils'
 
 const StyledNavigation = styled.nav`
   > * {
@@ -47,20 +48,35 @@ const SearchBar = styled2(MediumButton.withComponent('input'))`
   }
 `
 
+const StyledSearch = styled2(Search)`
+  ${animatedGradientBox({
+    duration: 30000,
+    colors: ['#be00e1', '#e1009c', '#e10053', '#ff9a02'],
+  })}
+
+  position: absolute;
+  backdrop-filter: blur(30px);
+  border-radius: 12px;
+  padding: 20px 0;
+  width: 340px;
+
+  &::before, &::after {
+    opacity: 0.5;
+  }
+`
+
 export const Navigation = () => {
   const search = useSearch('')
 
   return (
     <StyledNavigation>
+      <SearchBar placeholder="Search" {...search.inputProps}></SearchBar>
+
       <StyledItem partiallyActive to="/projects/">
         Projects
       </StyledItem>
 
-      <SearchBar placeholder="Search" {...search.inputProps}></SearchBar>
-      <Search
-        indices={[{ name: 'Projects', hitComp: 'ProjectHit' }]}
-        search={search}
-      />
+      <StyledSearch search={search} />
     </StyledNavigation>
   )
 }

@@ -22,25 +22,25 @@ const StyledOSX = styled.div`
   @font-face {
     font-family: 'SF Pro Text';
     font-weight: 300;
-    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_light.woff2');
+    src: url(${require('../../assets/fonts/sf-pro-text_light.woff')});
   }
 
   @font-face {
     font-family: 'SF Pro Text';
     font-weight: 400;
-    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_regular.woff2');
+    src: url(${require('../../assets/fonts/sf-pro-text_regular.woff2')});
   }
 
   @font-face {
     font-family: 'SF Pro Text';
     font-weight: 600;
-    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_semibold.woff2');
+    src: url(${require('../../assets/fonts/sf-pro-text_semibold.woff2')});
   }
 
   @font-face {
     font-family: 'SF Pro Text';
     font-weight: 700;
-    src: url('https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_bold.woff2');
+    src: url(${require('../../assets/fonts/sf-pro-text_bold.woff2')});
   }
 `
 

@@ -1,11 +1,11 @@
 import { animatedGradient } from './animatedGradient'
-import { css } from '@emotion/core'
+import css from '@emotion/css'
 
 export const animatedGradientBox = ({
-  duration = undefined,
-  colors = undefined,
-  degrees = undefined,
-  gradientSize = undefined,
+  duration,
+  colors,
+  degrees,
+  gradientSize,
   borderWidth = '2px',
   interactive = false,
   blur = '9px',
@@ -18,7 +18,13 @@ export const animatedGradientBox = ({
 
   &::before,
   &::after {
-    ${animatedGradient({ colors, gradientSize, degrees, duration })};
+    ${animatedGradient({
+      colors,
+      gradientSize,
+      degrees,
+      duration,
+    })}
+
     content: '';
     position: absolute;
     border-radius: inherit;
@@ -29,6 +35,10 @@ export const animatedGradientBox = ({
     z-index: -1;
 
     transition: all 0.5s ease;
+  }
+
+  &::after {
+    filter: blur(var(--computed-gradient-blur));
   }
 
   ${interactive &&
@@ -55,8 +65,4 @@ export const animatedGradientBox = ({
         }
       }
     `}
-
-  &::after {
-    filter: blur(var(--computed-gradient-blur));
-  }
 `

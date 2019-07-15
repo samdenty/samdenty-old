@@ -1,4 +1,4 @@
-const pageQuery = `{
+const projectQuery = `{
   allMdx(
     filter: { fileAbsolutePath: { regex: "src/projects/" } }
   ) {
@@ -10,13 +10,22 @@ const pageQuery = `{
         }
         frontmatter {
           title
-          image {
+          logo {
             publicURL
+            childImageSharp {
+              fluid {
+                base64
+                aspectRatio
+                src
+                srcSet
+                sizes
+              }
+            }
           }
           start_date(formatString: "MMM DD, YYYY")
           end_date(formatString: "MMM DD, YYYY")
         }
-        excerpt(pruneLength: 5000)
+        excerpt(pruneLength: 999999)
       }
     }
   }
@@ -26,17 +35,20 @@ const flatten = arr =>
   arr.map(({ node: { frontmatter, fields, ...rest } }) => ({
     ...frontmatter,
     ...fields,
-    image: frontmatter.image && frontmatter.image.publicURL,
+    logo:
+      frontmatter.logo &&
+      (frontmatter.logo.childImageSharp
+        ? frontmatter.logo.childImageSharp.fluid
+        : frontmatter.logo.publicURL),
     ...rest,
   }))
-const settings = { attributesToSnippet: [`excerpt:20`] }
 
 const queries = [
   {
-    query: pageQuery,
+    query: projectQuery,
     transformer: ({ data }) => flatten(data.allMdx.edges),
     indexName: `Projects`,
-    settings,
+    settings: { attributesToSnippet: ['excerpt'] },
   },
 ]
 

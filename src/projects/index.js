@@ -21,6 +21,14 @@ export const pageQuery = graphql`
         start_date
         end_date
         gradient
+        logo {
+          publicURL
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
         image {
           publicURL
           childImageSharp {

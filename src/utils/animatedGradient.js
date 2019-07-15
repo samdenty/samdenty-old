@@ -1,18 +1,5 @@
-import css from '@emotion/css'
-import { keyframes } from '@emotion/core'
 import { orangePurple } from './colors'
-
-const animatedShadow = keyframes`
-  from {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 100% 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-`
+import css from '@emotion/css'
 
 export const gradient = ({ colors = orangePurple, degrees = 45 } = {}) => {
   if (colors.length === 1) colors = [colors[0], colors[0]]
@@ -29,8 +16,20 @@ export const animatedGradient = ({
   gradientSize = 4,
 } = {}) => {
   return css`
+    @keyframes animatedShadow {
+      from {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 100% 0;
+      }
+      to {
+        background-position: 0 0;
+      }
+    }
+
     ${gradient({ colors, degrees })}
     background-size: ${gradientSize * 100}%;
-    animation: ${animatedShadow} ${duration}ms linear infinite;
+    animation: animatedShadow ${duration}ms linear infinite;
   `
 }

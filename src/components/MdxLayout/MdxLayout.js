@@ -3,7 +3,6 @@ import Img from 'gatsby-image'
 import { Layout, SEO } from '../'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { animatedGradient } from '../../utils'
 import { ParallaxBanner } from './ParallaxBanner'
 import { Mdx } from './Mdx'
 import { TimeRange } from '../TimeRange'
@@ -25,7 +24,7 @@ const StyledLayout = styled2(Layout)`
 
 const Title = styled.h1`
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 4rem;
   text-align: center;
 `
@@ -37,8 +36,21 @@ const Period = styled.h3`
   opacity: 0.7;
 `
 
+const Header = styled.div`
+  display: flex;
+  line-height: 64px;
+`
+
+const LogoGatsby = styled2(Img)`
+  height: 64px;
+  margin-right: 25px;
+`
+
+const LogoImg = LogoGatsby.withComponent('img')
+
 export const MdxLayout = ({ data }) => {
   const {
+    logo,
     excerpt,
     start_date,
     end_date,
@@ -66,7 +78,16 @@ export const MdxLayout = ({ data }) => {
             ) : null
           }
         >
-          <Title>{title}</Title>
+          <Header>
+            {logo &&
+              (logo.childImageSharp ? (
+                <LogoGatsby fluid={logo.childImageSharp.fluid} />
+              ) : (
+                <LogoImg src={logo.publicURL} />
+              ))}
+            <Title>{title}</Title>
+          </Header>
+
           <Period>
             <TimeRange from={start_date} to={end_date} format="MMM DD, YYYY" />
           </Period>

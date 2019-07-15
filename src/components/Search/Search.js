@@ -6,63 +6,42 @@ import {
   connectSearchBox,
   connectStateResults,
 } from 'react-instantsearch-dom'
+import { styled } from 'linaria/react'
+import useClickAway from 'react-use/lib/useClickAway'
 import algoliasearch from 'algoliasearch/lite'
+import * as hits from './hits'
+import { motion, AnimatePresence } from 'framer-motion'
 
-import { Root, HitsWrapper, PoweredBy } from './styles'
-import Input from './Input'
-import * as hitComps from './hitComps'
+const StyledSearch = styled(motion.div)`
+  .ais-Hits-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ais-Hits {
+    display: contents;
+  }
+
+  mark {
+    background-color: rgba(255, 255, 0, 0.9);
+  }
+`
+
+const NoResults = styled.div`
+  padding: 5px 25px;
+  font-weight: bold;
+  opacity: 0.8;
+`
 
 const Results = connectStateResults(
   ({ searchState: state, searchResults: res, children }) =>
-    res && res.nbHits > 0 ? children : `No results for '${state.query}'`
+    res && res.nbHits > 0 ? (
+      children
+    ) : (
+      <NoResults>No results for '{state.query}'</NoResults>
+    )
 )
-
-const Stats = connectStateResults(
-  ({ searchResults: res }) =>
-    res && res.nbHits > 0 && `${res.nbHits} result${res.nbHits > 1 ? `s` : ``}`
-)
-
-const useClickOutside = (ref, handler, events) => {
-  if (!events) events = [`mousedown`, `touchstart`]
-  const detectClickOutside = event =>
-    !ref.current.contains(event.target) && handler()
-  useEffect(() => {
-    for (const event of events)
-      document.addEventListener(event, detectClickOutside)
-    return () => {
-      for (const event of events)
-        document.removeEventListener(event, detectClickOutside)
-    }
-  })
-}
-
-export const useSearch = value => {
-  const [focus, setFocus] = useState(false)
-  const [query, setQuery] = useState(value)
-
-  const listeners = useMemo(() => new Set(), [])
-
-  const search = {
-    query,
-    focus,
-    setFocus,
-    setQuery(value) {
-      listeners.forEach(propagate => propagate(value))
-      setQuery(value)
-    },
-    onQuery(listener) {
-      listeners.add(listener)
-    },
-
-    inputProps: {
-      value: query,
-      onChange: ({ target }) => search.setQuery(target.value),
-      onFocus: () => setFocus(true),
-      focus,
-    },
-  }
-  return search
-}
 
 const Refine = connectSearchBox(({ onQuery, refine }) => {
   useEffect(() => {
@@ -72,7 +51,35 @@ const Refine = connectSearchBox(({ onQuery, refine }) => {
   return null
 })
 
-export const Search = ({ indices, search }) => {
+const StyledCount = styled.span`
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 0 8px;
+`
+
+const Count = connectStateResults(({ searchResults: res }) =>
+  res && res.nbHits > 0 ? (
+    <StyledCount>
+      {res.nbHits} result{res.nbHits > 1 ? `s` : ``}
+    </StyledCount>
+  ) : null
+)
+
+const IndiceHeader = styled.header`
+  display: flex;
+  line-height: 22px;
+  margin-bottom: 20px;
+  padding: 0 25px;
+`
+
+const IndiceName = styled.h4`
+  flex-grow: 1;
+  font-size: 22px;
+  margin: 0;
+`
+
+export const Search = ({ search, ...props }) => {
   const ref = useRef()
 
   const searchClient = useMemo(
@@ -84,31 +91,37 @@ export const Search = ({ indices, search }) => {
     []
   )
 
-  useClickOutside(ref, () => search.setFocus(false))
+  useClickAway(ref, () => search.setFocus(false))
 
   return (
-    <InstantSearch
-      searchClient={searchClient}
-      indexName={indices[0].name}
-      root={{ Root, props: { ref } }}
-    >
+    <InstantSearch searchClient={searchClient} indexName={Object.keys(hits)[0]}>
       <Refine onQuery={search.onQuery} />
-      <HitsWrapper show={search.query.length > 0 && search.focus}>
-        {indices.map(({ name, title, hitComp }) => (
-          <Index key={name} indexName={name}>
-            <header>
-              <h3>{title}</h3>
-              <Stats />
-            </header>
-            <Results>
-              <Hits
-                hitComponent={hitComps[hitComp](() => search.setFocus(false))}
-              />
-            </Results>
-          </Index>
-        ))}
-        <PoweredBy />
-      </HitsWrapper>
+
+      {search.query.length > 0 && (
+        <AnimatePresence>
+          {search.focus && (
+            <StyledSearch
+              {...props}
+              ref={ref}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {Object.entries(hits).map(([name, Hit]) => (
+                <Index key={name} indexName={name}>
+                  <IndiceHeader>
+                    <IndiceName>{name}</IndiceName>
+                    <Count />
+                  </IndiceHeader>
+                  <Results>
+                    <Hits hitComponent={Hit} />
+                  </Results>
+                </Index>
+              ))}
+            </StyledSearch>
+          )}
+        </AnimatePresence>
+      )}
     </InstantSearch>
   )
 }

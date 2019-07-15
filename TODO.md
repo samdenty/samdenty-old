@@ -1,3 +1,6 @@
+- Make laptop on mobile move with accelerometer
+- Make laptop shadows less opacity
+
 What do I want it to do?
 
 - Be interactive with the mouse - ie hover effects, click on stuff

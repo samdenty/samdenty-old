@@ -1,7 +1,7 @@
 require('dotenv').config()
 const queries = require('./src/utils/algolia')
 
-const siteUrl = `https://samdenty.netlify.com`
+const siteUrl = `https://samdenty.dev`
 module.exports = {
   siteMetadata: {
     title: `Sam Denty`,
@@ -110,7 +110,12 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-netlify-cache`,
+    {
+      resolve: `gatsby-plugin-netlify-cache`,
+      options: {
+        extraDirsToCache: ['.linaria-cache'],
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
   ].filter(Boolean),
