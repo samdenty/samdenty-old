@@ -56,8 +56,7 @@ export const animatedGradientBox = ({
         }
       }
 
-      &:active,
-      &:focus-within {
+      &:active {
         --computed-gradient-blur: calc(${blur} * 0.6);
         &::before,
         &::after {

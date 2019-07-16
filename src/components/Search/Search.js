@@ -80,8 +80,6 @@ const IndiceName = styled.h4`
 `
 
 export const Search = ({ search, ...props }) => {
-  const ref = useRef()
-
   const searchClient = useMemo(
     () =>
       algoliasearch(
@@ -91,18 +89,18 @@ export const Search = ({ search, ...props }) => {
     []
   )
 
-  useClickAway(ref, () => search.setFocus(false))
+  useClickAway(search.ref, () => search.setFocus(false))
 
   return (
     <InstantSearch searchClient={searchClient} indexName={Object.keys(hits)[0]}>
       <Refine onQuery={search.onQuery} />
 
-      {search.query.length > 0 && (
+      {search.query && (
         <AnimatePresence>
           {search.focus && (
             <StyledSearch
               {...props}
-              ref={ref}
+              ref={search.ref}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

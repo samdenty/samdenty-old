@@ -8,6 +8,7 @@ import { Search, useSearch } from '../Search'
 import { animatedGradientBox } from '../../utils'
 
 const StyledNavigation = styled.nav`
+  display: flex;
   > * {
     margin: 0 8px;
   }
@@ -59,10 +60,17 @@ const StyledSearch = styled2(Search)`
   border-radius: 12px;
   padding: 20px 0;
   width: 340px;
+  margin-top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 
   &::before, &::after {
     opacity: 0.5;
   }
+`
+
+const SearchWrapper = styled.div`
+  position: relative;
 `
 
 export const Navigation = () => {
@@ -70,13 +78,14 @@ export const Navigation = () => {
 
   return (
     <StyledNavigation>
-      <SearchBar placeholder="Search" {...search.inputProps}></SearchBar>
+      <SearchWrapper>
+        <SearchBar placeholder="Search" {...search.inputProps}></SearchBar>
+        <StyledSearch search={search} />
+      </SearchWrapper>
 
       <StyledItem partiallyActive to="/projects/">
         Projects
       </StyledItem>
-
-      <StyledSearch search={search} />
     </StyledNavigation>
   )
 }

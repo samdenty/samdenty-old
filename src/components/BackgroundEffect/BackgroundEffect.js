@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { styled } from 'linaria/react'
-import { createBackgroundEffect } from './createBackgroundEffect'
+import debounce from 'debounce'
+import * as Comlink from 'comlink'
+
+const worker = new Worker('./EffectRenderer.js', {
+  type: 'module',
+})
 
 export const StyledCanvas = styled.canvas`
   position: fixed;
@@ -20,14 +25,45 @@ export const BackgroundEffect = () => {
   const effectRef = React.useRef(null)
 
   React.useEffect(() => {
-    const effect = createBackgroundEffect(canvas.current)
-    effectRef.current = effect
-    effect.draw()
-    setLoaded(true)
-    return () => effect.stop()
-  }, [canvas.current])
+    const createEffect = async () => {
+      const EffectRenderer = Comlink.wrap(worker)
+
+      const offscreen = canvas.current.transferControlToOffscreen()
+      const effect = await new EffectRenderer(
+        Comlink.transfer(offscreen, [offscreen])
+      )
+
+      effectRef.current = effect
+
+      const calculate = async () => {
+        const width = window.innerWidth
+        const height = window.innerHeight
+
+        await effect.calculate(width, height, devicePixelRatio)
+        canvas.current.style.width = `${width}px`
+        canvas.current.style.height = `${height}px`
+      }
+
+      calculate()
+      effect.draw()
+      setLoaded(true)
+
+      const callback = debounce(calculate, 200)
+      window.addEventListener('resize', callback)
+
+      return () => {
+        effect.stop()
+        window.removeEventListener('resize', callback)
+      }
+    }
+
+    const dispose = createEffect()
+
+    return () => dispose.then(dispose => dispose())
+  }, [])
 
   React.useEffect(() => {
+    if (!loaded) return
     effectRef.current.stop()
 
     if (paused) {
@@ -35,7 +71,7 @@ export const BackgroundEffect = () => {
     } else {
       effectRef.current.start()
     }
-  }, [effectRef.current, paused])
+  }, [effectRef.current, loaded, paused])
 
   return <StyledCanvas loaded={loaded} ref={canvas} />
 }

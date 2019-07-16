@@ -1,4 +1,5 @@
 - Make laptop on mobile move with accelerometer
+- Fix laptop mouse dependant on window
 - Make laptop shadows less opacity
 
 What do I want it to do?

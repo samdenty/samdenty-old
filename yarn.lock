@@ -3559,6 +3559,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+comlink@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.0.1.tgz#b20d0fca012ef80cf7eae89b76e4b43b2a1a0e6d"
+  integrity sha512-xEI50m6xEff5aZ29Epd+eNP+Plq2xTcUXGDJeWNqptudNB0hr59NV2KIi1xz6igb/Y2azKKSAj4ehI3wgGbREw==
+
 comma-separated-tokens@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/comma-separated-tokens/-/comma-separated-tokens-1.0.5.tgz#b13793131d9ea2d2431cf5b507ddec258f0ce0db"
@@ -4253,6 +4258,11 @@ death@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/death/-/death-1.1.0.tgz#01aa9c401edd92750514470b8266390c66c67318"
   integrity sha1-AaqcQB7dknUFFEcLgmY5DGbGcxg=
+
+debounce@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.0.tgz#44a540abc0ea9943018dc0eaa95cce87f65cd131"
+  integrity sha512-mYtLl1xfZLi1m4RtQYlZgJUNQjl4ZxVnHzIR8nLLgi4q1YT8o/WM+MK/f8yfcc9s5Ir5zRaPZyZU6xs1Syoocg==
 
 debug@2, debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -11143,6 +11153,11 @@ popmotion@^9.0.0-beta-7:
     style-value-types "^3.1.5"
     tslib "^1.10.0"
 
+popper.js@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
+  integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
+
 portfinder@^1.0.20:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
@@ -15362,6 +15377,13 @@ worker-farm@^1.7.0:
   integrity sha512-rvw3QTZc8lAxyVrqcSGVm5yP/IJ2UcB3U0graE3LCFoZ0Yn2x4EoVSqJKdB/T5M+FLcRPjz4TDacRf3OCfNUzw==
   dependencies:
     errno "~0.1.7"
+
+worker-plugin@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/worker-plugin/-/worker-plugin-3.1.0.tgz#6311778f3514a87c273510ee3f809cc3fe161e6f"
+  integrity sha512-iQ9KTTmmN5fhfc2KMR7CcDblvcrg1QQ4pXymqZ3cRZF8L0890YLBcEqlIsGPdxoFwghyN8RA1pCEhCKuTF4Lkw==
+  dependencies:
+    loader-utils "^1.1.0"
 
 wrap-ansi@^2.0.0:
   version "2.1.0"

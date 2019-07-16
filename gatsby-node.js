@@ -1,3 +1,4 @@
+const WorkerPlugin = require('worker-plugin')
 const path = require('path')
 
 exports.createPages = async ({ graphql, getNode, actions }) => {
@@ -47,6 +48,10 @@ exports.createPages = async ({ graphql, getNode, actions }) => {
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    output: {
+      globalObject: 'self',
+    },
+    plugins: [new WorkerPlugin()],
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
