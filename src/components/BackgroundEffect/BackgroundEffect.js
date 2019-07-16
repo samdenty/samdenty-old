@@ -3,10 +3,6 @@ import { styled } from 'linaria/react'
 import debounce from 'debounce'
 import * as Comlink from 'comlink'
 
-const worker = new Worker('./EffectRenderer.js', {
-  type: 'module',
-})
-
 export const StyledCanvas = styled.canvas`
   position: fixed;
   z-index: -1;
@@ -22,12 +18,16 @@ export const BackgroundEffect = () => {
   const [loaded, setLoaded] = React.useState(false)
   const canvas = React.useRef(null)
 
+  const EffectRenderer = React.useMemo(
+    () =>
+      typeof window !== 'undefined' &&
+      Comlink.wrap(new Worker('./EffectRenderer.js', { type: 'module' }))
+  )
+
   const effectRef = React.useRef(null)
 
   React.useEffect(() => {
     const createEffect = async () => {
-      const EffectRenderer = Comlink.wrap(worker)
-
       const offscreen = canvas.current.transferControlToOffscreen()
       const effect = await new EffectRenderer(
         Comlink.transfer(offscreen, [offscreen])
