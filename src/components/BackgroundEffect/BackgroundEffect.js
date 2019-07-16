@@ -44,9 +44,8 @@ export const BackgroundEffect = () => {
         canvas.current.style.height = `${height}px`
       }
 
-      calculate()
-      effect.draw()
-      setLoaded(true)
+      await calculate()
+      effect.draw().then(() => setLoaded(true))
 
       const callback = debounce(calculate, 200)
       window.addEventListener('resize', callback)

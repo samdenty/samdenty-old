@@ -23,9 +23,9 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-mdx`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        gatsbyRemarkPlugins: [
+        remarkPlugins: [
           {
             resolve: 'gatsby-remark-embedded-codesandbox',
             options: {
@@ -42,8 +42,8 @@ module.exports = {
               },
             },
           },
-          'gatsby-remark-autolink-headers',
-          'gatsby-remark-emojis',
+          { resolve: 'gatsby-remark-autolink-headers' },
+          { resolve: 'gatsby-remark-emojis' },
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -57,7 +57,7 @@ module.exports = {
             resolve: 'gatsby-remark-copy-linked-files',
             options: {},
           },
-          'gatsby-remark-prismjs',
+          { resolve: 'gatsby-remark-prismjs' },
         ],
       },
     },

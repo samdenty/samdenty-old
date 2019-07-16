@@ -104,7 +104,7 @@ export const MdxLayout = ({ data }) => {
         description={excerpt}
       />
 
-      <Mdx>{data.mdx.code.body}</Mdx>
+      <Mdx>{data.mdx.body}</Mdx>
     </StyledLayout>
   )
 }

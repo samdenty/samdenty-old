@@ -38,9 +38,7 @@ export const pageQuery = graphql`
           }
         }
       }
-      code {
-        body
-      }
+      body
     }
   }
 `
