@@ -1,6 +1,7 @@
 - Make laptop on mobile move with accelerometer
 - Fix laptop mouse dependant on window
 - Make laptop shadows less opacity
+- Chrome tabs drag+drop - https://codesandbox.io/s/framer-motion-drag-to-reorder-pkm1k?fontsize=14&module=%2Fsrc%2FExample.tsx
 
 What do I want it to do?
 

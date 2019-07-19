@@ -1,32 +1,35 @@
 import * as React from 'react'
 import { styled } from 'linaria/react'
-import { css } from '@emotion/core'
 import CloseIcon from './CloseIcon.svg'
 import BackgroundIcon from './BackgroundIcon.svg'
 import { observer } from 'mobx-react-lite'
+import { motion, useMotionValue } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
 
-const StyledTab = styled.div`
+const StyledTab = styled(motion.div)`
   position: relative;
   user-select: none;
   display: flex;
   flex-basis: 100%;
   max-width: 13em;
-  z-index: ${({ focused }) => (focused ? 5 : 'initial')};
   margin-right: -1px;
 
   &::before {
     content: '';
     height: 70%;
     top: 15%;
-    right: 0;
+    left: 0;
     position: absolute;
     z-index: -1;
-    border-right: 1px solid #4a4d51;
+    border-left: 1px solid #4a4d51;
   }
 
-  &:last-child {
+  &:hover + &,
+  &:hover,
+  &:first-child,
+  &[focused='1'] + & {
     &::before {
-      border: none;
+      display: none;
     }
   }
 `
@@ -83,12 +86,12 @@ const Close = styled.button`
 
 const Background = styled(BackgroundIcon)`
   pointer-events: none;
-  transition: ${({ focused }) => (focused ? null : `opacity 0.2s ease`)};
+  transition: ${({ focused }) => (focused ? `none` : `opacity 0.2s ease`)};
   color: ${({ focused }) => (focused ? '#414141' : '#383838')};
   opacity: ${({ focused }) => (focused ? 1 : 0)};
   flex-grow: 1;
   width: 100%;
-  margin: 0 -11px;
+  margin: 0 -9px;
 
   ${StyledTab}:hover & {
     opacity: 1;
@@ -105,12 +108,49 @@ const Content = styled.div`
   padding: 0 0.4em;
 `
 
-export const Tab = observer(({ tab }) => {
+export const Tab = observer(({ tab, onDrag, ...props }) => {
+  const tabRef = useRef()
+
+  const [isDragging, setDragging] = useState(false)
+  const dragOriginX = useMotionValue(0)
+
+  useEffect(() => {
+    tab.rect = {
+      width: tabRef.current.offsetWidth,
+      left: tabRef.current.offsetLeft,
+    }
+  })
+
   return (
     <StyledTab
-      onMouseDown={tab.focus}
+      ref={tabRef}
+      onTapStart={tab.focus}
+      onDragStart={() => setDragging(true)}
+      onDragEnd={() => setDragging(false)}
+      animate={
+        isDragging
+          ? { zIndex: 10 }
+          : {
+              zIndex: tab.focused ? 1 : 0,
+              transition: { delay: 0.3 },
+            }
+      }
+      dragOriginX={dragOriginX}
+      positionTransition={({ delta }) => {
+        if (isDragging) {
+          dragOriginX.set(dragOriginX.get() + delta.x)
+        }
+
+        return !isDragging
+      }}
+      onDrag={(e, { point }) => {
+        onDrag(point.x)
+      }}
       onClick={tab.focus}
       focused={+tab.focused}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={1}
     >
       <Background focused={+tab.focused} />
       <Content>

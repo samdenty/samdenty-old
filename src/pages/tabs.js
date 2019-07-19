@@ -5,15 +5,15 @@ import { useTabs, Tabs } from '../components/Workstation/Chrome/Tabs'
 export default () => {
   const tabs = useTabs([
     {
-      title: 'Facebook',
+      title: 'Facebook1',
       favicon: <img src="https://www.facebook.com/favicon.ico" />,
     },
     {
-      title: 'Facebook',
+      title: 'Facebook2',
       favicon: <img src="https://www.facebook.com/favicon.ico" />,
     },
     {
-      title: 'Facebook',
+      title: 'Facebook3',
       favicon: <img src="https://www.facebook.com/favicon.ico" />,
     },
     {

@@ -1,66 +1,30 @@
 import * as React from 'react'
 import { styled } from 'linaria/react'
-import { useMemo, useContext } from 'react'
-import { observable } from 'mobx'
+
 import { observer } from 'mobx-react-lite'
 import { Tab } from './Tab'
+import { findIndex } from './find-index'
+import { useTabs } from './useTabs'
 
 const StyledTabs = styled.div`
   display: flex;
   height: 2em;
 `
 
-let _id = 0
-
-export const useTabs = (initialTabs = []) =>
-  useMemo(() => {
-    const tabs = observable.object({
-      items: observable.map(),
-
-      addTab(data) {
-        const id = ++_id
-        const tab = observable.object(
-          {
-            title: 'New Tab',
-            focused: false,
-            ...data,
-            id,
-
-            close() {
-              tabs.items.delete(id)
-            },
-            focus() {
-              tab.focused = true
-
-              for (const tabToUnfocus of tabs.items.values()) {
-                if (tabToUnfocus === tab) continue
-
-                tabToUnfocus.focused = false
-              }
-            },
-          },
-          undefined,
-          {
-            deep: false,
-          }
-        )
-
-        tabs.items.set(id, tab)
-        return tab
-      },
-    })
-
-    initialTabs.forEach(data => tabs.addTab(data))
-
-    return tabs
-  }, [])
-
 export const Tabs = observer(({ tabs = useTabs(), ...props }) => {
   return (
     <StyledTabs {...props}>
-      {Array.from(tabs.items).map(([id, tab]) => (
-        <Tab key={id} tab={tab} />
-      ))}
+      {Array.from(tabs.items.values())
+        .sort((a, b) => a.position - b.position)
+        .map(tab => (
+          <Tab
+            key={tab.id}
+            tab={tab}
+            onDrag={offset => {
+              tab.setPosition(findIndex(tab, offset, tabs))
+            }}
+          />
+        ))}
     </StyledTabs>
   )
 })

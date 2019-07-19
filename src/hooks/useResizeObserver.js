@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useRef } from 'react'
 import { useForceUpdate } from './useForceUpdate'
 
-export const useResizeObserver = elementRef => {
+export const useResizeObserver = (elementRef, onRect) => {
   const accessedProperties = useMemo(() => new Set(), [])
   const contentRectRef = useRef(null)
   const forceUpdate = useForceUpdate()
@@ -14,6 +14,8 @@ export const useResizeObserver = elementRef => {
       const contentRect = element.getBoundingClientRect()
       const prevContentRect = contentRectRef.current
       contentRectRef.current = contentRect
+
+      if (onRect) onRect(contentRect)
 
       if (
         // If we haven't given the contentRect yet
