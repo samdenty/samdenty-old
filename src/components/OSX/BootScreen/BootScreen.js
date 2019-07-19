@@ -1,10 +1,9 @@
 import * as React from 'react'
 import AppleIcon from '../AppleIcon.svg'
 import { styled } from 'linaria/react'
-import { useSpring } from 'react-spring'
-import { Progress } from './Progress'
+import { motion } from 'framer-motion'
 
-const StyledBootScreen = styled.div`
+const StyledBootScreen = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,19 +15,36 @@ const AppleLogo = styled(AppleIcon)`
   margin-bottom: 3.2em;
 `
 
-export const BootScreen = React.forwardRef(({ duration }, ref) => {
+const ProgressBar = styled.div`
+  display: flex;
+  width: 15.4em;
+  background: rgba(170, 178, 255, 0.35);
+  box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, 0.15);
+  border-radius: 2em;
+  overflow: hidden;
+  height: 0.8em;
+`
+
+const ProgressHandle = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.65);
+`
+
+export const BootScreen = ({ duration, ...props }) => {
   const START_DELAY = Math.min(1500, duration * 0.3)
-  const percent = useSpring({
-    value: 100,
-    from: { value: 0 },
-    delay: START_DELAY,
-    config: { duration: duration - START_DELAY },
-  })
 
   return (
-    <StyledBootScreen ref={ref}>
+    <StyledBootScreen {...props}>
       <AppleLogo />
-      <Progress percent={percent.value} />
+      <ProgressBar>
+        <ProgressHandle
+          initial={{ width: 0 }}
+          animate={{ width: '100%' }}
+          transition={{
+            duration: (duration - START_DELAY) / 1000,
+            delay: START_DELAY / 1000,
+          }}
+        />
+      </ProgressBar>
     </StyledBootScreen>
   )
-})
+}

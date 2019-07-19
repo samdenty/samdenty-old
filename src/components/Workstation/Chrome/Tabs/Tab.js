@@ -24,9 +24,10 @@ const StyledTab = styled(motion.div)`
     border-left: 1px solid #4a4d51;
   }
 
-  &:hover + &,
   &:hover,
+  &:hover + &,
   &:first-child,
+  &[focused='1'],
   &[focused='1'] + & {
     &::before {
       display: none;

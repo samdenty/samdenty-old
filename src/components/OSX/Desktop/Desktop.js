@@ -4,8 +4,9 @@ import { DockBar } from './DockBar'
 import { MenuBar } from './MenuBar'
 import { Content } from './Content'
 import { WindowManager } from './WindowManager'
+import { motion } from 'framer-motion'
 
-const StyledDesktop = styled.div`
+const StyledDesktop = styled(motion.div)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -15,9 +16,9 @@ const StyledDesktop = styled.div`
   background-position: center center;
 `
 
-export const Desktop = React.forwardRef(({ children }, ref) => {
+export const Desktop = ({ children, ...props }) => {
   return (
-    <StyledDesktop ref={ref}>
+    <StyledDesktop {...props}>
       <MenuBar />
       <Content>
         <WindowManager />
@@ -27,4 +28,4 @@ export const Desktop = React.forwardRef(({ children }, ref) => {
       {children}
     </StyledDesktop>
   )
-})
+}

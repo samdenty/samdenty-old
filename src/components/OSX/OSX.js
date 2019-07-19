@@ -1,14 +1,11 @@
 import * as React from 'react'
 import { useState, useMemo } from 'react'
 import { BootScreen } from './BootScreen/BootScreen'
-import { useTransition, animated } from 'react-spring'
 import { styled } from 'linaria/react'
 import { Desktop } from './Desktop'
 import { App, AppsContext } from './App'
 import { observable } from 'mobx'
-
-const AnimatedDesktop = animated(Desktop)
-const AnimatedBootScreen = animated(BootScreen)
+import { AnimatePresence } from 'framer-motion'
 
 const StyledOSX = styled.div`
   display: flex;
@@ -57,12 +54,6 @@ export const OSX = ({ boot = 800, children }) => {
   )
   const [booting, setBooting] = useState(boot ? true : false)
 
-  const transitions = useTransition(booting, null, {
-    from: { position: 'absolute', width: '100%', height: '100%', opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  })
-
   React.useEffect(() => {
     if (!boot) return
 
@@ -76,14 +67,25 @@ export const OSX = ({ boot = 800, children }) => {
   return (
     <AppsContext.Provider value={appContext}>
       <StyledOSX>
-        {transitions.map(({ item, key, props }) =>
-          item ? (
-            <AnimatedBootScreen key={key} duration={boot} style={props} />
-          ) : (
-            <AnimatedDesktop key={key} style={props}>
-              {children}
-            </AnimatedDesktop>
-          )
+        <AnimatePresence>
+          {booting && (
+            <BootScreen
+              duration={boot}
+              style={{ position: 'absolute', width: '100%', height: '100%' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+          )}
+        </AnimatePresence>
+        {!booting && (
+          <Desktop
+            style={{ width: '100%', height: '100%' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            {children}
+          </Desktop>
         )}
       </StyledOSX>
     </AppsContext.Provider>
