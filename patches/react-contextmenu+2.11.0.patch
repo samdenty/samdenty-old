@@ -1,0 +1,25 @@
+diff --git a/node_modules/react-contextmenu/es6/connectMenu.js b/node_modules/react-contextmenu/es6/connectMenu.js
+index f879bb7..3f1210c 100644
+--- a/node_modules/react-contextmenu/es6/connectMenu.js
++++ b/node_modules/react-contextmenu/es6/connectMenu.js
+@@ -16,7 +16,19 @@ import ContextMenuTrigger from './ContextMenuTrigger';
+ import listener from './globalEventListener';
+ 
+ // collect ContextMenuTrigger's expected props to NOT pass them on as part of the context
+-var ignoredTriggerProps = [].concat(_toConsumableArray(Object.keys(ContextMenuTrigger.propTypes)), ['children']);
++var ignoredTriggerProps = [
++    "id",
++    "children",
++    "attributes",
++    "collect",
++    "disable",
++    "holdToDisplay",
++    "posX",
++    "posY",
++    "renderTag",
++    "disableIfShiftIsPressed",
++    "children"
++  ]
+ 
+ // expect the id of the menu to be responsible for as outer parameter
+ export default function (menuId) {
