@@ -4,9 +4,9 @@ import { Steam } from './Steam'
 import { Chrome } from './Chrome'
 import { VSCode } from './VSCode'
 
-export const Workstation = () => {
+export const Workstation = props => {
   return (
-    <OSX>
+    <OSX {...props}>
       <Chrome />
       <VSCode />
       <Steam />

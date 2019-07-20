@@ -99,6 +99,7 @@ export const Search = ({ search, ...props }) => {
         <AnimatePresence>
           {search.focus && (
             <StyledSearch
+              key="search"
               {...props}
               ref={search.ref}
               initial={{ opacity: 0 }}

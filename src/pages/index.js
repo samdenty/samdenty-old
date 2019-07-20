@@ -10,7 +10,6 @@ import {
   useKeyboard,
   Workstation,
 } from '../components'
-import { useSpring, animated } from 'react-spring'
 import { usePauseBackgroundEffect } from '../hooks'
 import { motion } from 'framer-motion'
 
@@ -18,8 +17,6 @@ const Section = styled.section`
   display: flex;
   justify-content: center;
 `
-
-const AnimatedLaptop = animated(InteractiveLaptop)
 
 export default () => {
   const [paused, setPaused] = useState(true)
@@ -65,20 +62,17 @@ export default () => {
               delay: 0.3,
             }}
           >
-            <AnimatedLaptop
+            <InteractiveLaptop
               x={-11}
               y={-13}
               z={0}
-              {...useSpring({
-                from: {
-                  screenDegrees: -90,
-                },
-                to: {
-                  screenDegrees: 0,
-                },
-                config: { mass: 1, tension: 150, friction: 80 },
-                delay: 700,
-              })}
+              initial={{
+                '--screenDegrees': -90,
+              }}
+              animate={{
+                '--screenDegrees': 0,
+              }}
+              transition={{ damping: 100, stiffness: 40, delay: 0.7 }}
             >
               <Workstation />
               {/*<Typist
@@ -92,7 +86,7 @@ export default () => {
                 <Typist.Backspace count={8} delay={200} />
                 <span> Phrase </span>
               </Typist>*/}
-            </AnimatedLaptop>
+            </InteractiveLaptop>
           </motion.div>
         </Section>
 

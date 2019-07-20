@@ -5,6 +5,7 @@ import { animatedGradientBox, colourful, animatedGradient } from '../../utils'
 import AppleIcon from '../OSX/AppleIcon.svg'
 
 import { Keyboard } from './Keyboard'
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 
 const SCREEN_COLOR_BORDER = '0.5%'
 const BORDER_RADIUS = '15px'
@@ -12,7 +13,9 @@ const BORDER_RADIUS = '15px'
 const SCREEN_DEPTH = '2px'
 const CHASSIS_DEPTH = '4px'
 
-const StyledLaptop = styled.div`
+const StyledLaptop = styled(motion.div)`
+  --screenDegrees: 0;
+
   width: 500px;
   height: 281px;
   font-size: 10px;
@@ -48,7 +51,8 @@ const Aluminum = styled.div`
 `
 
 const Screen = styled(Aluminum)`
-  transform: rotateX(var(--degrees)) translateZ(-${SCREEN_DEPTH});
+  transform: rotateX(calc(var(--screenDegrees) * 1deg))
+    translateZ(-${SCREEN_DEPTH});
   transform-origin: 0 100%;
   padding: ${SCREEN_COLOR_BORDER};
   border-radius: ${BORDER_RADIUS};
@@ -184,31 +188,31 @@ const Lower = React.memo(() => {
   )
 })
 
-export const Laptop = React.forwardRef(
-  ({ children, screenDegrees = 0, ...props }, ref) => {
-    // Simplify degrees
-    screenDegrees = screenDegrees % 360
+export const Laptop = ({ children, ...props }) => {
+  const [mountChildren, setMountChildren] = React.useState(false)
+  const blurOpacity = useMotionValue(0)
 
-    return (
-      <StyledLaptop ref={ref} {...props}>
-        <Screen style={{ '--degrees': `${screenDegrees}deg` }}>
-          <AppleLogo />
-          <ScreenFace
-            style={{
-              '--blurOpacity':
-                screenDegrees < 0
-                  ? Math.ceil((screenDegrees + 90) / 90 / 0.25) * 0.25
-                  : 1,
-            }}
-          >
-            <ScreenBackground>
-              {/* Don't render screen if laptop is closed */}
-              {screenDegrees !== -90 && children}
-            </ScreenBackground>
-          </ScreenFace>
-        </Screen>
-        <Lower />
-      </StyledLaptop>
-    )
-  }
-)
+  return (
+    <StyledLaptop
+      {...props}
+      style={{ '--blurOpacity': blurOpacity, ...props.style }}
+      onUpdate={props => {
+        const degrees = props['--screenDegrees']
+
+        if (!mountChildren) setMountChildren(degrees > -85)
+
+        blurOpacity.set(
+          degrees < 0 ? Math.ceil((degrees + 90) / 90 / 0.25) * 0.25 : 1
+        )
+      }}
+    >
+      <Screen>
+        <AppleLogo />
+        <ScreenFace>
+          <ScreenBackground>{mountChildren && children}</ScreenBackground>
+        </ScreenFace>
+      </Screen>
+      <Lower />
+    </StyledLaptop>
+  )
+}

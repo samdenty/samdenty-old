@@ -5,9 +5,9 @@ import { styled } from 'linaria/react'
 import { Desktop } from './Desktop'
 import { App, AppsContext } from './App'
 import { observable } from 'mobx'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
-const StyledOSX = styled.div`
+const StyledOSX = styled(motion.div)`
   display: flex;
   position: relative;
   height: 100%;
@@ -41,7 +41,7 @@ const StyledOSX = styled.div`
   }
 `
 
-export const OSX = ({ boot = 800, children }) => {
+export const OSX = ({ boot = 800, children, ...props }) => {
   const appContext = useMemo(
     () =>
       observable.object({
@@ -66,27 +66,28 @@ export const OSX = ({ boot = 800, children }) => {
 
   return (
     <AppsContext.Provider value={appContext}>
-      <StyledOSX>
+      <StyledOSX {...props}>
         <AnimatePresence>
-          {booting && (
+          {booting ? (
             <BootScreen
+              key="boot"
               duration={boot}
               style={{ position: 'absolute', width: '100%', height: '100%' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, scale: 0.8 }}
             />
+          ) : (
+            <Desktop
+              key="desktop"
+              style={{ width: '100%', height: '100%' }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              {children}
+            </Desktop>
           )}
         </AnimatePresence>
-        {!booting && (
-          <Desktop
-            style={{ width: '100%', height: '100%' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {children}
-          </Desktop>
-        )}
       </StyledOSX>
     </AppsContext.Provider>
   )
