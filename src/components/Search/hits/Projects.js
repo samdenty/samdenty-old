@@ -12,8 +12,14 @@ const StyledProjects = styled2(Link)`
   text-decoration: none;
   transition: background-color 0.2s ease;
   padding: 15px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  .ais-Hits-item:last-child & {
+    border: none;
+  }
 
   &:hover {
+    border-color: transparent;
     background-color: rgba(255, 255, 255, 0.2)
   }
 `
@@ -23,7 +29,7 @@ const Header = styled.div`
   line-height: 30px;
 `
 
-const Title = styled2(Highlight)`
+const Title = styled(Highlight)`
   font-size: 18px;
   flex-grow: 1;
 `
@@ -34,11 +40,11 @@ const Date = styled.div`
   color: rgba(255, 255, 255, 0.7);
 `
 
-const DateIcon = styled2(FaCalendarAlt)`
+const DateIcon = styled(FaCalendarAlt)`
   margin-right: 5px;
 `
 
-const Excerpt = styled2(Snippet)`
+const Excerpt = styled(Snippet)`
   margin-top: 10px;
 `
 
@@ -48,13 +54,11 @@ const Content = styled.div`
   flex-grow: 1;
 `
 
-const LogoGatsby = styled2(Img)`
+const Logo = styled.img`
   height: 30px;
   width: 30px;
   margin-right: 10px;
 `
-
-const LogoImg = LogoGatsby.withComponent('img')
 
 export const Projects = ({ hit }) => {
   return (
@@ -63,15 +67,15 @@ export const Projects = ({ hit }) => {
         <Header>
           {hit.logo &&
             (typeof hit.logo === 'string' ? (
-              <LogoImg src={hit.logo} />
+              <Logo src={hit.logo} />
             ) : (
-              <LogoGatsby fluid={hit.logo} />
+              <Logo as={Img} fluid={hit.logo} />
             ))}
           <Title attribute="title" hit={hit} tagName="mark" />
 
           <Date>
             <DateIcon />
-            <Highlight attribute="start_date" hit={hit} tagName="mark" />
+            {hit.start_date}
           </Date>
         </Header>
         {hit.excerpt.replace(/\r?\n|\r| /g, '') && (
