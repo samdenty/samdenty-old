@@ -15,13 +15,15 @@ export const InteractiveLaptop = ({ x, y, z, ...props }) => {
 
     let initialOrientation
     const callback = orientation => {
+      if (orientation.beta === null || orientation.gamma === null) return
+
       if (!initialOrientation) initialOrientation = orientation
 
       const beta = initialOrientation.beta - orientation.beta
       const gamma = initialOrientation.gamma - orientation.gamma
 
       rotateX.set(beta * 0.2 - 15)
-      rotateY.set(gamma * 0.2)
+      rotateY.set(-gamma * 0.1)
     }
 
     window.addEventListener('deviceorientation', callback)
