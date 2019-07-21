@@ -115,7 +115,7 @@ const useShowHeaderBackground = (headerRef, mainRef) => {
 const useShowDrawer = () => {
   const { width } = useWindowSize()
 
-  return width < 800
+  return width <= 950
 }
 
 export const Header = ({ mainRef, shadow }) => {

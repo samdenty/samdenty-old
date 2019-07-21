@@ -37,10 +37,10 @@ const Laptop = () => {
         x={-11}
         y={-13}
         z={0}
-        initial={{ '--screenDegrees': -90 }}
-        animate={{ '--screenDegrees': 0 }}
+        initial={{ '--screen-degrees': -90 }}
+        animate={{ '--screen-degrees': 0 }}
         transition={{ type: 'spring', damping: 100, stiffness: 40, delay: 0.7 }}
-        style={{ '--laptopWidth': width * 0.35 }}
+        style={{ '--laptop-width': width * 0.35 }}
       >
         <Workstation />
         {/*<Typist

@@ -14,13 +14,13 @@ const SCREEN_DEPTH = '2px'
 const CHASSIS_DEPTH = '4px'
 
 const StyledLaptop = styled(motion.div)`
-  --laptopWidth: 500;
-  --screenDegrees: 0;
+  --laptop-width: 500;
+  --screen-degrees: 0;
 
-  width: calc(var(--laptopWidth) * 1px);
-  height: calc(var(--laptopWidth) / 16 * 9px);
-  font-size: calc(var(--laptopWidth) * 0.02px);
-  perspective: calc(var(--laptopWidth) * 2.2px);
+  width: calc(var(--laptop-width) * 1px);
+  height: calc(var(--laptop-width) / 16 * 9px);
+  font-size: calc(var(--laptop-width) * 0.02px);
+  perspective: calc(var(--laptop-width) * 2.2px);
 
   *,
   & {
@@ -52,7 +52,7 @@ const Aluminum = styled.div`
 `
 
 const Screen = styled(Aluminum)`
-  transform: rotateX(calc(var(--screenDegrees) * 1deg))
+  transform: rotateX(calc(var(--screen-degrees) * 1deg))
     translateZ(-${SCREEN_DEPTH});
   transform-origin: 0 100%;
   padding: ${SCREEN_COLOR_BORDER};
@@ -79,7 +79,7 @@ const ScreenFace = styled2.div`
   })};
 
   &::after {
-    opacity: var(--blurOpacity);
+    opacity: var(--blur-opacity);
   }
 
   width: 100%;
@@ -196,9 +196,9 @@ export const Laptop = ({ children, ...props }) => {
   return (
     <StyledLaptop
       {...props}
-      style={{ '--blurOpacity': blurOpacity, ...props.style }}
+      style={{ '--blur-opacity': blurOpacity, ...props.style }}
       onUpdate={props => {
-        const degrees = props['--screenDegrees']
+        const degrees = props['--screen-degrees']
 
         if (!mountChildren) setMountChildren(degrees > -85)
 
