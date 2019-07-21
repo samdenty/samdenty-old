@@ -1,4 +1,3 @@
-- Make laptop on mobile move with accelerometer
 - Fix laptop mouse dependant on window
 - Make laptop shadows less opacity
 - Make screen degrees use framer-motion
