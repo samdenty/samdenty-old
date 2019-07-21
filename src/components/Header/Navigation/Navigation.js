@@ -1,11 +1,10 @@
 import * as React from 'react'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { MediumButton } from '../Button'
+import { MediumButton } from '../../Button'
 import { Link } from 'gatsby'
-import { withProps } from 'recompose'
-import { Search, useSearch } from '../Search'
-import { animatedGradientBox } from '../../utils'
+import { Search, useSearch } from '../../Search'
+import { animatedGradientBox } from '../../../utils'
 
 const StyledNavigation = styled.nav`
   display: flex;
@@ -14,9 +13,7 @@ const StyledNavigation = styled.nav`
   }
 `
 
-const StyledItem = styled(
-  withProps({ activeClassName: 'active' })(MediumButton.withComponent(Link))
-)`
+const StyledItem = styled(MediumButton.withComponent(Link))`
   &.active {
     --computed-gradient-blur: 18px;
 
@@ -36,6 +33,9 @@ const StyledItem = styled(
 
   text-decoration: none;
 `
+StyledItem.defaultProps = {
+  activeClassName: 'active',
+}
 
 const SearchBar = styled2(MediumButton.withComponent('input'))`
   background-color: rgba(255, 255, 255, 0.3);
@@ -71,6 +71,7 @@ const StyledSearch = styled2(Search)`
 
 const SearchWrapper = styled.div`
   position: relative;
+  margin-right: 10px;
 `
 
 export const Navigation = () => {

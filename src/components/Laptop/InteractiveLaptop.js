@@ -48,13 +48,14 @@ export const InteractiveLaptop = ({ x, y, z, ...props }) => {
               scale.set(1)
             },
           })}
+      {...props}
       style={{
         rotateX,
         rotateY,
         rotateZ: z,
         scale,
+        ...props.style,
       }}
-      {...props}
     />
   )
 }

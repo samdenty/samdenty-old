@@ -5,9 +5,13 @@ import { Logo } from './Logo'
 import { animatedGradientBox } from '../../utils'
 import { useResizeObserver } from '../../hooks'
 import { Navigation } from './Navigation'
+import useWindowSize from 'react-use/lib/useWindowSize'
+import { Drawer } from './Drawer'
+import { useState } from 'react'
 
 const StyledHeader = styled2.header`
   font-family: Gilroy;
+  display: flex;
 
   &::after,
   &::before {
@@ -41,7 +45,7 @@ const StyledHeader = styled2.header`
 
   position: fixed;
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px;
   z-index: 999;
 `
 
@@ -79,15 +83,16 @@ const Items = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 `
 
 const Spacer = styled.div`
   width: 30%;
 `
 
-export const Header = ({ mainRef, shadow }) => {
+const useShowHeaderBackground = (headerRef, mainRef) => {
   const [showBackground, setShowBackground] = React.useState(false)
-  const headerRef = React.useRef(null)
+
   const { height } = useResizeObserver(headerRef)
   const { top } = useResizeObserver(mainRef)
 
@@ -104,13 +109,34 @@ export const Header = ({ mainRef, shadow }) => {
     return () => window.removeEventListener('scroll', listener)
   }, [triggerAmount])
 
+  return showBackground
+}
+
+const useShowDrawer = () => {
+  const { width } = useWindowSize()
+
+  return width < 800
+}
+
+export const Header = ({ mainRef, shadow }) => {
+  const headerRef = React.useRef(null)
+  const showBackground = useShowHeaderBackground(headerRef, mainRef)
+  const showDrawer = useShowDrawer()
+
   return (
     <StyledHeader showBackground={showBackground} ref={headerRef}>
       {shadow && !showBackground && <HeaderShadow />}
+      {showDrawer && <Drawer />}
+
       <Items>
         <Logo />
-        <Spacer />
-        <Navigation />
+
+        {!showDrawer && (
+          <>
+            <Spacer />
+            <Navigation />
+          </>
+        )}
       </Items>
     </StyledHeader>
   )

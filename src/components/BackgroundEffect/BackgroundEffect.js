@@ -16,7 +16,7 @@ export const BackgroundEffectContext = React.createContext([false, () => {}])
 export const BackgroundEffect = () => {
   const [paused] = React.useContext(BackgroundEffectContext)
   const [loaded, setLoaded] = React.useState(false)
-  const canvas = React.useRef(null)
+  const canvasRef = React.useRef(null)
 
   const EffectRenderer = React.useMemo(
     () =>
@@ -28,7 +28,7 @@ export const BackgroundEffect = () => {
 
   React.useEffect(() => {
     const createEffect = async () => {
-      const offscreen = canvas.current.transferControlToOffscreen()
+      const offscreen = canvasRef.current.transferControlToOffscreen()
       const effect = await new EffectRenderer(
         Comlink.transfer(offscreen, [offscreen])
       )
@@ -40,8 +40,8 @@ export const BackgroundEffect = () => {
         const height = window.innerHeight
 
         await effect.calculate(width, height, devicePixelRatio)
-        canvas.current.style.width = `${width}px`
-        canvas.current.style.height = `${height}px`
+        canvasRef.current.style.width = `${width}px`
+        canvasRef.current.style.height = `${height}px`
       }
 
       await calculate()
@@ -72,7 +72,7 @@ export const BackgroundEffect = () => {
     }
   }, [effectRef.current, loaded, paused])
 
-  return <StyledCanvas loaded={loaded} ref={canvas} />
+  return <StyledCanvas loaded={loaded} ref={canvasRef} />
 }
 
 export const BackgroundEffectProvider = ({ children }) => {

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { animatedGradientBox, colourful, animatedGradient } from '../../utils'
+import { animatedGradientBox, colourful } from '../../utils'
 import AppleIcon from '../OSX/AppleIcon.svg'
 
 import { Keyboard } from './Keyboard'
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, useMotionValue } from 'framer-motion'
 
 const SCREEN_COLOR_BORDER = '0.5%'
 const BORDER_RADIUS = '15px'
@@ -14,12 +14,13 @@ const SCREEN_DEPTH = '2px'
 const CHASSIS_DEPTH = '4px'
 
 const StyledLaptop = styled(motion.div)`
+  --laptopWidth: 500;
   --screenDegrees: 0;
 
-  width: 500px;
-  height: 281px;
-  font-size: 10px;
-  perspective: 1100px;
+  width: calc(var(--laptopWidth) * 1px);
+  height: calc(var(--laptopWidth) / 16 * 9px);
+  font-size: calc(var(--laptopWidth) * 0.02px);
+  perspective: calc(var(--laptopWidth) * 2.2px);
 
   *,
   & {

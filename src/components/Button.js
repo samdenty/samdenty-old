@@ -14,6 +14,7 @@ const baseButton = ({ gradient = true }) => css`
           blur: '9px',
           duration: 20 * 1000,
           gradientSize: 15,
+          borderWidth: '0px',
           interactive: true,
         })}
         border-radius: 20px;
