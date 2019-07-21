@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Typist from 'react-typist'
 import { styled } from 'linaria/react'
-import useWindowSize from 'react-use/lib/useWindowSize'
+import styled2 from '@emotion/styled'
 import {
   Layout,
   SEO,
@@ -19,31 +19,37 @@ const Section = styled.section`
   justify-content: center;
 `
 
-const Laptop = () => {
-  const { width } = useWindowSize()
+const StyledInteractiveLaptop = styled2(InteractiveLaptop)`
+  ${[100, 200, 300, 400, 500, 700, 900, 1100, 1300, 1500, 1700, 1900, 2000]
+    .map(
+      width => `@media (min-width: ${width}px) {
+        --laptop-width: ${width * 0.35};
+      }`
+    )
+    .join('\n')}
+`
 
-  return (
-    <motion.div
-      initial={{
-        scale: 0,
-        opacity: 0,
-        translateX: '100vw',
-        translateY: '-15vh',
-      }}
-      animate={{ scale: 1, opacity: 1, translateX: 0, translateY: 0 }}
-      transition={{ type: 'spring', damping: 15, duration: 2, delay: 0.3 }}
+const Laptop = () => (
+  <motion.div
+    initial={{
+      scale: 0,
+      opacity: 0,
+      translateX: '100vw',
+      translateY: '-15vh',
+    }}
+    animate={{ scale: 1, opacity: 1, translateX: 0, translateY: 0 }}
+    transition={{ type: 'spring', damping: 15, duration: 2, delay: 0.3 }}
+  >
+    <StyledInteractiveLaptop
+      x={-11}
+      y={-13}
+      z={0}
+      initial={{ '--screen-degrees': -90 }}
+      animate={{ '--screen-degrees': 0 }}
+      transition={{ type: 'spring', damping: 100, stiffness: 40, delay: 0.7 }}
     >
-      <InteractiveLaptop
-        x={-11}
-        y={-13}
-        z={0}
-        initial={{ '--screen-degrees': -90 }}
-        animate={{ '--screen-degrees': 0 }}
-        transition={{ type: 'spring', damping: 100, stiffness: 40, delay: 0.7 }}
-        style={{ '--laptop-width': width * 0.35 }}
-      >
-        <Workstation />
-        {/*<Typist
+      <Workstation />
+      {/*<Typist
       onCharacterTyped={char => {
         const keyName = char === '🔙' ? 'delete' : char
 
@@ -54,10 +60,9 @@ const Laptop = () => {
       <Typist.Backspace count={8} delay={200} />
       <span> Phrase </span>
     </Typist>*/}
-      </InteractiveLaptop>
-    </motion.div>
-  )
-}
+    </StyledInteractiveLaptop>
+  </motion.div>
+)
 
 export default () => {
   const [paused, setPaused] = useState(true)

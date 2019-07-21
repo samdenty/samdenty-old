@@ -13,6 +13,10 @@ const StyledDrawer = styled(motion.nav)`
   height: 60px;
   width: 60px;
   flex-shrink: 0;
+
+  @media (min-width: 951px) {
+    display: none;
+  }
 `
 
 const Background = styled(motion.div)`

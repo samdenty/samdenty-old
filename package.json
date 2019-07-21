@@ -43,6 +43,7 @@
     "mobx-react-lite": "^1.4.1",
     "netlify-lambda": "^1.5.0",
     "patch-package": "^6.1.2",
+    "polished": "^3.4.1",
     "popper.js": "^1.15.0",
     "prismjs": "^1.16.0",
     "prop-types": "^15.7.2",

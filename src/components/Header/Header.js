@@ -88,6 +88,10 @@ const Items = styled.div`
 
 const Spacer = styled.div`
   width: 30%;
+
+  @media (max-width: 950px) {
+    display: none;
+  }
 `
 
 const useShowHeaderBackground = (headerRef, mainRef) => {
@@ -112,31 +116,19 @@ const useShowHeaderBackground = (headerRef, mainRef) => {
   return showBackground
 }
 
-const useShowDrawer = () => {
-  const { width } = useWindowSize()
-
-  return width <= 950
-}
-
 export const Header = ({ mainRef, shadow }) => {
   const headerRef = React.useRef(null)
   const showBackground = useShowHeaderBackground(headerRef, mainRef)
-  const showDrawer = useShowDrawer()
 
   return (
     <StyledHeader showBackground={showBackground} ref={headerRef}>
       {shadow && !showBackground && <HeaderShadow />}
-      {showDrawer && <Drawer />}
+      <Drawer />
 
       <Items>
         <Logo />
-
-        {!showDrawer && (
-          <>
-            <Spacer />
-            <Navigation />
-          </>
-        )}
+        <Spacer />
+        <Navigation />
       </Items>
     </StyledHeader>
   )

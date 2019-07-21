@@ -8,8 +8,13 @@ import { animatedGradientBox } from '../../../utils'
 
 const StyledNavigation = styled.nav`
   display: flex;
+
   > * {
     margin: 0 8px;
+  }
+
+  @media (max-width: 950px) {
+    display: none;
   }
 `
 
