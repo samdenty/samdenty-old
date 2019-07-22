@@ -1,10 +1,6 @@
 - Fix laptop mouse dependant on window
-- Make laptop shadows less opacity
-- Make screen degrees use framer-motion
-
-What do I want it to do?
-
-- Be interactive with the mouse - ie hover effects, click on stuff
+- Adjust laptop colors to fix in with colour scheme
+- Add featured projects to homepage in slideshow
 
 What should go inside the computer?
 
@@ -29,3 +25,10 @@ Should resemble a MacOS desktop
 
 - Could have a steam window that has a HTML portal to my account
 - The spotify integration I made could go into a spotify application
+
+# Lines
+
+- Focused on great UX, for developers and users.
+- Creating great UX for users and developers alike.
+- Focused on great user experience, for the users and the developers that power them.
+- Designing for users and developers.

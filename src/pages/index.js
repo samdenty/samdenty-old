@@ -19,28 +19,30 @@ const Section = styled.section`
   justify-content: center;
 `
 
-const StyledInteractiveLaptop = styled2(InteractiveLaptop)`
-  ${[100, 200, 300, 400, 500, 700, 900, 1100, 1300, 1500, 1700, 1900, 2000]
-    .map(
-      width => `@media (min-width: ${width}px) {
-        --laptop-width: ${width * 0.35};
-      }`
-    )
-    .join('\n')}
+const LaptopWrapper = styled(motion.div)`
+  --laptop-width: 35vw;
+
+  > * {
+    margin: 3em 14em 18em;
+  }
+`
+
+const Banner = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Heading = styled.h2`
+  flex-grow: 1;
 `
 
 const Laptop = () => (
-  <motion.div
-    initial={{
-      scale: 0,
-      opacity: 0,
-      translateX: '100vw',
-      translateY: '-15vh',
-    }}
+  <LaptopWrapper
+    initial={{ scale: 0, opacity: 0, translateX: '100vw', translateY: '-15vh' }}
     animate={{ scale: 1, opacity: 1, translateX: 0, translateY: 0 }}
     transition={{ type: 'spring', damping: 15, duration: 2, delay: 0.3 }}
   >
-    <StyledInteractiveLaptop
+    <InteractiveLaptop
       x={-11}
       y={-13}
       z={0}
@@ -60,8 +62,8 @@ const Laptop = () => (
       <Typist.Backspace count={8} delay={200} />
       <span> Phrase </span>
     </Typist>*/}
-    </StyledInteractiveLaptop>
-  </motion.div>
+    </InteractiveLaptop>
+  </LaptopWrapper>
 )
 
 export default () => {
@@ -79,7 +81,6 @@ export default () => {
     <KeyboardProvider keyboard={keyboard}>
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-
         {/*<input
         type="range"
         min="-90"
@@ -87,10 +88,13 @@ export default () => {
         value={value}
         onChange={e => setValue(+e.target.value)}
       />*/}
-        <Section>
-          <Laptop />
-        </Section>
 
+        <Banner>
+          <Heading>Developer Designer</Heading>
+          <Section>
+            <Laptop />
+          </Section>
+        </Banner>
         {/**<Spotify />*/}
       </Layout>
     </KeyboardProvider>

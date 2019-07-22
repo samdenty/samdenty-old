@@ -5,7 +5,7 @@ import { animatedGradientBox, colourful } from '../../utils'
 import AppleIcon from '../OSX/AppleIcon.svg'
 
 import { Keyboard } from './Keyboard'
-import { motion, useMotionValue } from 'framer-motion'
+import { motion, useMotionValue, useTransform } from 'framer-motion'
 
 const SCREEN_COLOR_BORDER = '0.5%'
 const BORDER_RADIUS = '15px'
@@ -14,13 +14,12 @@ const SCREEN_DEPTH = '2px'
 const CHASSIS_DEPTH = '4px'
 
 const StyledLaptop = styled(motion.div)`
-  --laptop-width: 500;
   --screen-degrees: 0;
 
-  width: calc(var(--laptop-width) * 1px);
-  height: calc(var(--laptop-width) / 16 * 9px);
-  font-size: calc(var(--laptop-width) * 0.02px);
-  perspective: calc(var(--laptop-width) * 2.2px);
+  width: var(--laptop-width);
+  height: calc(var(--laptop-width) / 16 * 9);
+  font-size: calc(var(--laptop-width) * 0.02);
+  perspective: calc(var(--laptop-width) * 2.2);
 
   *,
   & {
@@ -29,26 +28,17 @@ const StyledLaptop = styled(motion.div)`
 `
 
 const Aluminum = styled.div`
-  background: #8e8e92;
+  background: #6c6c70;
   background-image: linear-gradient(
     45deg,
     rgba(0, 0, 0, 0.34) 0%,
     rgba(0, 0, 0, 0) 100%
   );
 
-  box-shadow: inset 0 3px 27px rgba(0, 0, 0, 0.2);
-
-  &::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0.6;
-    background: url(${require('../../assets/images/assault.png')});
-  }
+  box-shadow: inset 0 0 7em rgba(0, 0, 0, 0.2),
+    inset 0 0.3em 3em rgba(56, 55, 58, 0.2),
+    inset 0 0.3em 1em rgba(56, 55, 58, 0.2), 0 2em 5em rgba(0, 0, 0, 0.05),
+    0 2em 1em rgba(0, 0, 0, 0.02);
 `
 
 const Screen = styled(Aluminum)`
@@ -78,6 +68,7 @@ const ScreenFace = styled2.div`
     blur: '70px',
   })};
 
+  &::before,
   &::after {
     opacity: var(--blur-opacity);
   }
@@ -190,21 +181,29 @@ const Lower = React.memo(() => {
 })
 
 export const Laptop = ({ children, ...props }) => {
+  const screenDegrees = useMotionValue(0)
   const [mountChildren, setMountChildren] = React.useState(false)
-  const blurOpacity = useMotionValue(0)
+  const blurOpacity = useTransform(
+    screenDegrees,
+    degrees =>
+      (degrees < 0 ? Math.ceil((degrees + 90) / 90 / 0.25) * 0.25 : 1) * 0.6
+  )
+
+  React.useEffect(
+    () =>
+      screenDegrees.onChange(degrees => {
+        setMountChildren(degrees > -85)
+      }),
+    []
+  )
 
   return (
     <StyledLaptop
       {...props}
-      style={{ '--blur-opacity': blurOpacity, ...props.style }}
-      onUpdate={props => {
-        const degrees = props['--screen-degrees']
-
-        if (!mountChildren) setMountChildren(degrees > -85)
-
-        blurOpacity.set(
-          degrees < 0 ? Math.ceil((degrees + 90) / 90 / 0.25) * 0.25 : 1
-        )
+      style={{
+        '--blur-opacity': blurOpacity,
+        '--screen-degrees': screenDegrees,
+        ...props.style,
       }}
     >
       <Screen>

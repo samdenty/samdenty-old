@@ -32,6 +32,7 @@ const Text = styled2.h1`
     duration: 15 * 1000,
     gradientSize: 2,
   })}
+  text-shadow: 0 1px 7px rgba(255, 255, 255, 0.25);
   font-size: 1.9rem;
   color: rgb(221, 209, 230);
   margin: 0 14px;
