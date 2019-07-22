@@ -43,8 +43,7 @@ const StyledLayout = styled.div`
     Ubuntu, 'Helvetica Neue', sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  overflow-x: hidden;
   color: #fff;
 `
 
