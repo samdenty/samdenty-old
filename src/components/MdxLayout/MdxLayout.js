@@ -22,9 +22,14 @@ const StyledLayout = styled2(Layout)`
   }
 `
 
+const Header = styled.div`
+  display: flex;
+  line-height: 64px;
+  margin-bottom: 25px;
+`
+
 const Title = styled.h1`
   margin: 0;
-  margin-bottom: 25px;
   font-size: 4rem;
   text-align: center;
 `
@@ -34,11 +39,6 @@ const Period = styled.h3`
   margin: 0;
   font-weight: bold;
   opacity: 0.7;
-`
-
-const Header = styled.div`
-  display: flex;
-  line-height: 64px;
 `
 
 const LogoGatsby = styled2(Img)`

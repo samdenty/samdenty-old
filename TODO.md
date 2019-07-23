@@ -1,6 +1,15 @@
 - Fix laptop mouse dependant on window
-- Adjust laptop colors to fix in with colour scheme
+- Adjust homepage for mobile
+- Adjust button, laptop, and animatedGradient colours to be consistent with theme
 - Add featured projects to homepage in slideshow
+- Add nibs on the left side of window for page position
+- Pause background effect on page load for all pages
+
+- Add homepage tabs on left
+  - Who -> Sam Denty
+  - Work -> Featured projects
+  - About -> About Me
+  - Contact -> Get In Touch
 
 What should go inside the computer?
 

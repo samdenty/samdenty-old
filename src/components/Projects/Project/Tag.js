@@ -14,5 +14,5 @@ const StyledTag = styled(SmallButton)`
 `
 
 export const Tag = props => {
-  return <StyledTag gradient={false} {...props} />
+  return <StyledTag gradient={+false} {...props} />
 }

@@ -3,7 +3,7 @@ import { Laptop } from './Laptop'
 import { useSpring } from 'framer-motion'
 import { useEffect } from 'react'
 
-const TOUCH = typeof window !== 'undefined' && 'ontouchstart' in window
+const isTouch = () => typeof window !== 'undefined' && 'ontouchstart' in window
 
 export const InteractiveLaptop = ({ x, y, z, ...props }) => {
   const rotateX = useSpring(x)
@@ -32,22 +32,24 @@ export const InteractiveLaptop = ({ x, y, z, ...props }) => {
 
   return (
     <Laptop
-      {...(TOUCH
-        ? undefined
-        : {
-            onMouseMove: ({ clientX: x, clientY: y }) => {
-              rotateX.set(-(y - window.innerHeight / 2) / 30 - 10)
-              rotateY.set((x - window.innerWidth / 2) / 80)
-            },
-            onMouseEnter: () => {
-              scale.set(1.1)
-            },
-            onMouseLeave: () => {
-              rotateX.set(x)
-              rotateY.set(y)
-              scale.set(1)
-            },
-          })}
+      onMouseMove={({ clientX: x, clientY: y }) => {
+        if (isTouch()) return
+
+        rotateX.set(-(y - window.innerHeight / 2) / 30 - 10)
+        rotateY.set((x - window.innerWidth / 2) / 80)
+      }}
+      onMouseEnter={e => {
+        if (isTouch()) return
+
+        scale.set(1.1)
+      }}
+      onMouseLeave={() => {
+        if (isTouch()) return
+
+        rotateX.set(x)
+        rotateY.set(y)
+        scale.set(1)
+      }}
       {...props}
       style={{
         rotateX,

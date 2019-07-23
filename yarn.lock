@@ -905,6 +905,15 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@callstack/react-theme-provider@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@callstack/react-theme-provider/-/react-theme-provider-3.0.3.tgz#f964dda28cd6e731c3fbcf916b0579c6f9fb2db7"
+  integrity sha512-B+9JBK7zsND/AdVkjwHvbb4cR05fJofLFG30hOeoXke8WkKAWN36yFljauAhI8qwlXlGFGZMYE1wQvsqBSccrA==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.1"
+    deepmerge "^3.2.0"
+    hoist-non-react-statics "^3.3.0"
+
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.2.tgz#bb98bbef8effe83418307563c34e784deae57a1a"
@@ -1277,6 +1286,14 @@
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
   integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
+
+"@types/hoist-non-react-statics@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -4393,6 +4410,11 @@ deepmerge@^2.0.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
   integrity sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==
+
+deepmerge@^3.2.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.3.0.tgz#d3c47fd6f3a93d517b14426b0628a17b0125f5f7"
+  integrity sha512-GRQOafGHwMHpjPx9iCvTgpu9NojZ49q794EEL94JVEw6VaeA8XTUyBKvAkOOjBX9oJNiV6G3P+T+tihFjo2TqA==
 
 default-gateway@^4.2.0:
   version "4.2.0"

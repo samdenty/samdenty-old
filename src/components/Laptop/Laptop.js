@@ -7,11 +7,11 @@ import AppleIcon from '../OSX/AppleIcon.svg'
 import { Keyboard } from './Keyboard'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 
-const SCREEN_COLOR_BORDER = '0.5%'
-const BORDER_RADIUS = '15px'
+const SCREEN_COLOR_BORDER = '0.3em'
+const BORDER_RADIUS = '1em'
 
-const SCREEN_DEPTH = '2px'
-const CHASSIS_DEPTH = '4px'
+const SCREEN_DEPTH = '0.2em'
+const CHASSIS_DEPTH = '0.4em'
 
 const StyledLaptop = styled(motion.div)`
   --screen-degrees: 0;

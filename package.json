@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
+    "@callstack/react-theme-provider": "^3.0.3",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "@mdx-js/mdx": "^1.1.0",
