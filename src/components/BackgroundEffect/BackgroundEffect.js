@@ -4,7 +4,7 @@ import debounce from 'debounce'
 import * as Comlink from 'comlink'
 import { withTheme } from '../../theme'
 
-export const StyledBackgroundEffect = withTheme(styled.span`
+export const StyledBackgroundEffect = withTheme(styled.div`
   background: linear-gradient(
     to bottom,
     ${({ theme }) => theme.backgroundGradient.join(',')}

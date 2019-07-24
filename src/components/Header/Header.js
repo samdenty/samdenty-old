@@ -55,7 +55,7 @@ const HeaderShadow = withTheme(styled.div`
   width: 100%;
   z-index: -1;
   height: calc(100% + 200px);
-  box-shadow: inset 0 250px 150px -150px ${({ theme }) => darken(0.05, transparentize(0.4, theme.headerBackground))};
+  box-shadow: inset 0 250px 150px -150px rgba(0, 0, 0, 0.5);
 `)
 
 const Items = styled.div`

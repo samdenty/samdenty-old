@@ -55,10 +55,11 @@ const SearchBar = styled2(MediumButton.withComponent('input'))`
 `
 
 const StyledSearch = styled2(Search)`
-  ${animatedGradientBox({
-    duration: 30000,
-    colors: ['#be00e1', '#e1009c', '#e10053', '#ff9a02'],
-  })}
+  ${({ theme }) =>
+    animatedGradientBox({
+      duration: 30000,
+      colors: theme.defaultGradient,
+    })}
 
   position: absolute;
   backdrop-filter: blur(30px);

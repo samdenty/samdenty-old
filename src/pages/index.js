@@ -157,16 +157,19 @@ export default () => {
               enter: direction => ({
                 position: 'absolute',
                 padding: 'inherit',
+                pointerEvents: 'none',
                 translateY: direction < 0 ? '-100vh' : '100vh',
               }),
               visible: {
                 padding: 0,
+                pointerEvents: 'initial',
                 position: 'relative',
                 translateY: 0,
               },
               exit: direction => ({
                 position: 'absolute',
                 padding: 'inherit',
+                pointerEvents: 'none',
                 translateY: direction < 0 ? '100vh' : '-100vh',
               }),
             }}

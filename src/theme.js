@@ -2,7 +2,7 @@ import { createTheming } from '@callstack/react-theme-provider'
 
 const { ThemeProvider, withTheme, useTheme } = createTheming({
   headerBackground: '#072142',
-  backgroundGradient: ['#072142', '#061c37', '#07182b', '#061220', '#020b16'],
+  backgroundGradient: ['#051830', '#041428', '#05111e', '#040e17', '#03090f'],
   defaultGradient: ['#e10053', '#FF4D5A', '#ff6c4d'],
   colorfulGradient: [
     '#fb0094',
