@@ -14,6 +14,7 @@ import {
 } from '../components'
 import { usePauseBackgroundEffect } from '../hooks'
 import { motion, AnimatePresence } from 'framer-motion'
+import { css } from 'linaria'
 
 const LaptopWrapper = styled(motion.div)`
   --laptop-width: 35vw;

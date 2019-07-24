@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { animatedGradientBox, colourful } from '../../utils'
+import { animatedGradientBox } from '../../utils'
 import AppleIcon from '../OSX/AppleIcon.svg'
 
 import { Keyboard } from './Keyboard'
@@ -62,11 +62,14 @@ const Screen = styled(Aluminum)`
 `
 
 const ScreenFace = styled2.div`
-  ${animatedGradientBox({
-    colors: colourful,
-    borderWidth: SCREEN_COLOR_BORDER,
-    blur: '70px',
-  })};
+  ${({ theme }) =>
+    animatedGradientBox({
+      colors: theme.laptopGradient,
+      borderWidth: SCREEN_COLOR_BORDER,
+      duration: 10 * 1000,
+      gradientSize: 5,
+      blur: '70px',
+    })};
 
   &::before,
   &::after {

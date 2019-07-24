@@ -79,12 +79,15 @@ const Main = styled.main`
   }
 `
 
-export const Layout = ({ banner, layoutProps, ...props }) => {
+export const Layout = ({ banner, layoutProps, headerShadow, ...props }) => {
   const mainRef = useRef(null)
 
   return (
     <StyledLayout {...layoutProps}>
-      <Header mainRef={mainRef} shadow={!!banner} />
+      <Header
+        mainRef={mainRef}
+        shadow={headerShadow !== undefined ? headerShadow : !!banner}
+      />
       {banner}
 
       <Main withBanner={!!banner} {...props} ref={mainRef} />

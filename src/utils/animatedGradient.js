@@ -1,7 +1,6 @@
-import { orangePurple } from './colors'
 import css from '@emotion/css'
 
-export const gradient = ({ colors = orangePurple, degrees = 45 } = {}) => {
+export const gradient = ({ colors, degrees = 45 } = {}) => {
   if (colors.length === 1) colors = [colors[0], colors[0]]
 
   return css`
@@ -12,8 +11,8 @@ export const gradient = ({ colors = orangePurple, degrees = 45 } = {}) => {
 export const animatedGradient = ({
   colors,
   degrees,
-  duration = 10000,
-  gradientSize = 4,
+  duration = 20 * 1000,
+  gradientSize = 10,
 } = {}) => {
   return css`
     @keyframes animatedShadow {

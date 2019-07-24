@@ -1,7 +1,9 @@
 import * as React from 'react'
+import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
 import { withTheme } from '../../theme'
 import { motion } from 'framer-motion'
+import { animatedGradient } from '../../utils'
 
 const easeInOutCubic = [0.645, 0.045, 0.355, 1]
 
@@ -42,17 +44,18 @@ const Lines = styled.div`
   margin-bottom: 2rem;
 `
 
-const Line = withTheme(styled(motion.div)`
+const Line = styled2(motion.div)`
   width: 88px;
   height: 4px;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.accentColor};
+  ${({ theme }) => animatedGradient({ colors: theme.defaultGradient })}
+
 
   &:last-child {
     margin-top: 13px;
     margin-left: 54px;
   }
-`)
+`
 
 const TRANSITION_DELAY = 0.4
 
@@ -86,7 +89,7 @@ export const Page = ({ children, description, title }) => {
         <Title
           transition={{ ease: easeInOutCubic, duration: 0.8 }}
           variants={{
-            hidden: { translateX: '-100%' },
+            hidden: { translateX: '-120%' },
             visible: { translateX: 0 },
           }}
         >
@@ -108,7 +111,7 @@ export const Page = ({ children, description, title }) => {
         <Description
           transition={{ ease: easeInOutCubic, duration: 0.8 }}
           variants={{
-            hidden: { translateX: '-100%' },
+            hidden: { translateX: '-120%' },
             visible: { translateX: 0 },
           }}
         >

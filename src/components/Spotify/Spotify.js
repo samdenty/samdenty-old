@@ -4,7 +4,7 @@ import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
 import { css } from '@emotion/core'
 import { ProgressBar, CircleMargin } from './ProgressBar'
-import { animatedGradientBox, colourful } from '../../utils'
+import { animatedGradientBox } from '../../utils'
 import { Artists } from './Artists'
 import { Tick } from './Tick'
 
@@ -20,11 +20,12 @@ const StyledSpotify = styled.div`
 `
 
 const Circle = styled2.div`
-  ${animatedGradientBox({
-    colors: colourful,
-    borderWidth: '7px',
-    duration: 60 * 1000,
-  })}
+  ${({ theme }) =>
+    animatedGradientBox({
+      colors: theme.colorfulGradient,
+      borderWidth: '7px',
+      duration: 60 * 1000,
+    })}
   flex-shrink: 0;
   border-radius: 50%;
   height: 220px;

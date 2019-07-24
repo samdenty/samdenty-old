@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { colourful, animatedGradientBox } from '../../utils'
+import { animatedGradientBox } from '../../utils'
 import Moment from 'react-moment'
 import { css } from '@emotion/core'
 import { Play } from './Play'
@@ -37,12 +37,13 @@ const Handle = styled2.div`
   width: ${({ value }) => value}%;
   border-radius: inherit;
 
-  ${animatedGradientBox({
-    duration: 100 * 1000,
-    blur: '5px',
-    borderWidth: '1px',
-    colors: colourful,
-  })}
+  ${({ theme }) =>
+    animatedGradientBox({
+      duration: 100 * 1000,
+      blur: '5px',
+      borderWidth: '1px',
+      colors: theme.colorfulGradient,
+    })}
   border-radius: inherit;
   background-size: ${500 * 7}px;
 `

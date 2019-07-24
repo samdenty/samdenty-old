@@ -4,7 +4,7 @@ import debounce from 'debounce'
 import * as Comlink from 'comlink'
 import { withTheme } from '../../theme'
 
-export const Wrapper = withTheme(styled.div`
+export const StyledBackgroundEffect = withTheme(styled.span`
   background: linear-gradient(
     to bottom,
     ${({ theme }) => theme.backgroundGradient.join(',')}
@@ -83,9 +83,9 @@ export const BackgroundEffect = () => {
   }, [effectRef.current, loaded, paused])
 
   return (
-    <Wrapper>
+    <StyledBackgroundEffect>
       <StyledCanvas loaded={loaded} ref={canvasRef} />
-    </Wrapper>
+    </StyledBackgroundEffect>
   )
 }
 

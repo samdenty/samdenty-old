@@ -9,14 +9,22 @@ import { TimeRange } from '../../TimeRange'
 import { motion } from 'framer-motion'
 
 const StyledProject = styled2(motion.article)`
-  ${({ gradient }) =>
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  ${({ gradient, theme }) =>
     animatedGradientBox({
-      colors: gradient ? gradient : undefined,
+      colors: gradient ? gradient : theme.defaultGradient,
       gradientSize: 5,
       duration: 30 * 1000,
       borderWidth: '1px',
-      blur: '20px',
+      spread: '5px',
+      blur: '15px',
     })};
+
+  &::after {
+    opacity: 0.4;
+    margin-top: 4px;
+  }
 
   display: flex;
   flex-direction: column;

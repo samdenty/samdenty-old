@@ -2,6 +2,7 @@ import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 import { animatedGradientBox } from '../utils'
 import { motion } from 'framer-motion'
+import { withTheme } from '../theme'
 
 const StyledButton = styled(motion.button)`
   font-family: Gilroy;
@@ -9,13 +10,12 @@ const StyledButton = styled(motion.button)`
   align-items: center;
   justify-content: center;
 
-  ${({ gradient = true }) =>
+  ${({ gradient = true, theme }) =>
     gradient
       ? css`
           ${animatedGradientBox({
+            colors: theme.defaultGradient,
             blur: '9px',
-            duration: 20 * 1000,
-            gradientSize: 15,
             borderWidth: '0px',
             interactive: true,
           })}
@@ -41,11 +41,6 @@ const StyledButton = styled(motion.button)`
     transform: scale(0.95);
   }
 `
-
-// StyledButton.defaultProps = {
-//   whileHover: { scale: 1.1 },
-//   whileTap: { scale: 0.9 },
-// }
 
 export const MediumButton = styled(StyledButton)`
   height: 40px;

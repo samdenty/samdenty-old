@@ -20,9 +20,9 @@ const StyledParallaxBanner = styled2(RSP.ParallaxBanner)`
     left: 0;
     width: 100%;
     height: 100%;
-    ${({ gradient }) =>
+    ${({ gradient, theme }) =>
       animatedGradient({
-        colors: gradient || undefined,
+        colors: gradient || theme.defaultGradient,
         gradientSize: 5,
         duration: 40 * 1000,
       })};

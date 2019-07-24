@@ -5,79 +5,58 @@ import { Logo } from './Logo'
 import { animatedGradientBox } from '../../utils'
 import { useResizeObserver } from '../../hooks'
 import { Navigation } from './Navigation'
-import useWindowSize from 'react-use/lib/useWindowSize'
 import { Drawer } from './Drawer'
-import { useState } from 'react'
+import { transparentize, darken } from 'polished'
+import { withTheme } from '../../theme'
 
-const StyledHeader = styled2.header`
+const StyledHeader = withTheme(styled.header`
   font-family: Gilroy;
   display: flex;
+  transition: background-color 0.2s ease;
+  background-color: ${({ theme, showBackground }) =>
+    showBackground ? theme.headerBackground : 'transparent'};
 
-  &::after,
-  &::before {
-    transition: opacity 0.2s ease;
-    opacity: ${({ showBackground }) => (showBackground ? 1 : 0)};
-  }
+  box-shadow: ${({ theme, showBackground }) =>
+    showBackground
+      ? `0 10px 20px ${darken(
+          0.05,
+          transparentize(0.81, theme.headerBackground)
+        )}, 0 6px 6px ${darken(
+          0.05,
+          transparentize(0.77, theme.headerBackground)
+        )}`
+      : 'none'};
 
-  @supports (backdrop-filter: blur(10px)) {
-    @media (min-width: 900px) {
-      backdrop-filter: ${({ showBackground }) =>
-        showBackground && `blur(30px)`};
-
-      &::after,
-      &::before {
-        opacity: ${({ showBackground }) => (showBackground ? 0.8 : 0)};
-      }
-    }
-  }
-
-  ${animatedGradientBox({
-    colors: [
-      'rgba(11, 1, 19, 0.8)',
-      'rgba(11, 1, 19, 0.7)',
-      'rgba(11, 1, 19, 0.8)',
-      'rgba(11, 1, 19, 0.7)',
-      'rgba(11, 1, 19, 0.7)',
-    ],
-    blur: '10px',
-  })}
   border-radius: 0;
-
   position: fixed;
   width: 100%;
   padding: 20px;
   z-index: 999;
-`
 
-const shadowBlur = 100
-const HeaderShadow = styled2.div`
-  ${animatedGradientBox({
-    colors: [
-      'rgba(11, 1, 19, 0.8)',
-      'rgba(11, 1, 19, 0.8)',
-      'rgba(11, 1, 19, 1.0)',
-      'rgba(11, 1, 19, 0.8)',
-      'rgba(11, 1, 19, 0.8)',
-    ],
-    blur: `${shadowBlur}px`,
-    degrees: 45,
-    duration: 30 * 1000,
-  })}
-  border-radius: 0;
+  @supports (backdrop-filter: blur(10px)) {
+    @media (min-width: 900px) {
+      backdrop-filter: ${({ showBackground }) =>
+        showBackground ? 'blur(30px)' : 'none'};
 
-  &::before {
-    display: none;
+      background-color: ${({ theme, showBackground }) =>
+        showBackground
+          ? transparentize(0.2, theme.headerBackground)
+          : 'transparent'};
+      }
+    }
   }
+`)
 
+const HeaderShadow = withTheme(styled.div`
   top: 0;
+  pointer-events: none;
   left: 0;
   position: absolute;
-  margin-left: -${shadowBlur + 20}px;
-  width: calc(100% + (${shadowBlur + 20}px * 2));
+  width: 100%;
   z-index: -1;
-  height: calc(100% + 100px);
-  margin-top: -110px;
-`
+  height: calc(100% + 200px);
+  box-shadow: inset 0 250px 150px -150px ${({ theme }) => darken(0.05, transparentize(0.4, theme.headerBackground))};
+`)
 
 const Items = styled.div`
   display: flex;

@@ -9,6 +9,7 @@ export const animatedGradientBox = ({
   borderWidth = '2px',
   interactive = false,
   blur = '9px',
+  spread = '0px',
 } = {}) => css`
   --computed-gradient-blur: ${blur};
 
@@ -28,17 +29,24 @@ export const animatedGradientBox = ({
     content: '';
     position: absolute;
     border-radius: inherit;
-    top: -${borderWidth};
-    left: -${borderWidth};
-    width: calc(100% + (${borderWidth} * 2));
-    height: calc(100% + (${borderWidth} * 2));
     z-index: -1;
 
     transition: all 0.5s ease;
   }
 
+  &::before {
+    top: -${borderWidth};
+    left: -${borderWidth};
+    width: calc(100% + (${borderWidth} * 2));
+    height: calc(100% + (${borderWidth} * 2));
+  }
+
   &::after {
     filter: blur(var(--computed-gradient-blur));
+    top: calc(-${borderWidth} - ${spread});
+    left: calc(-${borderWidth} - ${spread});
+    width: calc(100% + (${borderWidth} * 2) + (${spread} * 2));
+    height: calc(100% + (${borderWidth} * 2) + (${spread} * 2));
   }
 
   ${interactive &&
