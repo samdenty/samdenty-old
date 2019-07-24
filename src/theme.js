@@ -7,12 +7,10 @@ const { ThemeProvider, withTheme, useTheme } = createTheming({
   colorfulGradient: [
     '#fb0094',
     '#0000ff',
-    '#00ff00',
     '#ffff00',
     '#ff0000',
     '#fb0094',
     '#0000ff',
-    '#00ff00',
     '#ffff00',
     '#ff0000',
   ],
