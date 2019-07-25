@@ -54,6 +54,13 @@ export const SlideTitle = styled.h4`
   &:hover {
     opacity: 1;
   }
+
+  @media (max-width: 1100px) {
+    box-shadow: inset 0 8.5rem 4rem -6rem rgba(0, 0, 0, 0.8);
+    top: 0;
+    bottom: initial;
+    justify-content: center;
+  }
 `
 
 const Slide = styled(motion.div)`
