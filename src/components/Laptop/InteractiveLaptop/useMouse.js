@@ -22,10 +22,10 @@ export const useMouse = (laptopRef, { onMove, onEnter, onLeave }) => {
       const centerY = rect.y + rect.height / 2
       const centerX = rect.x + rect.width / 2
 
-      const amountX = (clientX - centerX) * window.devicePixelRatio
-      const amountY = -((clientY - centerY) * window.devicePixelRatio)
+      const amountX = (clientX - centerX) / rect.width
+      const amountY = -((clientY - centerY) / rect.height)
 
-      onMove(-10 + amountY * 0.04, amountX * 0.03)
+      onMove(-10 + amountY * 10, amountX * 7)
     }
     window.addEventListener('mousemove', callback)
     return () => window.removeEventListener('mousemove', callback)
