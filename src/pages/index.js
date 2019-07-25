@@ -90,7 +90,10 @@ const LogoImg = styled.img``
 const FeaturedProjects = () => {
   const featuredProjects = useStaticQuery(graphql`
     query FeaturedProjects {
-      allMdx(filter: { frontmatter: { featured: { eq: true } } }) {
+      allMdx(
+        filter: { frontmatter: { featured: { eq: true } } }
+        sort: { fields: frontmatter___end_date, order: DESC }
+      ) {
         edges {
           node {
             id

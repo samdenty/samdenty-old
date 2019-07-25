@@ -81,7 +81,7 @@ const Paginate = styled(IoIosArrowBack)`
   height: 100%;
   width: 4rem;
   padding: 1rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   mix-blend-mode: difference;
   z-index: 1;
   transition: color 0.2s ease;
