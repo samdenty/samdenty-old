@@ -60,7 +60,6 @@ const StyledLayout = styled.div`
     Ubuntu, 'Helvetica Neue', sans-serif;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   min-height: 100vh;
   color: #fff;
 `
@@ -72,18 +71,22 @@ const Main = styled.main`
   flex-shrink: 0;
   padding: 30px 70px;
   flex-direction: column;
+  justify-content: center;
   margin-top: ${({ withBanner }) => (withBanner ? 0 : 105)}px;
+  min-height: ${({ withBanner }) =>
+    withBanner ? '100vh' : 'calc(100vh - 105px)'};
+  height: 1px;
 
   @media (max-width: 900px) {
     padding: 30px 50px;
   }
 `
 
-export const Layout = ({ banner, layoutProps, headerShadow, ...props }) => {
+export const Layout = ({ banner, headerShadow, ...props }) => {
   const mainRef = useRef(null)
 
   return (
-    <StyledLayout {...layoutProps}>
+    <StyledLayout>
       <Header
         mainRef={mainRef}
         shadow={headerShadow !== undefined ? headerShadow : !!banner}

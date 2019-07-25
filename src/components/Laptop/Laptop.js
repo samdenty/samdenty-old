@@ -85,7 +85,7 @@ const ScreenFace = styled2.div`
 const ScreenBackground = styled.div`
   width: 100%;
   height: 100%;
-  padding: calc(7px + 0.4%);
+  padding: 1em;
   border-radius: inherit;
   background: black;
 `

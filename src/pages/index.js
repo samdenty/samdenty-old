@@ -14,13 +14,21 @@ import {
 } from '../components'
 import { usePauseBackgroundEffect } from '../hooks'
 import { motion, AnimatePresence } from 'framer-motion'
-import { css } from 'linaria'
+import useLockBodyScroll from 'react-use/lib/useLockBodyScroll'
 
 const LaptopWrapper = styled(motion.div)`
-  --laptop-width: 35vw;
+  --laptop-width: calc(15vw + 15vh + 15vmin);
+
+  @media (min-width: 1101px) {
+    margin-left: 10vw;
+  }
+
+  @media (max-width: 1100px) {
+    --laptop-width: 50vw;
+  }
 
   > * {
-    margin: 3em 14em 18em;
+    margin: 10em 10em 18em;
   }
 `
 
@@ -71,13 +79,13 @@ const pages = [
     title={
       <>
         SAM
-        <br />
+        {'\n'}
         DENTY
       </>
     }
     description={
       <>
-        web designer /<br />
+        web designer /{'\n'}
         software engineer.
       </>
     }
@@ -92,7 +100,7 @@ const pages = [
     description={
       <>
         I love Design, Technology,
-        <br /> and Music.
+        {'\n'} and Music.
       </>
     }
   >
@@ -104,16 +112,20 @@ const pages = [
 ]
 
 const PageWrapper = styled(motion.div)`
-  width: 100%;
   left: 0;
-  top: 0;
-  margin-top: 70px;
+  width: 100%;
+  height: 100%;
+
+  @media (min-width: 1101px) {
+    padding-bottom: 100px;
+  }
 `
 
 export default () => {
   const [paused, setPaused] = useState(true)
   const keyboard = useKeyboard()
 
+  useLockBodyScroll()
   // Pause background to increase laptop animation performance
   usePauseBackgroundEffect(paused)
   useEffect(() => {
@@ -127,11 +139,6 @@ export default () => {
   return (
     <KeyboardProvider keyboard={keyboard}>
       <Layout
-        layoutProps={{
-          style: {
-            overflow: 'hidden',
-          },
-        }}
         onWheel={({ deltaY }) => {
           if (animating || !deltaY) return
 

@@ -4,36 +4,54 @@ import { styled } from 'linaria/react'
 import { withTheme } from '../../theme'
 import { motion } from 'framer-motion'
 import { animatedGradient } from '../../utils'
+import { useRef } from 'react'
 
 const easeInOutCubic = [0.645, 0.045, 0.355, 1]
+
+const responsiveEm = (em, amount) =>
+  `calc(${em * amount}em + ${em * 16 * (1 - amount)}px)`
 
 const StyledPage = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: pre;
+  height: 100%;
+  width: 100%;
+
+  @media (max-width: 1100px) {
+    flex-direction: column-reverse;
+  }
 `
 
 const PageInfo = styled(motion.section)`
   display: flex;
-  padding-left: 1rem;
+  padding: 0 1em;
   overflow: hidden;
   flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
+  font-size: calc(0.6rem + 0.15vw + 0.15vh + 0.15vmin);
+
+  @media (max-width: 1100px) {
+    align-self: flex-start;
+    font-size: calc(0.1rem + 1.4vw);
+    margin-top: auto;
+  }
 `
 
 const Title = styled(motion.h2)`
-  font-size: 7rem;
+  font-size: 7em;
   letter-spacing: 0.1em;
   text-shadow: 0 10px 30px rgba(2, 11, 22, 0.5);
   font-weight: 600;
   margin: 0;
-  margin-bottom: 1.6rem;
+  margin-bottom: calc(1em * 0.16);
 `
 
 const Description = styled(motion.p)`
   line-height: 1.5;
-  font-size: 1.8rem;
+  font-size: 1.8em;
   letter-spacing: 0.1em;
   margin: 0;
 `
@@ -41,25 +59,27 @@ const Description = styled(motion.p)`
 const Lines = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 2em;
 `
 
 const Line = styled2(motion.div)`
-  width: 88px;
-  height: 4px;
-  border-radius: 5px;
+  width: ${responsiveEm(5.5, 0.85)};
+  height: ${responsiveEm(0.25, 0.85)};
+  border-radius: 1em;
   ${({ theme }) => animatedGradient({ colors: theme.defaultGradient })}
 
 
   &:last-child {
-    margin-top: 13px;
-    margin-left: 54px;
+    margin-top: 0.8em;
+    margin-left: 3.3em;
   }
 `
 
 const TRANSITION_DELAY = 0.4
 
 export const Page = ({ children, description, title }) => {
+  const pageInfoRef = useRef()
+
   return (
     <StyledPage
       initial="hidden"
@@ -71,13 +91,14 @@ export const Page = ({ children, description, title }) => {
       }}
     >
       <PageInfo
+        ref={pageInfoRef}
         variants={{
           hidden: {
-            transition: { staggerChildren: 0.15, staggerDirection: -1 },
+            transition: { staggerChildren: 0.05, staggerDirection: -1 },
           },
           visible: {
             transition: {
-              staggerChildren: 0.15,
+              staggerChildren: 0.05,
               delayChildren: 0.2 + TRANSITION_DELAY,
             },
           },
@@ -111,7 +132,7 @@ export const Page = ({ children, description, title }) => {
         <Description
           transition={{ ease: easeInOutCubic, duration: 0.8 }}
           variants={{
-            hidden: { translateX: '-120%' },
+            hidden: { translateX: '-130%' },
             visible: { translateX: 0 },
           }}
         >

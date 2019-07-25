@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Toggle } from './Toggle'
 import { useState } from 'react'
 import { Items } from './Items'
+import { withTheme, useTheme } from '../../../theme'
 
 const PADDING = 20
 
@@ -19,21 +20,20 @@ const StyledDrawer = styled(motion.nav)`
   }
 `
 
-const Background = styled(motion.div)`
+const Background = withTheme(styled(motion.div)`
   position: absolute;
   height: calc(100vh + ${PADDING}px);
-  width: 40vw;
+  width: 100vw;
   margin: -${PADDING}px 0 0 -${PADDING}px;
   padding: ${PADDING}px 0 0 ${PADDING}px;
-  background: rgba(49, 49, 52, 0.4);
-  backdrop-filter: blur(50px);
 
   > * {
     pointer-events: initial;
   }
-`
+`)
 
 export const Drawer = () => {
+  const theme = useTheme()
   const [open, setOpen] = useState(false)
 
   return (
@@ -43,13 +43,22 @@ export const Drawer = () => {
           open: (height = 1000) => ({
             clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
             pointerEvents: 'initial',
+            background: `linear-gradient(to bottom, ${theme.defaultGradient.join(
+              ','
+            )})`,
             transition: {
               type: 'spring',
               stiffness: 20,
               restDelta: 2,
+              background: {
+                duration: 0.01,
+              },
             },
           }),
           closed: {
+            background: `linear-gradient(to bottom, ${theme.defaultGradient
+              .map(_ => 'rgba(0, 0, 0, 0)')
+              .join(',')})`,
             pointerEvents: 'none',
             clipPath: `circle(30px at ${PADDING + 30}px ${PADDING + 30}px)`,
             transition: {
@@ -57,6 +66,9 @@ export const Drawer = () => {
               type: 'spring',
               stiffness: 400,
               damping: 40,
+              background: {
+                duration: 1.5,
+              },
             },
           },
         }}

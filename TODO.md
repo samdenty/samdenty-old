@@ -1,6 +1,6 @@
-- Fix laptop mouse dependant on window
 - Adjust homepage for mobile
 - Set max laptop-width
+- Fix laptop mouse dependant on window
 - Make laptop less bouncy when moving mouse
 - Adjust button, laptop, and animatedGradient colours to be consistent with theme
 - Add featured projects to homepage in slideshow

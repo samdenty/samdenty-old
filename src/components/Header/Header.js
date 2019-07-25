@@ -29,7 +29,7 @@ const StyledHeader = withTheme(styled.header`
 
   border-radius: 0;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   padding: 20px;
   z-index: 999;
 
