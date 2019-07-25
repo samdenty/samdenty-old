@@ -1,17 +1,16 @@
 import * as React from 'react'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
-import { withTheme } from '../../theme'
 import { motion } from 'framer-motion'
-import { animatedGradient } from '../../utils'
+import { animatedGradient, easeInOutCubic } from '../../utils'
 import { useRef } from 'react'
-
-const easeInOutCubic = [0.645, 0.045, 0.355, 1]
+import { useResizeObserver } from '../../hooks'
 
 const responsiveEm = (em, amount) =>
   `calc(${em * amount}em + ${em * 16 * (1 - amount)}px)`
 
 const StyledPage = styled(motion.div)`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +24,7 @@ const StyledPage = styled(motion.div)`
 `
 
 const PageInfo = styled(motion.section)`
+  pointer-events: none;
   display: flex;
   padding: 0 1em;
   overflow: hidden;
@@ -32,12 +32,23 @@ const PageInfo = styled(motion.section)`
   flex-direction: column;
   justify-content: center;
   font-size: calc(0.6rem + 0.15vw + 0.15vh + 0.15vmin);
+  position: absolute;
+  left: 0;
+  z-index: 3;
+
+  @media (min-width: 1101px) {
+    margin-left: 11%;
+  }
 
   @media (max-width: 1100px) {
-    align-self: flex-start;
+    bottom: 0;
     font-size: calc(0.1rem + 1.4vw);
-    margin-top: auto;
   }
+`
+
+const Placeholder = styled.div`
+  flex-shrink: 1;
+  pointer-events: none;
 `
 
 const Title = styled(motion.h2)`
@@ -54,6 +65,18 @@ const Description = styled(motion.p)`
   font-size: 1.8em;
   letter-spacing: 0.1em;
   margin: 0;
+  padding-bottom: 0.5em;
+
+  button,
+  a {
+    height: 2.5em;
+    font-size: 1em;
+    padding: 0 1.08em;
+    border-radius: 100px;
+
+    pointer-events: initial;
+    margin-top: 1.5em;
+  }
 `
 
 const Lines = styled.div`
@@ -79,6 +102,7 @@ const TRANSITION_DELAY = 0.4
 
 export const Page = ({ children, description, title }) => {
   const pageInfoRef = useRef()
+  const { height, width } = useResizeObserver(pageInfoRef)
 
   return (
     <StyledPage
@@ -139,6 +163,7 @@ export const Page = ({ children, description, title }) => {
           {description}
         </Description>
       </PageInfo>
+      <Placeholder style={{ height, width }} />
       {children}
     </StyledPage>
   )

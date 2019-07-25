@@ -35,9 +35,8 @@ const StyledItem = styled(MediumButton.withComponent(Link))`
   &::after {
     opacity: 0;
   }
-
-  text-decoration: none;
 `
+
 StyledItem.defaultProps = {
   activeClassName: 'active',
 }

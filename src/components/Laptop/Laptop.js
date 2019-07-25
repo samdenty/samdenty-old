@@ -183,7 +183,7 @@ const Lower = React.memo(() => {
   )
 })
 
-export const Laptop = ({ children, ...props }) => {
+export const Laptop = React.forwardRef(({ children, ...props }, ref) => {
   const screenDegrees = useMotionValue(0)
   const [mountChildren, setMountChildren] = React.useState(false)
   const blurOpacity = useTransform(
@@ -203,6 +203,7 @@ export const Laptop = ({ children, ...props }) => {
   return (
     <StyledLaptop
       {...props}
+      ref={ref}
       style={{
         '--blur-opacity': blurOpacity,
         '--screen-degrees': screenDegrees,
@@ -218,4 +219,4 @@ export const Laptop = ({ children, ...props }) => {
       <Lower />
     </StyledLaptop>
   )
-}
+})

@@ -1,11 +1,11 @@
 import React from 'react'
-import Img from 'gatsby-image'
 import { Layout, SEO } from '../'
 import styled2 from '@emotion/styled'
 import { styled } from 'linaria/react'
 import { ParallaxBanner } from './ParallaxBanner'
 import { Mdx } from './Mdx'
 import { TimeRange } from '../TimeRange'
+import GatsbyImage from 'gatsby-image'
 
 const StyledLayout = styled2(Layout)`
   background-color: #fff;
@@ -41,12 +41,10 @@ const Period = styled.h3`
   opacity: 0.7;
 `
 
-const LogoGatsby = styled2(Img)`
+const LogoImg = styled.img`
   height: 64px;
   margin-right: 25px;
 `
-
-const LogoImg = LogoGatsby.withComponent('img')
 
 export const MdxLayout = ({ data }) => {
   const {
@@ -68,7 +66,7 @@ export const MdxLayout = ({ data }) => {
           background={
             image ? (
               image.childImageSharp ? (
-                <Img
+                <GatsbyImage
                   alt={title}
                   fluid={{ ...image.childImageSharp.fluid, sizes: '100vw' }}
                 />
@@ -81,7 +79,7 @@ export const MdxLayout = ({ data }) => {
           <Header>
             {logo &&
               (logo.childImageSharp ? (
-                <LogoGatsby fluid={logo.childImageSharp.fluid} />
+                <Logo as={GatsbyImage} fluid={logo.childImageSharp.fluid} />
               ) : (
                 <LogoImg src={logo.publicURL} />
               ))}

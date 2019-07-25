@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Typist from 'react-typist'
 import { styled } from 'linaria/react'
-import styled2 from '@emotion/styled'
 import {
   Layout,
   SEO,
@@ -11,10 +10,18 @@ import {
   useKeyboard,
   Workstation,
   Page,
+  PageCard,
+  Carousel,
+  SlideTitle,
+  LargeButton,
 } from '../components'
 import { usePauseBackgroundEffect } from '../hooks'
 import { motion, AnimatePresence } from 'framer-motion'
 import useLockBodyScroll from 'react-use/lib/useLockBodyScroll'
+import useMedia from 'react-use/lib/useMedia'
+import { useStaticQuery, graphql, Link } from 'gatsby'
+import Img from 'gatsby-image'
+import GatsbyImage from 'gatsby-image'
 
 const LaptopWrapper = styled(motion.div)`
   --laptop-width: calc(15vw + 15vh + 15vmin);
@@ -24,7 +31,7 @@ const LaptopWrapper = styled(motion.div)`
   }
 
   @media (max-width: 1100px) {
-    --laptop-width: 50vw;
+    --laptop-width: 65vw;
   }
 
   > * {
@@ -32,34 +39,37 @@ const LaptopWrapper = styled(motion.div)`
   }
 `
 
-const Laptop = () => (
-  <LaptopWrapper
-    variants={{
-      hidden: {
-        scale: 0,
-        opacity: 0,
-        translateX: '100%',
-        translateY: '-15vh',
-      },
-      visible: {
-        scale: 1,
-        opacity: 1,
-        translateX: 0,
-        translateY: 0,
-      },
-    }}
-    transition={{ type: 'spring', damping: 15, duration: 2 }}
-  >
-    <InteractiveLaptop
-      x={-11}
-      y={-13}
-      z={0}
-      initial={{ '--screen-degrees': -90 }}
-      animate={{ '--screen-degrees': 0 }}
-      transition={{ type: 'spring', damping: 100, stiffness: 40, delay: 0.7 }}
+const Laptop = () => {
+  const isColumn = useMedia('(max-width: 1100px)')
+
+  return (
+    <LaptopWrapper
+      variants={{
+        hidden: {
+          scale: 0,
+          opacity: 0,
+          translateX: '100%',
+          translateY: '-15vh',
+        },
+        visible: {
+          scale: 1,
+          opacity: 1,
+          translateX: 0,
+          translateY: 0,
+        },
+      }}
+      transition={{ type: 'spring', damping: 15, duration: 2 }}
     >
-      <Workstation />
-      {/*<Typist
+      <InteractiveLaptop
+        x={-11}
+        y={isColumn ? 0 : -13}
+        z={0}
+        initial={{ '--screen-degrees': -90 }}
+        animate={{ '--screen-degrees': 0 }}
+        transition={{ type: 'spring', damping: 100, stiffness: 40, delay: 0.7 }}
+      >
+        <Workstation />
+        {/*<Typist
       onCharacterTyped={char => {
         const keyName = char === '🔙' ? 'delete' : char
 
@@ -70,44 +80,95 @@ const Laptop = () => (
       <Typist.Backspace count={8} delay={200} />
       <span> Phrase </span>
     </Typist>*/}
-    </InteractiveLaptop>
-  </LaptopWrapper>
-)
+      </InteractiveLaptop>
+    </LaptopWrapper>
+  )
+}
+
+const LogoImg = styled.img``
+
+const FeaturedProjects = () => {
+  const featuredProjects = useStaticQuery(graphql`
+    query FeaturedProjects {
+      allMdx(filter: { frontmatter: { featured: { eq: true } } }) {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+              logo {
+                publicURL
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+              image {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `).allMdx.edges
+
+  return (
+    <Carousel>
+      {featuredProjects.map(({ node }) => (
+        <React.Fragment key={node.id}>
+          <Img fluid={node.frontmatter.image.childImageSharp.fluid} />
+          <SlideTitle as={Link} to={node.fields.slug}>
+            {node.frontmatter.logo &&
+              (node.frontmatter.logo.childImageSharp ? (
+                <LogoImg
+                  as={GatsbyImage}
+                  fluid={node.frontmatter.logo.childImageSharp.fluid}
+                />
+              ) : (
+                <LogoImg src={node.frontmatter.logo.publicURL} />
+              ))}
+            {node.frontmatter.title}
+          </SlideTitle>
+        </React.Fragment>
+      ))}
+    </Carousel>
+  )
+}
+
+const LargeLink = LargeButton.withComponent(Link)
 
 const pages = [
-  <Page
-    title={
-      <>
-        SAM
-        {'\n'}
-        DENTY
-      </>
-    }
-    description={
-      <>
-        web designer /{'\n'}
-        software engineer.
-      </>
-    }
-  >
+  <Page title={'SAM\nDENTY'} description={'web designer /\nsoftware engineer.'}>
     <Laptop />
   </Page>,
-  <Page title="Work" description="test">
-    test2
-  </Page>,
   <Page
-    title="About Me"
+    title={'Featured\nWork'}
     description={
-      <>
-        I love Design, Technology,
-        {'\n'} and Music.
-      </>
+      <LargeLink as={Link} to="/projects">
+        See more
+      </LargeLink>
     }
   >
-    <Spotify />
+    <PageCard>
+      <FeaturedProjects />
+    </PageCard>
+  </Page>,
+  <Page title="About Me" description={'I love Design, Technology,\nand Music.'}>
+    <PageCard>
+      <Spotify />
+    </PageCard>
   </Page>,
   <Page title="Get In Touch" description="test">
-    test2
+    <PageCard>test2</PageCard>
   </Page>,
 ]
 
@@ -139,6 +200,10 @@ export default () => {
   return (
     <KeyboardProvider keyboard={keyboard}>
       <Layout
+        style={{ height: '1px' }}
+        layoutProps={{
+          style: { overflow: 'hidden' },
+        }}
         onWheel={({ deltaY }) => {
           if (animating || !deltaY) return
 
@@ -168,7 +233,7 @@ export default () => {
                 translateY: direction < 0 ? '-100vh' : '100vh',
               }),
               visible: {
-                padding: 0,
+                padding: '0px',
                 pointerEvents: 'initial',
                 position: 'relative',
                 translateY: 0,

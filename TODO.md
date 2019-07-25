@@ -1,9 +1,4 @@
-- Adjust homepage for mobile
 - Set max laptop-width
-- Fix laptop mouse dependant on window
-- Make laptop less bouncy when moving mouse
-- Adjust button, laptop, and animatedGradient colours to be consistent with theme
-- Add featured projects to homepage in slideshow
 - Add nibs on the left side of window for page position
 - Pause background effect on page load for all pages
 

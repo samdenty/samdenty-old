@@ -51,7 +51,7 @@ export const Drawer = () => {
               stiffness: 20,
               restDelta: 2,
               background: {
-                duration: 0.01,
+                duration: 0,
               },
             },
           }),
@@ -67,7 +67,7 @@ export const Drawer = () => {
               stiffness: 400,
               damping: 40,
               background: {
-                duration: 1.5,
+                duration: 1,
               },
             },
           },

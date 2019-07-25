@@ -7,6 +7,7 @@ const StyledButton = styled(motion.button)`
   font-family: Gilroy;
   display: inline-flex;
   align-items: center;
+  text-decoration: none;
   justify-content: center;
 
   ${({ gradient = true, theme }) =>
@@ -41,16 +42,21 @@ const StyledButton = styled(motion.button)`
   }
 `
 
-export const MediumButton = styled(StyledButton)`
-  height: 40px;
-  font-size: 15px;
-  padding: 0 15px;
-`
-
 export const SmallButton = styled(StyledButton)`
   font-size: 13px;
   height: 20px;
   padding: 0 8px;
 `
 
-export const LargeButton = styled(StyledButton)``
+export const MediumButton = styled(StyledButton)`
+  height: 40px;
+  font-size: 15px;
+  padding: 0 15px;
+`
+
+export const LargeButton = styled(StyledButton)`
+  height: 60px;
+  font-size: 24px;
+  padding: 0 26px;
+  border-radius: 100px;
+`
