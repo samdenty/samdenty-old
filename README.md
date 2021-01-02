@@ -1,6 +1,3 @@
-### Bonjour */* hallo */* こんにちは !
-
-
 Some things I'm interested in:
 
 - Developer tooling
